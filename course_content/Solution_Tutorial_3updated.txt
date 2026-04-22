@@ -1,0 +1,227 @@
+            SCHOOL OF MATERIALS ENGINEERING
+
+            MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 3 ­ SECOND LAW OF THERMODYNAMICS
+
+Boltzmann's Constant       =          1.38 x 10-23 J/K
+
+Avogadro's Constant        =          6.02 x 1023 /mol
+
+1) For a reversible process at, dS = dQ/T where Q is the heat absorbed by the
+         system, S is the entropy and T the thermodynamic temperature, show that the
+         molar entropy change, DSm on melting a crystalline solid is given by DSm =
+         DHm / Tm where DHm is the molar enthalpy change for melting (the molar latent
+         heat of melting) and Tm is the melting temperature.
+
+                             Q
+                      dS =
+
+                             T
+
+On melting                   # $%
+
+                     # "& ! = " $!
+
+                           % !%
+                      =#            "
+
+                              $!
+
+At constant pressure, heat absorbed or evolved is equal to the enthalpy change.
+
+                     \ Ql ­ Qs = DHm
+
+                      "!$     =  !#    !
+                                  "!
+                           !
+
+(Note: Question 2 has been taken out of the syllabus, we will not be going through this
+in tutorial. Answers remain online should you be interested.)
+
+2) The number of microstates, W accessible to an ideal gas is given approximately
+         by the relationship:
+
+                     W = BVN E(3N-2)/2
+
+where B is a constant, V the volume, E the energy and N the number of particles
+in the gas.
+(a) An ideal gas is confined to one half of a container divided exactly in two
+         by a partition, the other half being empty. If the partition is removed,
+         calculate the change in entropy of the system. (Assume 1 mole of gas)
+                                                                             (5.76 J/mol.K)
+         No of accessible microstates, B is a constant:
+
+                               W = BVN E(3N-2)/2
+
+    Let the Entropy of System 1 be, S1 = k ln W1
+    Let the Entropy of System 2 be, S2 = k ln W2
+
+    Hence Entropy change is S2 ­ S1
+    = k ln B(2V)N E(3N-2)/2 - k ln BVN E(3N-2)/2
+
+    =  k  ln  !(#$)!&(#!$%)/%
+                !$!&(#!$%)/%
+
+    = k ln 2N
+
+    For 1 mole, N = 2.02 x 1023
+
+    \S2 ­ S1 = 1.38 x 10-3 x 6.02 x 1023 x ln 2
+
+               = 5.76 J/mol.K
+
+(b) If the 2 ideal gas system 1 and 2, of fixed volume and having N1 and N2
+         particles respectively are allowed to come to thermal equilibrium with
+         each other, show that :
+
+                               E' = N'
+                               E# N#
+
+No. of microstates of combined system, W0 is
+
+               W0 = W1 x W2
+
+or             W0(E0) = W1(E1) x W2(E2)
+
+\         ln W0(E0) = ln W1(E1) + ln W2(E2)
+Differentiating at Constant volume,
+
+       ! &'"#%!# $ = ! &'"!%!!$ + ! &'""%!" $
+       !!!                  !!!                   !!!
+
+At equilibrium, the combined entropy is maximum, ! $%"!#!! " = !
+                                                                  !!&
+
+Hence       ! $%"&#!&" + ! $%"'#!' " = !
+            !!&                      !!&
+
+Or     ! %&"!$!!# = # ! %&""$!" #
+       !!!                  !!!
+
+But    E0 = E1 + E2 or dE1 = -dE2
+
+Substituting, ! %&""$!"# = ! %&"!$!! #
+       !!"                  !!!
+
+Hence       #"" ! ! " = #"! ! ! "
+            ! !"                     ! !!
+
+For a typical system, N>>2
+
+       \ $"" " = $"# " !!!!#$!!!!!"" = "# !!
+            # !" # !#                     !" !#
+
+(3) In the transformation from gray tin to white tin, the enthalpy change is 2.1 kJ/mol.
+       Calculate the change in entropy. The transformation temperature is 286 K
+                                                                                            (7.3 J/mol.K)
+       Second Law of Thermodynamics for a Reversible Process states that:
+
+                            #$ = !"
+                                   !
+
+Assuming constant pressure, then dQ = dH. Hence,
+
+                            $# = !"
+                                   !
+
+            ! !"#$%         = Hwhite ­ Hgray = DH/T
+                 H*
+       ! "- =
+            , &'()
+T is constant because transformation occurring at constant T. Let the enthalpy change
+be L ­ Latent Heat, then
+
+                                         !& = !% #$ "
+                                                  !!
+
+                                           =2.1 x 103/286
+
+                                           = 7.3 J/mol.K
+
+(4) The reduction of FeO by carbon monoxide is represented by the equation below:
+
+                                   FeO + CO ® Fe + CO2
+
+Calculate the entropy change at 298 K. The data for the related compounds are given
+below:
+
+        S°(FeO, 298)  =                   53.97 J/mol.K
+                                          197.9 J/mol.K
+        S°(CO, 298)   =                   213.63 J/mol.K
+                                          27.16 J/mol.K
+        S°(CO2, 298)  =
+
+        S°(Fe, 298)   =
+
+                                                                (-11.08 J/mol.K)
+
+                      FeO + CO ®Fe + CO2
+                      Fe + CO2 ­ FeO ­ CO
+
+Given:
+
+        S°(FeO, 298)  =                   53.97 J/mol.K
+                                          197.9 J/mol.K
+        S°(CO, 298)   =                   213.63 J/mol.K
+                                          27.16 J/mol.K
+        S°(CO2, 298)  =
+
+        S°(Fe, 298)   =
+
+DSr,298 = 27.16 + 213.63 ­ 53.97 ­ 197.9
+                  = -11.08 J/mol.K
+
+(5) In Qn 4, determine the entropy of the reaction at 600 K and 1 atm pressure.
+
+                      Heat Capacities (J/mol.K)
+
+        Material                          a     b x 10-3 T
+
+        Fe                                37.3            6.19
+
+        CO2                               44.3            9.07
+                             FeO                        49.0           8.4
+
+                             CO                         28.3           9.12
+
+                                                                              (-8.76 J/mol.K)
+
+DSr,600 = DSr,298 +
+
+          !!"" C' '#$& + C' 'C%# & " C' 'C%& " C' '#$%& !""
+
+          #$%
+
+             (,!!$& (+$( + !$!!,&%!# +&$ ##$( + !$!!%!+ !#
+= -11.08 + '%"% "                     "%"                        "
+
+             **********)  &  '"$(  +  !$!!%&'  #  '  &  #%$!  +  !$!!"# !#!"
+                          $                    !     $
+                          %"                   " %"                 "
+
+-  11.08  +    !""' (&'   ( "&""##!$"!"
+! =              %
+               #$%& "                 #
+
+= - 11.08 + 4.3 ln $%% - 0.00226[600 ­ 298]
+                     !"#
+
+= - 11.08 + 3.00 ­ 0.68
+
+= - 8.76 J/ mol.K
+
+(6) What are the factors that can increase the efficiency of an aircraft jet engine? What
+       is the major practical limitation?
+
+       The jet engine is a heat machine because it converts fuel into heat that does work
+       by rotating the turbine. The efficiency of heat machine is given by HE,
+
+                                      W     = - [T( - T)] =         (&
+                                   -                  T(
+
+                                     Q(
+
+To obtain 100% efficiency, the outlet temperature of the machine must the absolute
+0 K which is impossible.
+

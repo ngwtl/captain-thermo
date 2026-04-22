@@ -1,0 +1,94 @@
+SCHOOL OF MATERIALS ENGINEERING
+
+MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 7 ­ GIBBS PHASE RULE AND PHASE DIAGRAM
+
+Boltzmann's Constant              =  1.38 x 10-23 J/K
+
+Avogadro's Constant               =  6.02 x 1023 /mol
+
+1) Sketch a binary phase diagram of consisting of 2 elements that are totally
+         dissolved in each other. Label the important points and explain your sketch.
+
+                    Liq                 Melting point of B
+                            L +a
+Melting point of A
+                              a
+
+A                   Wt. % B          B
+
+The phase diagram is characterized by a single phase, a because each element
+is totally miscible to each other. For binary alloy when the 2 elements are
+totally miscible, the enthalpy of mixture is exothermic (-ve). The bond between
+the unlike elements is stronger than the like elements. The extra energy is
+released and hence exothermic. The melting point of the mixture is higher than
+the pure elements because of the stronger bonds.
+
+2) Sketch a binary phase diagram of consisting of 2 elements that have limited
+         solubility in each other. Label the important points and explain your sketch.
+The phase diagram is usually characterized by an eutectic point. Such system
+has higher energy between unlike elements and tend to separate into A-rich (a)
+and B-rich (b) phases. Formation of bonds between unlike atoms requires heat
+and therefore the process is endothermic (DHmix = +ve), resulting in an increase
+in free energy. However mixing increases entropy and thus reducing Gibbs free
+energy from the equation:
+
+                           Gmix = DHmix - TDSmix
+
+In order to minimize the Gibbs free energy, mixing in each component is up to
+the solubility limit of the components in each other. The final structure will be
+a mixture of a (A-rich phase + B dissolved) and b (B-rich phase + A dissolved).
+The melting point of the mixture is lower than the pure elements because of the
+weaker bonds.
+
+              A-Rich Phase
+
+B-Rich Phase
+
+3) The figure below shows a binary phase diagram consisting of 2 metallic
+         elements, A and B. The shaded region shows that the liquid phase and a solid
+         phase (AB) exist in equilibrium. Describe what is this solid AB phase.
+         The vertical line on the right of the shaded region represents a phase with a
+         definite composition. This composition is 50%A and 50%B. The shaded region
+         consists of the liquid phase in equilibrium with the solid phase. The composition
+         of the liquid phase within the shaded region changes with temperature whereas
+         the composition of the solid phase is constant. The solid phase is a compound
+         of A and B. Phases with vertical lines represents compound or intermetallic.
+         Examples are Fe3C, NiAl, Cu3Ag....
+
+4) The Ag-Cu binary phase diagram is given below. For a composition contain
+         50wt. % Cu, use the shaded lines to explain the following:
+
+         (i) How the compositions of the phases (a and b) changes with temperature.
+         (ii) How the solubility limit of Cu in Ag and Ag in Cu changes with
+
+                temperature.
+         (iii) Why does the liquid phase becomes more stable as the temperature
+
+                  increases in term of the Gibbs free energy?
+
+       A                 TB
+
+                         X
+
+       Composition of a     Composition of b
+
+(i) When the temperature increases to point T, the horizontal line at point T
+       intersects with the shaded line at points A and B. These 2 points represent
+       the compositions of a and b phases respectively. Therefore as the
+       temperature changes, the intersections of the horizontal line with the
+       shaded lines changes correspondingly.
+
+(ii) The shaded line represents the solubility limit of the 2 components in
+       each other. It increases with temperature.
+
+(iii)  G = H ­ TS
+
+       At high temperature, the term TS becomes more prominent in reducing
+       the Gibbs free energy. Transforming into liquid phase reduces the Gibbs
+       free energy further as the entropy increases. At high temperatures above
+       the melting point, the solid phases melts spontaneously.
+5) Using Gibbs free energy curves of Fig. 1 to Fig. 5, sketch the phase diagram.
+6)
+

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Captain Thermo — MS1016 Learning Tools</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .tab-active { border-bottom: 2px solid #3b82f6; color: #93c5fd; }
+    .chat-user { background: #1e3a8a; }
+    .chat-assistant { background: #1f2937; }
+    .prose-cap { color: #e5e7eb; }
+    .prose-cap p { margin: 0.5em 0; }
+    .prose-cap code { background: #111827; padding: 2px 6px; border-radius: 4px; }
+    .prose-cap pre { background: #111827; padding: 12px; border-radius: 6px; overflow-x: auto; }
+    .prose-cap h3 { font-weight: 600; margin-top: 1em; color: #f3f4f6; }
+    .flip-card { perspective: 1000px; cursor: pointer; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 8px; padding: 16px; display: flex; align-items: center; justify-content: center; }
+    .flip-card-back { transform: rotateY(180deg); }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <header class="border-b border-gray-800 bg-gray-950">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="text-2xl">⚓</div>
+        <div>
+          <h1 class="text-xl font-bold">Captain Thermo</h1>
+          <p class="text-xs text-gray-400">MS1016 Thermodynamics · NTU</p>
+        </div>
+      </div>
+      <nav class="flex gap-1 text-sm">
+        <button data-tab="tutor" class="tab-btn px-3 py-2 hover:text-blue-300 tab-active">Tutor</button>
+        <button data-tab="practice" class="tab-btn px-3 py-2 hover:text-blue-300">Practice</button>
+        <button data-tab="grader" class="tab-btn px-3 py-2 hover:text-blue-300">Grader</button>
+        <button data-tab="cards" class="tab-btn px-3 py-2 hover:text-blue-300">Flashcards</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-6">
+
+    <!-- TUTOR -->
+    <section id="tab-tutor" class="tab-panel">
+      <div class="mb-4">
+        <h2 class="text-lg font-semibold">Socratic Tutor</h2>
+        <p class="text-sm text-gray-400">Captain Thermo won't just hand you answers — he'll guide you through the reasoning. Ask a conceptual question or paste a tutorial problem you're stuck on.</p>
+      </div>
+      <div id="chat-log" class="space-y-3 mb-4 h-[60vh] overflow-y-auto pr-1"></div>
+      <form id="chat-form" class="flex gap-2">
+        <textarea id="chat-input" rows="2" class="flex-1 bg-gray-800 border border-gray-700 rounded px-3 py-2 resize-none focus:outline-none focus:border-blue-500" placeholder="Ask anything about L0–L7… (Enter to send, Shift+Enter for newline)"></textarea>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded font-medium">Send</button>
+      </form>
+    </section>
+
+    <!-- PRACTICE -->
+    <section id="tab-practice" class="tab-panel hidden">
+      <div class="mb-4">
+        <h2 class="text-lg font-semibold">Practice Problem Generator</h2>
+        <p class="text-sm text-gray-400">Get an original problem — different numbers than the tutorial sheets. Try it, then reveal the solution.</p>
+      </div>
+      <form id="practice-form" class="flex gap-2 flex-wrap mb-6">
+        <select id="practice-topic" class="bg-gray-800 border border-gray-700 rounded px-3 py-2"></select>
+        <select id="practice-difficulty" class="bg-gray-800 border border-gray-700 rounded px-3 py-2">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded font-medium">Generate</button>
+      </form>
+      <div id="practice-out"></div>
+    </section>
+
+    <!-- GRADER -->
+    <section id="tab-grader" class="tab-panel hidden">
+      <div class="mb-4">
+        <h2 class="text-lg font-semibold">Solution Grader</h2>
+        <p class="text-sm text-gray-400">Paste a problem + your working. Get a diagnosis of where (if anywhere) your reasoning went off, not just a right/wrong.</p>
+      </div>
+      <form id="grade-form" class="space-y-3 mb-6">
+        <div>
+          <label class="block text-xs text-gray-400 mb-1">Problem</label>
+          <textarea id="grade-problem" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2" placeholder="Paste the problem statement"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs text-gray-400 mb-1">Your working (type <em>or</em> upload photos of handwritten pages — both fine)</label>
+          <textarea id="grade-work" rows="6" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2" placeholder="Type your solution steps here (optional if you're uploading photos)"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs text-gray-400 mb-1">Photos of handwritten work (up to 8)</label>
+          <div id="grade-dropzone" class="border-2 border-dashed border-gray-600 rounded-lg p-5 text-center cursor-pointer hover:border-blue-500 transition-colors">
+            <div class="text-sm text-gray-400 mb-2">
+              <span class="text-gray-200 font-medium">Drop photos here</span>, paste from clipboard, or click to browse
+            </div>
+            <div class="text-xs text-gray-500">JPEG / PNG / WebP · up to 8 images · resized automatically</div>
+            <input id="grade-images" type="file" accept="image/*" multiple capture="environment" class="hidden" />
+          </div>
+          <div id="grade-image-preview" class="mt-3 flex flex-wrap gap-2"></div>
+        </div>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded font-medium">Grade my work</button>
+      </form>
+      <div id="grade-out"></div>
+    </section>
+
+    <!-- CARDS -->
+    <section id="tab-cards" class="tab-panel hidden">
+      <div class="mb-4">
+        <h2 class="text-lg font-semibold">Flashcards</h2>
+        <p class="text-sm text-gray-400">Click a card to flip. Pick a topic and get 10 cards covering definitions, key equations, applications, and common pitfalls.</p>
+      </div>
+      <form id="cards-form" class="flex gap-2 mb-6">
+        <select id="cards-topic" class="bg-gray-800 border border-gray-700 rounded px-3 py-2"></select>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded font-medium">Generate deck</button>
+      </form>
+      <div id="cards-out" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-gray-600 py-4 border-t border-gray-800 mt-8">
+    Built with Claude by Prof Leonard Ng for MS1016 Thermodynamics of Materials
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

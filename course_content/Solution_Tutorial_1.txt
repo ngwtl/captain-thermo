@@ -1,0 +1,167 @@
+                        SCHOOL OF MATERIALS ENGINEERING
+
+                     MS1016 THERMODYNAMICS OF MATERIALS
+
+                          Tutorial 1 ­ WORK DONE BY A SYSTEM
+
+1) Write down the reversible work done by the following system. Then write the
+       corresponding First Law in its differential form:
+
+(i) A volume of gas is compressed by an external pressure
+
+            P
+
+System                 dV
+            P
+
+Work done by system is ­P x (­dV) = PdV
+
+First Law:  dU = dQ + PdV
+
+(ii) A volume of gas is expanding under an external force
+
+            P
+
+System                 dV
+            P
+
+Work done by system is ­P x (dV) = ­PdV
+
+First Law:  dU = dQ - PdV
+(iii) The length of a rod is extended by a tensile force
+
+F              F
+
+   dL             L
+
+   Work done by system is ­F x (­dL) = FdL
+
+   First Law:     dU = dQ + FdL
+
+(iv) The area of a soap film is increased by an external force. Surface tension, s
+         (F/m).
+
+                     sL                     F
+
+L
+
+                         dx
+
+   Work done by system is ­2sL x (­dx) = 2sLdx
+
+   First Law:     dU = dQ + 2s Ldx
+
+2) A system undergoes a quasi-static (reversible) process which appears as a closed
+       curved as shown in Fig. 1 of pressure versus volume, ending up in the same
+       macrostate in Point A, at which it started. Show that the work done is equal to the
+       area enclosed by the curve. What is the heat absorbed by the system during this
+       process?
+
+                         Figure 1
+Work done by system, W =- PV
+
+Hence         dW = -PdV
+
+Integrating,     D W = -ò PdV                          (i) **please see note below
+
+Equation (i) represents the area of the enclosed curve. From the First Law of
+Thermodynamics,
+
+                        DU = Q + W
+
+Since the system revert back to its original state, there is no change in internal
+energy, i.e. DU = 0.
+
+                          DU = 0 = Q - ò PdV
+                     \Heat absorbed , Q = ò PdV
+Note: To determine the area in an enclosed path
+
+The area can be calculated from the formula below:
+
+                 éB                                 A  ù
+
+workdone      =  -ê  ò  -PdV(upperpath)  -          Bò-PdV(lowerpathúúû)
+                  ê
+                 ëA
+3) Given the molecular weight and density of elemental copper is 63.4 g/mol and 8.96
+       g/cm3 respectively. Calculate the molar volume of elemental copper.
+
+Molecular wt. of Cu =               63.4 g/mol
+                                    8.96 g/cm3
+Density of Cu              =
+
+\Molar Volume of Cu:
+
+V      =          63.4  (g/mol)  x           1       x10-6  m3
+                                      8.96(g / cm3)         cm3
+
+       =          7.08 x 10-6 m3/mol
+
+4) For a certain state function, Z = Z(X,Y), show that !!"" = !!%" where M = !!&"
+                                                            !# $       !$ #                !$ #
+
+and N = !!&"
+       !# $
+
+Given state function:                    Z = Z(X,Y)
+
+Differentiating,                         dZ = !!&" dX + !!&" dY
+or                                                    !$ #         !# $
+
+                                         dZ = MdX + NdY
+
+where
+
+                  M = çæ ¶Z ö÷           and N = çæ ¶Z ÷ö
+                       è ¶X øY                         è ¶Y øX
+
+Differentiating M and Y respectively
+
+   æ ¶M ö      =  é ¶ æ ¶Z ö ù           and    æç ¶N    ö   =  é¶     æç  ¶Z  öù
+   ç÷                   ç      ÷                è ¶X     ÷             è   ¶Y  ÷
+   è ¶Y øX        ëê¶Y  è  ¶X  øY  ú  X                  øY     ê  ¶X          ø  X  ú  Y
+                                   û                            ë                    û
+
+The R.H.S of the differentials are equals and hence,
+
+                               æ ¶M ö    =  æ  ¶N     ö
+                               ç÷           ç         ÷
+                               è ¶Y øX è ¶X øY
+5) Given              H = U + PV
+
+Show that for an ideal gas, if çæ ¶U ÷ö = 0, then çæ ¶H ÷ö =0
+                                                  è ¶V øT                   è ¶P øT
+
+Given H = U + PV
+
+\                  H = U + PV
+
+\ æç ¶H ÷ö = æç ¶U ÷ö + Pçæ ¶V ÷ö + Væç ¶P ÷ö
+
+         è ¶P øT è ¶P øT è ¶P øT è ¶P øT
+
+                                  1
+
+But çæ ¶U ÷ö = æç ¶U ÷ö æç ¶V ö÷
+         è ¶P øT è ¶V øT è ¶P øT
+
+\         æ ¶H ö      =  æèçç  ¶  U  ö÷ø÷     çæ  ¶V  ö÷   +  Pçæ ¶V ÷ö  +  V
+          ç÷                   ¶  V           è   ¶P  øT       è ¶P øT
+          è ¶P øT                          T
+
+If        çæ ¶U ÷ö = 0, then æç ¶H ö÷ = Pçæ ¶V ö÷ + V
+
+          è ¶V øT                                 è ¶P øT è ¶P øT
+
+For an ideal gas, PV = RT
+
+\         Pæç  ¶V  ö  +  Væç      ¶P       ö      =   Rçæ  ¶T  ö
+                   ÷                       ÷                   ÷
+          è ¶P øT è ¶P øT è ¶P øT
+
+          æ ¶H ö                                          0
+          ç÷
+Hence                    =0
+
+          è ¶P øT
+

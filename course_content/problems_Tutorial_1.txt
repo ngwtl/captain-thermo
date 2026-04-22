@@ -1,0 +1,36 @@
+                        SCHOOL OF MATERIALS ENGINEERING
+                     MS1016 THERMODYNAMICS OF MATERIALS
+
+                          Tutorial 1 ­ WORK DONE BY A SYSTEM
+
+1) Write down the reversible work done by the following system. Then write the
+       corresponding First Law in its differential form:
+
+       (i) A volume of gas is compressed by an external pressure
+       (ii) A volume of gas is expanding under an external force
+       (iii) The length of a rod is extended by a tensile force
+
+       (iv) The area of a soap film is increased by an external force. Surface tension, s
+                (F/m).
+
+2) A system undergoes a quasi-static (reversible) process which appears as a closed
+       curved as shown in Fig. 1 of pressure versus volume, ending up in the same
+       macrostate in Point A, at which it started. Show that the work done is equal to the
+       area enclosed by the curve. What is the heat absorbed by the system during this
+       process?
+
+3) Given the molecular weight and density of elemental copper is 63.4 g/mol and 8.96
+       g/cm3 respectively. Calculate the molar volume of elemental copper.
+
+4) For a certain state function, Z = Z(X,Y), show that !!"" = !!%" where M = !!&"
+              !# $  !$ #  !$ #
+
+and N = !!&"
+!# $
+5) Given  H = U + PV
+
+Show that for an ideal gas, if çæ ¶U ÷ö = 0, then æç ¶H ÷ö =0
+          è ¶V øT                 è ¶P øT
+
+[Note: PV = RT for an ideal gas]
+

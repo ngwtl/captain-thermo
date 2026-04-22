@@ -1,0 +1,65 @@
+SCHOOL OF MATERIALS ENGINEERING MS1016
+THERMODYNAMICS OF MATERIALS Tutorial 8 ­
+
+               CHEMICAL EQUILIBRIUM
+
+Boltzmann's Constant  =  1.38 x 10-23 J/K
+
+Avogadro's Constant   =  6.02 x 1023 /mol
+
+Ellingham Diagrams is given at the end of this tutorial sheet
+
+(1) Most metals are extracted from its oxides using C or CO. Explain why it is normally
+       carried out at high temperatures?
+
+(2) Using the Ellingham diagram given, explain why it is not practical to extract Al from
+       Al2O3 by reduction with C?
+
+(3) In the refining of recycled steel scrap, oxygen is introduced into the molten metal to
+       oxidise all the contaminant elements at 1500°C. Using the appropriate Ellingham
+       diagram given, answer the following questions:
+
+       (a) The recycled steel contains Fe, Si, Mn and C. Explain the order in which the
+              elements are oxidized.
+
+       (b) Explain the problem encountered when the steel scrap is contaminated by Cu.
+
+       (c) What is the minimum temperature that FeO can be reduced by carbon? Explain
+              the reasons for refining Fe at such high temperature.
+
+       (d) Find the equilibrium partial pressure of oxygen for Fe at a temperature of
+              1500°C.
+
+(4) Stainless steel is produced by adding up to 20 wt. % Cr into Fe to make it resistant
+       to rusting at 1300°C. Using the Ellingham diagram below, estimate equilibrium
+       pressure of O2. Explain the implication of this pressure.
+5) Cu is extracted from the mineral chalcopyrite (CuFeS2). The mineral goes through
+       the following FOUR steps below during extraction. The process is guided by the
+       given Ellingham diagram for oxide and sulphide. Explain the reasons each step
+       described below:
+
+       Step 1 Roasting at about 700°C in air
+       2CuFeS2 + O2 ® Cu2S + 2FeS + SO2
+       2CuFeS2 + 3O2  2FeO + 2CuS + 2SO2
+
+       Step 2 Smelting at about 1200°C
+       SiO2 (sand) is added
+       FeO + SiO2 ® FeO.SiO2 (slag)
+       The slag is removed and the molten material is called Matte. FeS + Cu2S ­ 100%
+       Iron and Copper Sulphide
+
+       Step 3 White Metal Blow - 1200 °C.
+       Elimination of FeS by blowing oxygen to oxidse to FeO. O2 and SiO2 (sand) is added
+       2FeS + 3O2 ® 2FeO + SO2
+       FeO + SiO2 ® FeO.SiO2 (slag)
+       The remaining materials is called White Metal ­ no more Fe at this stage.
+       Only Cu2S
+
+       Step 4 Copper Blow - 1200 °C
+       Reduction of Cu2S ­ copper sulphide, O2 is added
+       Cu2S + 3O2 ® 2Cu + SO2
+       The metal is now pure copper
+For Question 1 and 3
+For question 2 and 4
+For question 5
+

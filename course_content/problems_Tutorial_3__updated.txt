@@ -1,0 +1,78 @@
+SCHOOL OF MATERIALS ENGINEERING
+
+MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 3 ­ SECOND LAW OF THERMODYNAMICS
+
+Boltzmann's Constant  =  1.38 x 10-23 J/K
+
+Avogadro's Constant   =  6.02 x 1023 /mol
+
+1) For a reversible process at, dS = dQ/T where Q is the heat absorbed by the
+         system, S is the entropy and T the thermodynamic temperature, show that the
+         molar entropy change, DSm on melting a crystalline solid is given by DSm =
+         DHm / Tm where DHm is the molar enthalpy change for melting (the molar latent
+         heat of melting) and Tm is the melting temperature.
+
+    (Note: Question 2 has been taken out of the syllabus, we will not be going through this
+    in tutorial. Answers remain online should you be interested.)
+    2) The number of microstates, W accessible to an ideal gas is given approximately
+
+             by the relationship:
+
+                                             W = BVN E(3N-2)/2
+
+             where B is a constant, V the volume, E the energy and N the number of particles
+             in the gas.
+
+             (a) An ideal gas is confined to one half of a container divided exactly in two
+                      by a partition, the other half being empty. If the partition is removed,
+                      calculate the change in entropy of the system. (Assume 1 mole of gas)
+                                                                                           (5.76 J/mol.K)
+
+             (b) If the 2 ideal gas system 1 and 2, of fixed volume and having N1 and N2
+                      particles respectively are allowed to come to thermal equilibrium with
+                      each other, show that :
+
+                                                     $# = "#
+                                                     $! "!
+
+(3) In the transformation from gray tin to white tin, the enthalpy change is 2.1 kJ/mol.
+       Calculate the change in entropy. The transformation temperature is 286 K
+                                                                                            (7.3 J/mol.K)
+
+(4) The reduction of FeO by carbon monoxide is represented by the equation below:
+
+                                          FeO + CO ® Fe + CO2
+Calculate the entropy change at 298 K. The data for the related compounds are given
+below:
+
+S°(FeO, 298)  =  53.97 J/mol.K
+                 197.9 J/mol.K
+S°(CO, 298)   =  213.63 J/mol.K
+                 27.16 J/mol.K
+S°(CO2, 298)  =
+
+S°(Fe, 298)   =
+
+                                               (-11.08 J/mol.K)
+
+(5) In Qn 4, determine the entropy of the reaction at 600 K and 1 atm pressure.
+
+              Heat Capacities (J/mol.K)
+
+Material         a     b x 10-3 T
+
+Fe               37.3                    6.19
+
+CO2              44.3                    9.07
+
+FeO              49.0                    8.4
+
+CO               28.3                    9.12
+
+                                               (-8.76 J/mol.K)
+
+(6) What are the factors that can increase the efficiency of an aircraft jet engine? What
+       is the major practical limitation?
+

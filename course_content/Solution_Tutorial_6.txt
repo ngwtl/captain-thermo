@@ -1,0 +1,153 @@
+     SCHOOL OF MATERIALS ENGINEERING
+
+     MS1016 THERMODYNAMICS OF MATERIALS
+
+     Tutorial 6 ­ SOLUTION
+
+     Boltzmann's Constant     =    1.38 x 10-23 J/K
+
+     Avogadro's Constant      =    6.02 x 1023 /mol
+
+1) Define the term chemical potential, µi of a component, i in a multi-component system
+       in terms of the Gibbs free energy, G.
+
+The activity of zinc in a copper zinc alloy having 30.6% zinc by mass is 0.036 at 773
+K. Calculate (a) the activity coefficient and (b) the relative chemical potential.
+
+                                                                             (0.12, -21.4 kJ/mol)
+
+The Chemical Potential for a component i in a mixture, µi is defined as:
+
+                           
+     !  =  #'
+            ! ",$,%!,%"....%#()!
+
+where G is the Gibbs free energy of the system, ni is the number of moles of n.
+T and P are the temperature and pressure. The differentiation is carried out at
+constant temperature and pressure and nj is the total number of components in
+the system. For a pure material, the chemical potential simply reduces to the
+molar Gibbs free energy.
+
+(a)  activity coefficient, g
+
+     g = a/X = 0.036/0.306
+
+                           = 0.12
+
+(b)  relative chemical potential
+
+     µ - G = RT ln a = 8.31 x 773 x ln 0.036
+
+                                 = -21.4 kJ/mol
+
+2) How does ideal solution differ from real solutions? Explain why the Gibbs free
+         energy is always decreased when an ideal solution is formed by mixing
+         differing elements.
+
+         In an ideal solution, the enthalpy mixing, DHmix is zero. No interaction between
+         the components in the solution is assumed and therefore the heat of mixing is
+         neither exothermic or endothermic. The Gibbs free energy of mixing is
+         represented as:
+
+                        DGmix = DHmix ­ DSmix
+         In an ideal solution the enthalpy of mixing, DHmix is 0. Therefore
+
+                        DGmix = ­ DSmix
+         For real solution, there is interaction between the components resulting in
+         either an exothermic or endothermic reactions.
+         The entropy of mixing always increases because it increases the number of
+         accessible states. Hence DSmix always increases when mixing components.
+         Therefore DGmix always decreases on basis of entropy increases.
+3) What does DHmix represents in a real solution? Why the enthalpy of mixing is
+         either endothermic or exothermic in a real solution?
+         DHmix is the enthalpy of mixing. When different elements are mixed to form a
+         solution, the elements are bonded to a different element resulting in a change of
+         the bond energy. If the new bond energy is lower then the extra energy is
+         released and the reaction is exothermic. Similarly when the energy of the new
+         bond is higher, then heat is absorbed and the mixing is endothermic
+
+4) At a given temperature, component B dissolves 0.7 wt. % A and component A
+         dissolves 1.2 wt. % B. Calculate the activity coefficient of B in A and A in B.
+         No intermediate phases exist in the binary system.
+                                                                                       (82.75, 141.1)
+
+         At T1, phase a is in equilibrium with phase b, meaning the chemical potential
+         of A is the same in both phases, i.e.
+                        µAa = µAb ; µBa = µBb
+
+Since a and b are dilute solutions, at the respective end of the phase diagram,
+Henry's Law is obeyed by the solutes & Raoults' Law is obeyed by the solvent.
+Using component B for computation,
+
+            µBb = GB + RT ln aBb = GB + RT ln XBb (1)
+
+For the solvent, since gB = 1 (Raoults' Law) at the composition XBb. In the
+saturated phase a, XBa, component B is the solute and it follows Henry's Law.
+Thus
+
+          µBa = GB + RT ln aBa = GB + RT ln gBXB(sat)b (2)
+Since the 2 phases exist together at T1, they must be in equilibrium and therefore
+the chemical potential of B in a is equal to the chemical potential of B in b.
+Hence equating (1) and (2);
+
+GB + RT ln XBb = GB + RT ln gBXB(sat)a
+
+     ln XB(sat)b = ln gBXB(sat)a
+
+  ln XB(sat)b = ln gB + XB(sat)a
+
+  ln gB = ln XB(sat)b - ln XB(sat)a
+
+                   *  =  * +
+                         * ,
+
+                    0.993
+             * = 0.012 = 82.75
+
+  Similarly  -  =  .     =  . 
+                   .
+
+5) Show briefly how the partial molar Gibbs free energies of the component of a
+         binary solution may be determined from a plot of the molar Gibbs free energy
+         of the solution versus the mole fraction of one of the components.
+
+                         
+  =  #'            +  #'             
+                        
+
+     dG = µA dXA + µB dXB
+But      dXA = -dXB
+
+\        dG = - µA dXB + µB dXB
+
+            = (µB - µA) dXB
+
+            56   =  (µ8                         -  µ9)      (1)
+            57&
+
+Equation (1) is the slope to the G vs XB curve
+
+     µA                                                 µB
+
+         A                                              B
+
+            G = µAXA + µBXB
+
+            But XA + XB = 1
+
+         \G = µA(1 ­ XB) + µBXB
+
+            = µA - µAXB + µBXB
+
+            =µA + (µB - µA) XB                              (2)
+
+Equation (2) is satisfied by the values of G, µA, µB and XA at point O. It also
+represents a straight line in the diagram passing through O and having a slope
+(µB - µA). By equation (1) this line must be the tangent at O. According to
+equation (2) the intercept on the G axis at XB = 0 [or XA = 1] is µA.
+
+Since all the equations are homogeneous in A and B, the intercept on the G axis
+at XB = 1 is µB.
+Hence drawing the tangent and finding the intercepts to the molar Gibbs free
+energy and composition curve enables µA and µB to be found.
+

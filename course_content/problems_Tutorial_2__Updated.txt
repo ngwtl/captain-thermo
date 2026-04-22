@@ -1,0 +1,78 @@
+SCHOOL OF MATERIALS ENGINEERING
+
+MS1016 THERMODYNAMICS & KINETICS
+
+Tutorial 2 ­ FIRST LAW OF THERMODYNAMICS
+
+1) Grey tin and white tin have densities of 5.75 x 103 and 7.28 x 103 kg/m3
+       respectively. Calculate the work done by the system upon the surroundings when
+       white tin transforms to gray tin at 286 K and 1 atm. Express the answer in J/mol. 1
+       atm = 1.013 x 10 5 N/m2, Atomic wt.of tin = 119
+                                                                                          (- 0.441 J/mol )
+
+2) The pressure of a given amount of gas varies with its volume according to
+
+PVg = K
+
+where p is the pressure and V is the volume. g and K are constants when the
+
+process is carried out quasi-statically and so that no heat is absorbed or given off
+
+by the system. Calculate the work done in taking the gas from a macrostate
+
+characterized by pressure pi and volume Vi to one characterized by pf and Vf by a
+quasi-static process involving no evolution or absorption of heat. (The constant K
+
+should not appear in your answer?
+
+                                   (  1  1  g  [Pf  Vf                        - PiVi ] )
+                                         -
+
+3) Calculate the cost of heating an iron slab weighing 1 tonne (1000 kg), passing
+       through a furnace, from 300 K to 1000 K in an electrical furnace. The cost of
+
+       electricity is assumed to be 5 cents per kilowatt-hour. Cp for a-iron = 17.49 + 24.77
+       x 10-3T. Atomic wt. of Fe = 56, 1 kilowatt-hr = 3600000 Joules
+
+                                                                                                    ($5.84)
+
+4) A lead bullet is fired at a rigid surface. At what speed must it travel to melt on
+       impact, if its initial temperature is 323 K and heating of the rigid surface is
+       negligible? The melting point of lead is 625 K and the molar heat of fusion of lead
+       is 4.8 kJ/mol. CP for Lead = 23.56 + 9.75 x 10-3T. Atomic wt (Pb) = 207
+                                                                                               (358.7 m/s)
+
+5) Determine the enthalpy of the following reaction at 800 K and 1 atm pressure
+
+                               MnSiO3(s,298) = MnO(s,298) + SiO2(quartz,298)
+
+       DHf for MnSiO3(s,298), MnO(s,298) and SiO2(quartz,298) are -246, -384 and -910
+       kJ/mol respectively.
+
+                                                                                               (-1048 kJ).
+        Heat Capacities (J/mol.K)
+
+Material      a     b x 10-3 T          c x 105 T-2
+                                           -25.8
+MnSiO3        110   16.2                    -3.7
+                                           -11.3
+MnO           46                   8.2
+
+SiO2(quartz)  46.9  34.2
+
+6) Gaseous helium is to be used to quench a hot piece of metal. The helium is in an
+       insulated tank of volume 50L and at a temperature of 25°C. The pressure is 20 atm.
+       Assuming that helium is an ideal gas, calculate the following:
+
+             a. When the valve is opened and the gas escapes into the quench chamber
+                  (pressure = 1 atm), what will be the temperature of the first gas to hit the
+                  specimen?
+                                                                                                    (25°C)
+
+                                                                    system
+
+b. As the helium flows, the pressure in the tank drops. What will be the
+    temperature of the helium entering the quench chamber when the pressure
+    in the tank has fallen to 5 atm?
+                                                                                  (169.9 K )
+

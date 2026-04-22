@@ -1,0 +1,148 @@
+       SCHOOL OF MATERIALS ENGINEERING
+
+       MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 5 ­ EQUILIBRIUM IN SINGLE COMPONENT SYSTEM
+
+Boltzmann's Constant  =            1.38 x 10-23 J/K
+
+Avogadro's Constant   =            6.02 x 1023 /mol
+
+1) The Clausius-Clapeyron equation for phase boundary is given as:
+
+                      % $% "$ = !#
+                      & $" #&' "!!
+
+Described with the aid of a sketch the effect of increasing pressure on the
+
+melting point of tin. The equilibrium melting point of tin at atmospheric
+pressure (1.01 x 105 N/m2) is 505K. If the enthalpy change of fusion is
+59.5kJ/kg and the molar volume change is 0.389 x 10-5 m3/kg, calculate the
+change in melting point under a pressure of 108 N/m2. Comment on the sign (+
+
+or -) of the result.
+
+                                                                    (3.3 K)
+
+Given                 !!"" = &'
+
+                        !# $% #&(
+
+The Claucius Clapeyron equation defines the phase-boundary. It shows the
+effect of pressure on the transition temperature. DH represents the enthalpy or
+energy of phase transformation and DV represents the change in volume upon
+transformation. Since DH is always positive as the heat of fusion upon melting,
+a positive or negative slope demonstrates the contraction or expansion on
+melting
+
+!" = !$
+
+!# #!%
+
+ T = !" #! %
+
+                  !$
+
+DT = (()!*(.)(×()")×.).×)./01×()#" = 3.3K
+
+                              .1.))
+
+\ Melting Point increases with Pressure in Sn
+(2) Given the following data on graphite and diamond:
+
+                     Density of graphite = 2.25 g/cm3
+                     Density of diamond = 3.51 g/cm3
+
+Diamond                DH°f(298)     DS°29)
+Graphite                kJ/mol      J/mol.K
+                        1.897
+                                      2.38
+                           0          5.74
+
+(a) At 298 K, what is the Gibbs free energy change (DG) for the following
+       reaction?
+                                            Cgraphite = Cdiamond
+
+       Gibbs free energy, G = H ­ TS
+       DG = DH ­ TDS
+
+DHgraphite-diamond, 298 = 1897 ­ 0  = 1897 J/mol
+
+DSgraphite-diamond, 298 = (2.38 ­ 5.74) = ­3.36 J/mol
+
+\DGgraphite ­ diamond  = (1897 J/mol) ­ (298)(­3.36 J/mol)
+
+                       = 2898 J/mol
+
+(b) Is the diamond thermodynamically stable relative to graphite at 298 K?
+
+       On basis of result in Q2(a), there is a net increase in Gibbs free energy (DG is
+       positive) when graphite transforms to diamond. Hence this reaction will not be
+       spontaneous, and diamond is not thermodynamically stable relative to graphite.
+       It is metastable.
+
+(c) What is the change in Gibbs free energy of diamond when it is compressed
+       isothermally from 1 to 1000 atmosphere?
+
+Isothermal compression º compression at constant temperature. Using the
+relevant Maxwell relationship at constant T and assuming constant volume:
+
+                            dG = VdP ­ SdT
+                                              0
+
+                       \DG = V ´ (1000 ­ 1) ´ 105 N/m2
+                       = ((12.011/(3.51) ´ 10-6) m3 ´ (1000 ­ 1) ´105 N/m2
+
+                              = 3.42 ´ 1011 J
+       This qn is out of the syllabus. We will not go through this question during tutorial
+(d) Assuming that graphite and diamond are incompressible (KT = 0), calculate the
+
+              pressure at which the 2 exist in equilibrium at 298 K.
+
+Given  the  isothermal    incompressibility,  KT    =  -  (  )2%*
+                                                          %
+                                                               2" #
+
+At constant temperature dG = VdP ­ SdT
+                                              0
+
+dGgraphite = Vgraphite dP          \DGgraphite = Vgraphite (P2 ­ P1)
+dGdiamond = Vdiamond dP            \DGdiamond = Vdiamond (P2 ­ P1)
+
+At transformatiom,
+                      DGdiamond ­ DGgraphite = (Vdiamond ­ Vgraphite) (P2 ­ P1)
+
+                          P = + P D3$%&'()$ ­ D3*+&,-%./
+                          2 D%$%&'()$ ­ D%*+&,-%./        1          G
+
+From Qn 2(a), DGdiamond ­ DGgraphite = 2898 J/mol                                 diamond
+
+DV = 12.011 g mol-1 ) ( - ( * cm3/g ´ 10-6 m3/cm3                         graphite
+                                                                                              P
+                                      /..( 5.5.
+                                                                                 Equilibrium
+    = ­ 1.915 ´ 10-6 m3/mol                                                      pressure
+
+\ P2 =  ­    )* 5010 6/89:      +  105 Pa = 1.51 ´ 109 Pa
+           (.1(. ´ ()#0 81/89:
+
+[Note: 1 atm is ~105 Pa]
+
+(e) In industrial practice, diamond is synthesized from graphite to diamond at high
+       pressure and temperature. Qn 3d explained the high pressure. Explain why the
+       need for high temperature ­ qualitatively.
+
+At this pressure the system must also be at approximately 1000 K in order for
+the conversion rate to be high enough for the process to be practical.
+Thermodynamics tells us whether or not something can occur, and allows us to
+calculate the conditions for making something happen, but it says absolutely
+nothing at all about how fast or slow that process will be.
+
+(f) What is the Gibbs free energy of diamond relative to graphite at 900 K?
+
+Gdiamond = H ­ TS                  Hf,900 = DH°r,298 + 511)0) C"dT
+Hf,298 = 1897 J/mol
+S298 = 2.38 J/mol.K                S°1))      =     S°         +    #1))  ;,  dT
+                                                                          #
+Similarly Ggraphite = H ­ TS                              510     510
+

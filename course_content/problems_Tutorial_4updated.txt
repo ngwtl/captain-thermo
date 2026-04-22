@@ -1,0 +1,66 @@
+SCHOOL OF MATERIALS ENGINEERING
+
+MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 4 ­ PROPERTY RELATIONSHIP
+
+Boltzmann's Constant                   =     1.38 x 10-23 J/K
+
+Avogadro's Constant                    =     6.02 x 1023 /mol
+
+(1) For a system that does work reversibly, the enthalpy, H of the system is given as:
+
+                                    H = U + PV
+
+Derive the relationship
+
+                                    dH = TdS + VdP
+
+Subsequently, show that:
+
+                                    T     V
+                                 ! % =! %
+                                    P ! S "
+
+(2) Using the appropriate Maxwell relationship show that for n moles of an ideal gas:
+
+                                       S        nR
+                                       ! % =-
+                                       P #          P
+
+(3) The linear coefficient of thermal expansion, al is 1/3 time the volumetric coefficient
+       of thermal expansion, av. av is defined as:
+
+   $  =                  %  ,'&-       and - ,')- = ,'&-
+                         &                      '( #      '# (
+                              '# (
+
+Given the linear thermal expansion of copper is 16.7 x 10-6 K-1.Calculate the change
+in the specific entropy of copper when the pressure increase from 1 atm to 10 atm.
+(1 atm = 1.013 x 105 N/m2). Atomic wt = 63.55 g/mol, density = 8.96 g/cm3
+
+                                                             (-3.24 x 10-4 J/mol.K)
+
+(4) The volume coefficient of expansion, av and the isothermal (constant temperature)
+       compressibility, KT of a system are defined as:
+
+*  =  %                  ,,+-          and             -  =  - % ,,+-
+      +
+                           ,- .                                 + ,. -
+Derive the expressions for aV and KT for an ideal gas.
+
+                                                        (1/T, 1/P)
+
+(5) Show the heat absorbed, dQ by a system when its pressure is increased from P to dP
+       isothermally is given by:
+                                                = -+
+
+       where aV is the volume coefficient of expansion. A test piece of copper under load
+       in a tensile machine is stretched by a small sudden increase in tensile load. Assuming
+       that tension and contraction remains elastic, does the temperature of the copper
+       increase, decrease or remains constant. Explain your answer. (Note: dP is a negative
+       number)
+
+(6) Experiments show that when rubber is stretched rapidly, its temperature rises. Show
+       that this implies a negative expansion coefficient for rubber.
+

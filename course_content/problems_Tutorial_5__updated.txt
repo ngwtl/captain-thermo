@@ -1,0 +1,59 @@
+SCHOOL OF MATERIALS ENGINEERING
+
+MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 5 ­ EQUILIBRIUM IN SINGLE COMPONENT SYSTEM
+
+Boltzmann's Constant  =  1.38 x 10-23 J/K
+
+Avogadro's Constant   =  6.02 x 1023 /mol
+
+    1) The Clausius-Clapeyron equation for phase boundary is given as:
+                                            % $% $" = !#
+                                            & $" #&' "!!
+
+             Described with the aid of a sketch the effect of increasing pressure on the
+             melting point of tin. The equilibrium melting point of tin at atmospheric
+             pressure (1.01 x 105 N/m2) is 505K. If the enthalpy change of fusion is
+             59.5kJ/kg and the molar volume change is 0.389 x 10-5 m3/kg, calculate the
+             change in melting point under a pressure of 108 N/m2. Comment on the sign (+
+             or -) of the result.
+
+                                                                                                    (3.3 K)
+
+(2) Given the following data on graphite and diamond:
+
+                     Density of graphite = 2.25 g/cm3
+                     Density of diamond = 3.51 g/cm3
+
+Diamond   DH°f(298)       DS°29)
+Graphite   kJ/mol        J/mol.K
+           1.897
+                           2.38
+              0            5.74
+
+(a) At 298 K, what is the Gibbs free energy change (DG) for the following
+       reaction?
+                                            Cgraphite = Cdiamond
+
+(b) Is the diamond thermodynamically stable relative to graphite at 298 K?
+
+(c) What is the change in Gibbs free energy of diamond when it is compressed
+       isothermally from 1 to 1000 atmosphere?
+(d) Assuming that graphite and diamond are incompressible (KT = 0), calculate the
+       pressure at which the 2 exist in equilibrium at 298 K. (out of syllabus)
+
+[Note: 1 atm is ~105 Pa]
+
+(e) In industrial practice, diamond is synthesized from graphite to diamond at high
+       pressure and temperature. Qn 3d explained the high pressure. Explain why the
+       need for high temperature ­ qualitatively.
+
+(f) What is the Gibbs free energy of diamond relative to graphite at 900 K?
+
+Gdiamond = H ­ TS             Hf,900 = DH°r,298 + $""#%# C!dT
+Hf,298 = 1897 J/mol
+S298 = 2.38 J/mol.K           S°"##  =  S°         +    '"##  &!  dT
+                                                              '
+Similarly Ggraphite = H ­ TS                  $"%     $"%
+

@@ -1,0 +1,38 @@
+SCHOOL OF MATERIALS ENGINEERING
+
+MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 7 ­ GIBBS PHASE RULE AND PHASE DIAGRAM
+
+Boltzmann's Constant  =  1.38 x 10-23 J/K
+
+Avogadro's Constant   =  6.02 x 1023 /mol
+
+1) Sketch a binary phase diagram of consisting of 2 elements that are totally
+         dissolved in each other. Label the important points and explain your sketch.
+
+2) Sketch a binary phase diagram of consisting of 2 elements that have limited
+         solubility in each other. Label the important points and explain your sketch.
+
+3) The figure below shows a binary phase diagram consisting of 2 metallic
+         elements, A and B. The shaded region shows that the liquid phase and a solid
+         phase (AB) exist in equilibrium. Describe what is this solid AB phase.
+
+4) The Ag-Cu binary phase diagram is given below. For a composition contain
+         50wt. % Cu, use the shaded lines to explain the following:
+
+         (i) How the compositions of the phases (a and ) changes with temperature.
+         (ii) How the solubility limit of Cu in Ag and Ag in Cu changes with
+
+                temperature.
+         (iii) Why does the liquid phase becomes more stable as the temperature
+
+                  increases in term of the Gibbs free energy?
+
+A                        TB
+
+                      X
+
+Composition of a         Composition of
+5) Using Gibbs free energy curves of Fig. 1 to Fig. 5, sketch the phase diagram.
+

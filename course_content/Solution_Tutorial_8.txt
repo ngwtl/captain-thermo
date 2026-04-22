@@ -1,0 +1,119 @@
+SCHOOL OF MATERIALS ENGINEERING
+
+MS1016 THERMODYNAMICS OF MATERIALS
+
+Tutorial 8 ­ CHEMICAL EQUILIBRIUM
+
+Boltzmann's Constant  =  1.38 x 10-23 J/K
+
+Avogadro's Constant   =  6.02 x 1023 /mol
+
+Ellingham Diagrams is given at the end of this tutorial sheet
+
+(1) Most metals are extracted from its oxides using C or CO. Explain why it is normally
+       carried out at high temperatures?
+
+       Consider the equilibrium partial pressure of oxygen for C ® CO2 and C® CO. In
+       order for C to reduce the metal oxides, the standard Gibbs free energy of the oxidation
+       of C must be lower that the oxidation of the metal oxides. Take the example of
+       oxidation of Cr and Mn. Below 1300°C, these oxidation lines are above the oxidation
+       of C. Due to the downward slopes of the oxidation lines of C, at high temperatures
+       the oxidation lines of many metals fall below C and hence reduction is possible.
+
+       High temperatures are also employed to accelerate the extraction process.
+(2) Using the Ellingham diagram given, explain why it is not practical to extract Al from
+       Al2O3 by reduction with C?
+
+       Consider the oxidation of C and Al. In order for reduction of Al2O3 to Al by C, the
+       temperature has to be in excess of 2400°C which exceeds the boiling point of Al. In
+       addition, the absorption of O2 by Al from the surrounding to form Al2O3 is easy and
+       make reduction impossible in a normal atmosphere.
+
+2C  +  O
+         2
+            =  2CO
+
+                    C + O2 = CO2
+
+(3) In the refining of recycled steel scrap, oxygen is introduced into the molten metal to
+       oxidise all the contaminant elements at 1500°C. Using the appropriate Ellingham
+       diagram given, answer the following questions:
+
+       (a) The recycled steel contains Fe, Si, Mn and C. Explain the order in which the
+              elements are oxidized.
+
+              Inspecting the Ellingham diagram, Si will oxidise first followed by Mn, C and
+              Fe
+
+       (b) Explain the problem encountered when the steel scrap is contaminated by Cu.
+
+              From the position of the oxidation of Cu in the Ellingham diagram, it is not
+              possible for Cu to be removed
+
+       (c) What is the minimum temperature that FeO can be reduced by carbon? Explain
+              the reasons for refining Fe at such high temperature.
+
+              The standard Gibbs free energy of oxidation of C is lower than FeO until at
+              about 700°C. To oxidise all the contaminated elements and optimize the
+              reducibility by C in the liquid stage
+(d) Find the equilibrium partial pressure of oxygen for Fe at a temperature of
+       1500°C.
+       Between 10-4 to 10-6 atmosphere
+(4) Stainless steel is produced by adding up to 20 wt. % Cr into Fe to make it resistant
+       to rusting at 1300°C. Using the Ellingham diagram below, estimate equilibrium
+       pressure of O2. Explain the implication of this pressure.
+
+       10-16 atmosphere. This pressure is too low. For the chromium to remain in the metal,
+       the pressure must not exceed this pressure. Hence in industrial stainless steel making
+       process, the melting of stainless steel must be carried out in vacuum.
+5) Cu is extracted from the mineral chalcopyrite (CuFeS2). The mineral goes through
+       the following FOUR steps below during extraction. The process is guided by the
+       given Ellingham diagram for oxide and sulphide. Explain the reasons each step
+       described below:
+
+       Step 1 Roasting at about 700°C in air
+       2CuFeS2 + O2 ® Cu2S + 2FeS + SO2
+       2CuFeS2 + 3O2  2FeO + 2CuS + 2SO2
+
+       Explanation ­ Step 1
+       The objective at this stage is to dissociate chalcopyrite into Cu2S, FeS, FeO and S.
+       FeO can be easily disposed of in the subsequent Step 2. Examining the Ellingham
+       diagram show that below 700°C, Fe forms Fe3O4 which is difficult to remove. Above
+       700°C, FeO is more stable than Fe3O4. SO2 (sulphur dioxide), a gas is a by-product
+       of oxidation of excess S. Cu2S and FeS is very stable at this temperature. All the
+       oxygen will be utilized to form FeO and SO2. SO2 is a gas so it is removed easily.
+       The next step is to remove the FeO.
+
+       Step 2 Smelting at about 1200°C
+       SiO2 (sand) is added
+       FeO + SiO2 ® FeO.SiO2 (slag)
+       The slag is removed and the molten material is called Matte. FeS + Cu2S ­ 100%
+       Iron and Copper Sulphide
+
+       Explanation ­ Step 2
+       FeO combines with SiO2 readily to form and unwanted slag (FeO.SiO2) that floats
+       on the molten metal which then can be removed easily. This process has to be carried
+       out at 1200°C to ensure FeO and SiO2 are in the molten state.
+
+       Step 3 White Metal Blow - 1200 °C.
+       Elimination of FeS by blowing oxygen to oxidse to FeO. O2 and SiO2 (sand) is added
+       2FeS + 3O2 ® 2FeO + SO2
+       FeO + SiO2 ® FeO.SiO2 (slag)
+       The remaining materials is called White Metal ­ no more Fe at this stage.
+       Only Cu2S
+
+       Explanation ­ Step 3
+       At this stage, the molten metal contains only FeS and Cu2S. Examination of the
+       Ellingham diagram shows that at 1200°C, Cu2S is more stable than FeS. By blowing
+       oxygen, FeS will dissociate to Fe and S. The blowing of oxygen forms FeO and SO2.
+       SiO2 is simultaneously added to form slag with FeO and removed
+Step 4 Copper Blow - 1200 °C
+Reduction of Cu2S ­ copper sulphide, O2 is added
+Cu2S + 3O2 ® 2Cu + SO2
+The metal is now pure copper
+
+Explanation ­ Step 4
+The molten metal now consists of only Cu2S. Continuous blowing of oxygen will
+oxidise Cu2S into Cu and SO2. Since SO2 (sulphur dioxide) is a gas, the 2 phases ae
+separated easily leaving behind almost pure Cu.
+
