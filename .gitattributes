@@ -1,0 +1,10 @@
+# Normalise line endings: store LF in the repo, check out native.
+# Stops Windows/OneDrive edits showing up as whole-file CRLF diffs.
+* text=auto
+
+# Never touch these
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.pdf  binary
+*.zip  binary
