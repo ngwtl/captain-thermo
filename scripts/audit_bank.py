@@ -40,7 +40,13 @@ CHECKS = {
     "sign-convention": lambda t, s: bool(re.search(r"\\Delta U\s*=\s*Q\s*-\s*W|\bU\s*=\s*Q\s*-\s*W", t)),
     "reversibility": lambda t, s: bool(re.search(r"reversibl", s, re.I))
                                  and bool(re.search(r"irreversib", t, re.I)),
-    "latex": lambda t, s: bool(re.search(r"_\{[^}]*\}_|_[a-zA-Z0-9]_\{|\}_\d", t)),
+    # Only an UNBRACED \text{...} followed by a second subscript on the same
+    # base is broken — Q_\text{rev,N}_2 gives TeX two subscripts and fails to
+    # render. Braced forms are valid and must not be flagged:
+    #   \gamma_{\text{N}_2}   \text{N}_2   \underline{H}_1
+    # An earlier version of this check matched }_\d and swept all of those up,
+    # flagging 54 problems of which almost none were actually broken.
+    "latex": lambda t, s: bool(re.search(r"_\\text\{[^}]*\}_", t)),
 }
 
 
