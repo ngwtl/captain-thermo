@@ -24,9 +24,24 @@ async function ensurePasscode() {
 }
 ensurePasscode();
 
+// ---------- Per-browser client id ----------
+// Rate limits are counted per client id rather than per IP. On campus wifi
+// every student shares a handful of NAT'd public IPs, so IP-keyed limits
+// would make one student's usage eat the whole cohort's quota.
+// This is a fairness mechanism, not a security one — the passcode is the
+// actual gate, and a much higher per-IP ceiling still backstops abuse.
+let clientId = localStorage.getItem("ct_client_id") || "";
+if (!clientId) {
+  clientId =
+    (crypto.randomUUID && crypto.randomUUID()) ||
+    `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  localStorage.setItem("ct_client_id", clientId);
+}
+
 function authHeaders(extra = {}) {
   const h = { "Content-Type": "application/json", ...extra };
   if (passcode) h["X-Passcode"] = passcode;
+  h["X-Client-Id"] = clientId;
   return h;
 }
 

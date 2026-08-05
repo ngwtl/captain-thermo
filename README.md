@@ -22,7 +22,13 @@ Three tools in one web app, all grounded in your actual course materials (lectur
   - `ANTHROPIC_MODEL_GRADER` — grader (default `claude-opus-5`, best reasoning for diagnosing errors)
   - `ANTHROPIC_MODEL_FLASHCARDS` — flashcards (default `claude-haiku-4-5`; the least reasoning-sensitive tool, ~3× cheaper)
 - **Access control**: optional shared passcode via `APP_PASSCODE`. Frontend prompts once, caches in `localStorage`, sends as `X-Passcode` header.
-- **Rate limiting**: per-IP sliding window (30/min, 300/day by default; tunable via env). In-memory — fine for a single instance; use Redis for multi-instance.
+- **Rate limiting**: sliding window counted **per student**, not per IP. The frontend generates a random client id once and keeps it in `localStorage`, sending it as `X-Client-Id`; limits are 30/min and 300/day against that. A much higher per-IP ceiling (`IP_RATE_LIMIT_*`) remains as an abuse backstop.
+
+  > Why not per IP: campus wifi NATs an entire cohort behind a handful of public addresses, so an IP-keyed limit treats a whole tutorial group as one user — thirty students making one request each would 429 the thirty-first and drain the shared daily quota in an afternoon.
+  >
+  > A client id is trivially reset by clearing `localStorage`, so this is a *fairness* mechanism, not a security boundary. `APP_PASSCODE` is the actual gate.
+
+  In-memory — fine for a single instance; use Redis for multi-instance.
 - **Structured outputs** on Practice / Grade / Flashcards endpoints — guarantees parseable JSON.
 - **Streaming** on the Socratic Tutor endpoint for a responsive chat feel.
 

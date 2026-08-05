@@ -62,6 +62,11 @@ MODEL_FLASHCARDS = os.getenv("ANTHROPIC_MODEL_FLASHCARDS", "claude-haiku-4-5")
 APP_PASSCODE = os.getenv("APP_PASSCODE", "").strip()
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "30"))
 RATE_LIMIT_PER_DAY = int(os.getenv("RATE_LIMIT_PER_DAY", "300"))
+# Per-IP ceiling: an abuse backstop only. Must comfortably exceed a whole
+# tutorial group behind one campus NAT address, or it recreates the very
+# problem the per-client limits above are there to avoid.
+IP_RATE_LIMIT_PER_MIN = int(os.getenv("IP_RATE_LIMIT_PER_MIN", "600"))
+IP_RATE_LIMIT_PER_DAY = int(os.getenv("IP_RATE_LIMIT_PER_DAY", "20000"))
 
 CACHE_TTL = os.getenv("CACHE_TTL", "1h").strip() or "1h"
 PREWARM_ON_STARTUP = os.getenv("PREWARM_ON_STARTUP", "true").lower() in ("1", "true", "yes")
@@ -105,8 +110,11 @@ app.add_middleware(
 
 # In-memory sliding-window counters. Fine for a single-instance deploy.
 # For multi-instance, swap for Redis or an external limiter.
+# Keyed by client id (per student); the _ip_* pair is the abuse backstop.
 _minute_hits: dict[str, list[float]] = defaultdict(list)
 _day_hits: dict[str, list[float]] = defaultdict(list)
+_ip_minute_hits: dict[str, list[float]] = defaultdict(list)
+_ip_day_hits: dict[str, list[float]] = defaultdict(list)
 
 
 def _client_ip(request: Request) -> str:
@@ -123,28 +131,53 @@ def _prune(hits: list[float], window_s: float, now: float) -> None:
         hits.pop(0)
 
 
+def _bump(bucket: dict[str, list[float]], key: str, window: float, limit: int,
+          now: float, message: str) -> None:
+    """Sliding-window check-and-record for one counter."""
+    hits = bucket[key]
+    _prune(hits, window, now)
+    if len(hits) >= limit:
+        raise HTTPException(429, message)
+    hits.append(now)
+
+
 def require_access(
     request: Request,
     x_passcode: str | None = Header(default=None),
+    x_client_id: str | None = Header(default=None),
 ) -> str:
-    """Dependency: check passcode (if configured) and rate limits."""
+    """Dependency: check passcode (if configured) and rate limits.
+
+    Limits are counted per *client id* — a random UUID the frontend generates
+    once and keeps in localStorage — not per IP. Campus wifi NATs the whole
+    cohort behind a few public addresses, so IP-keyed limits would let thirty
+    students in a tutorial exhaust a 30/min quota between them and 429 the
+    thirty-first, then burn the shared 300/day cap in an afternoon.
+
+    A client id is trivially reset by clearing localStorage, so this is a
+    fairness mechanism, not a security boundary — APP_PASSCODE is the actual
+    gate. The per-IP ceiling below stays as an abuse backstop, set high enough
+    that a legitimate lab full of students never reaches it.
+    """
     if APP_PASSCODE and x_passcode != APP_PASSCODE:
         raise HTTPException(401, "Invalid or missing passcode")
 
-    ip = _client_ip(request)
     now = time.time()
+    ip = _client_ip(request)
+    # Fall back to IP when the header is absent (old cached frontend, curl).
+    client = (x_client_id or "").strip()[:64] or f"ip:{ip}"
 
-    _prune(_minute_hits[ip], 60, now)
-    if len(_minute_hits[ip]) >= RATE_LIMIT_PER_MIN:
-        raise HTTPException(429, "Rate limit (per minute) exceeded — slow down.")
+    _bump(_minute_hits, client, 60, RATE_LIMIT_PER_MIN, now,
+          "Rate limit (per minute) exceeded — slow down.")
+    _bump(_day_hits, client, 86400, RATE_LIMIT_PER_DAY, now,
+          "Daily quota exceeded — try again tomorrow.")
 
-    _prune(_day_hits[ip], 86400, now)
-    if len(_day_hits[ip]) >= RATE_LIMIT_PER_DAY:
-        raise HTTPException(429, "Daily quota exceeded — try again tomorrow.")
+    _bump(_ip_minute_hits, ip, 60, IP_RATE_LIMIT_PER_MIN, now,
+          "This network is sending too many requests — try again shortly.")
+    _bump(_ip_day_hits, ip, 86400, IP_RATE_LIMIT_PER_DAY, now,
+          "This network has hit its daily quota.")
 
-    _minute_hits[ip].append(now)
-    _day_hits[ip].append(now)
-    return ip
+    return client
 
 
 # ---------- helpers ----------

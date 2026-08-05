@@ -23,8 +23,14 @@ services:
         value: "50"
       - key: PREWARM_IDLE_AFTER_MIN
         value: "90"
+      # Counted per student (X-Client-Id), not per IP — see README.
       - key: RATE_LIMIT_PER_MIN
         value: "30"
       - key: RATE_LIMIT_PER_DAY
         value: "300"
+      # Per-IP abuse backstop; must exceed a whole tutorial group on campus NAT.
+      - key: IP_RATE_LIMIT_PER_MIN
+        value: "600"
+      - key: IP_RATE_LIMIT_PER_DAY
+        value: "20000"
     healthCheckPath: /api/health
