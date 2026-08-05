@@ -843,5 +843,124 @@
     "category": "pitfall"
    }
   ]
+ },
+ "L7": {
+  "topic": "L7 — Chemical Equilibrium",
+  "cards": [
+   {
+    "front": "Write the fundamental equation linking the standard Gibbs free energy of reaction to the equilibrium constant K. What does each symbol mean?",
+    "back": "$$\\Delta G^\\circ_{\\text{rxn}} = -RT\\ln K$$\n\n$\\Delta G^\\circ_{\\text{rxn}}$ = standard Gibbs free energy change of reaction (J/mol); $R$ = gas constant (8.314 J mol$^{-1}$ K$^{-1}$); $T$ = absolute temperature (K); $K$ = equilibrium constant (dimensionless).",
+    "difficulty": 1,
+    "category": "equation"
+   },
+   {
+    "front": "At equilibrium, $\\Delta G_{\\text{rxn}} = 0$. Derive the relationship between $K$ and the standard Gibbs free energy.",
+    "back": "Setting $\\Delta G_{\\text{rxn}} = \\Delta G^\\circ_{\\text{rxn}} + RT\\ln Q = 0$ at equilibrium (where $Q = K$) gives $0 = \\Delta G^\\circ_{\\text{rxn}} + RT\\ln K$, which rearranges to $\\Delta G^\\circ_{\\text{rxn}} = -RT\\ln K$.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Define the reaction quotient Q for the reaction $cC + dD \\rightleftharpoons mM + yY$. How does Q differ from K?",
+    "back": "$$Q = \\frac{a_M^m \\cdot a_Y^y}{a_C^c \\cdot a_D^d}$$\n\n$Q$ is computed from *current* activities at any moment; $K$ is the specific value of $Q$ when the system is at equilibrium. $Q$ drives the reaction direction until $Q = K$.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "If $Q < K$, which direction does the reaction proceed? Explain using $\\Delta G_{\\text{rxn}}$.",
+    "back": "The reaction proceeds forward (toward products). Since $Q < K$, we have $\\ln Q < \\ln K$, so $\\Delta G_{\\text{rxn}} = \\Delta G^\\circ_{\\text{rxn}} + RT\\ln Q < 0$, making the forward reaction spontaneous.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "A reaction has $\\Delta G^\\circ_{\\text{rxn}} = -50$ kJ/mol at 298 K. Is the reaction spontaneous at those conditions? What does this tell you about K?",
+    "back": "Yes, the reaction is thermodynamically spontaneous (negative $\\Delta G^\\circ$). This means $K > 1$ — products are favored at equilibrium. However, a negative $\\Delta G^\\circ$ says nothing about *reaction rate*; the reaction could still be kinetically very slow.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "A reaction has $K = 0.001$ at 298 K. In which direction will the reaction run if it starts with pure reactants?",
+    "back": "$K < 1$ means reactants are favored at equilibrium. Starting with pure reactants, $Q = 0 < K$, so $\\Delta G_{\\text{rxn}} < 0$ and the reaction proceeds forward — but only slightly, reaching an equilibrium favoring reactants.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "For the reaction $4\\text{Cu(s)} + \\text{O}_2(\\text{g}) \\rightleftharpoons 2\\text{Cu}_2\\text{O}(\\text{s})$, write the equilibrium constant expression. Why do the pure solids not appear in K?",
+    "back": "$$K = \\frac{1}{P_{\\text{O}_2}}$$\n\nPure solids have activity = 1 by definition (their Gibbs energy per mole is fixed regardless of quantity), so $a_{\\text{Cu}} = a_{\\text{Cu}_2\\text{O}} = 1$ and cancel out. Only the gas phase with variable $P_{\\text{O}_2}$ appears.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "At 1000 K, a metal–oxide system has equilibrium $P_{\\text{O}_2} = 10^{-10}$ atm. If the actual oxygen pressure in the furnace is $10^{-6}$ atm, which way does the oxide decompose?",
+    "back": "The oxide decomposes (reverse reaction runs). Since $P_{\\text{O}_2}^{\\text{actual}} = 10^{-6} \\gg P_{\\text{O}_2}^{\\text{eq}} = 10^{-10}$, we have $Q > K$, so $\\Delta G_{\\text{rxn}} > 0$ and the reverse reaction is spontaneous, breaking down the oxide to reduce oxygen.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "State the Van't Hoff equation and explain its physical meaning.",
+    "back": "$$\\frac{d\\ln K}{dT} = \\frac{\\Delta H^\\circ_{\\text{rxn}}}{RT^2}$$\n\nIt shows how the equilibrium constant changes with temperature. For exothermic reactions ($\\Delta H^\\circ < 0$), $K$ *decreases* with temperature — raising $T$ favors reactants. For endothermic reactions, $K$ *increases* with $T$ — higher temperature favors products.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "Using the Van't Hoff equation, explain why ammonia synthesis (exothermic) is run at relatively low temperature despite slow kinetics.",
+    "back": "Ammonia synthesis $\\text{N}_2 + 3\\text{H}_2 \\rightleftharpoons 2\\text{NH}_3$ is exothermic, so $\\Delta H^\\circ < 0$. The Van't Hoff equation shows $K$ decreases at high $T$, meaning equilibrium shifts toward reactants. Low $T$ maximizes $K$ and NH$_3$ yield — though kinetics are slow, so catalysts and moderate pressure are used to balance the tradeoff.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Derive the integrated (approximate) form of Van't Hoff, assuming $\\Delta H^\\circ$ is constant over a temperature range.",
+    "back": "Integrate $\\frac{d\\ln K}{dT} = \\frac{\\Delta H^\\circ}{RT^2}$ with respect to $T$:\n\n$$\\ln\\frac{K(T_2)}{K(T_1)} = -\\frac{\\Delta H^\\circ}{R}\\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right)$$\n\nPlotting $\\ln K$ vs. $1/T$ gives a straight line with slope $-\\Delta H^\\circ/R$ — the standard experimental way to measure $\\Delta H^\\circ$ from equilibrium data.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "What is the Ellingham diagram? Why do most metal-oxide formation lines slope upward (positive slope) with temperature?",
+    "back": "The Ellingham diagram plots $\\Delta G^\\circ_{\\text{rxn}}$ vs. $T$ for metal oxidation reactions (normalized per mole O$_2$). Most oxide formations consume gas moles ($\\text{M(s)} + \\frac{1}{2}\\text{O}_2(\\text{g}) \\to \\text{MO(s)}$), so $\\Delta S^\\circ < 0$. Since slope $= -\\Delta S^\\circ/1 > 0$, the lines tilt upward, meaning oxides become *less stable* at high $T$.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "On an Ellingham diagram, the line for $\\text{C} + \\frac{1}{2}\\text{O}_2 \\to \\text{CO}$ slopes *downward*, not upward. Explain why, and what this means for metal reduction.",
+    "back": "This reaction produces gas ($\\frac{1}{2}$ mol O$_2 \\to 1$ mol CO), so $\\Delta S^\\circ > 0$. Slope $= -\\Delta S^\\circ < 0$ — the line goes down. At high enough $T$, the C→CO line falls *below* almost every metal-oxide line, meaning carbon can reduce any oxide above a critical temperature. This is the thermodynamic basis of coke-based smelting.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "For copper oxidation, $4\\text{Cu} + \\text{O}_2 \\to 2\\text{Cu}_2\\text{O}$, at 1000 K the equilibrium oxygen partial pressure is $P^{\\text{eq}}_{\\text{O}_2} = 1.14 \\times 10^{-10}$ atm. What is the value of $\\Delta G^\\circ_{\\text{rxn}}$ at this temperature? (Given: $K = 1/P_{\\text{O}_2}^{\\text{eq}}$)",
+    "back": "$$K = \\frac{1}{1.14 \\times 10^{-10}} \\approx 8.77 \\times 10^9$$\n\n$$\\Delta G^\\circ = -RT\\ln K = -(8.314)(1000)\\ln(8.77 \\times 10^9) \\approx -190,000 \\text{ J/mol} = -190 \\text{ kJ/mol}$$\n\nThe large negative value confirms that Cu oxidation is thermodynamically strongly favored at 1000 K.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "Why cannot aluminum be extracted from $\\text{Al}_2\\text{O}_3$ by carbon reduction, even though carbon reduction is often thermodynamically favorable for other metals?",
+    "back": "The $\\text{Al}_2\\text{O}_3$ line sits very low on the Ellingham diagram (highly stable oxide). The carbon reduction line crosses it only above ~2400 °C, which exceeds aluminum's boiling point (~2470 °C) and is industrially impractical. That's why aluminum is produced by *electrolytic* reduction (Hall-Héroult process) instead.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "In stainless steel production, why must melting of chromium alloys at 1300 °C be done in vacuum?",
+    "back": "Chromium has a very stable oxide ($\\text{Cr}_2\\text{O}_3$). At 1300 °C, the equilibrium $P_{\\text{O}_2} \\approx 10^{-16}$ atm — impossibly low to achieve in air or even with ordinary reducing atmospheres. Only in vacuum can you keep $P_{\\text{O}_2}$ low enough to prevent chromium from oxidizing.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Distinguish between thermodynamic spontaneity ($\\Delta G < 0$) and kinetic feasibility. Give an example where they differ.",
+    "back": "Thermodynamic spontaneity ($\\Delta G < 0$) means a reaction is energetically allowed. Kinetic feasibility means the reaction *actually happens at an observable rate*. Diamond → graphite at 298 K has $\\Delta G^\\circ < 0$ (spontaneous by thermodynamics) but takes geological time because the activation energy is enormous. Thermodynamics sets the map; kinetics determines the journey.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "For an ideal gas in a solid-gas equilibrium like $\\text{MO(s)} \\rightleftharpoons \\text{M(s)} + \\frac{1}{2}\\text{O}_2(\\text{g})$, why can we write $a_{\\text{O}_2} \\approx P_{\\text{O}_2}$ in atmospheres?",
+    "back": "For an ideal gas, $a_i = P_i/P_i^\\circ$ where $P_i^\\circ = 1$ atm (the standard state). So $a_{\\text{O}_2} = P_{\\text{O}_2}(\\text{atm}) / 1 = P_{\\text{O}_2}(\\text{atm})$ — the numerical value of activity equals the pressure in atmospheres. This simplifies equilibrium expressions in gas-solid systems.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "How would you experimentally determine $\\Delta H^\\circ_{\\text{rxn}}$ for a reaction by measuring K at multiple temperatures?",
+    "back": "Measure the equilibrium constant $K$ at several different temperatures $T_1, T_2, \\ldots$. Plot $\\ln K$ on the y-axis against $1/T$ on the x-axis. The result is approximately a straight line with slope $m = -\\Delta H^\\circ/R$. Extract $\\Delta H^\\circ = -mR$. This is the standard procedure because $\\ln K$ is much easier to measure than absolute enthalpy.",
+    "difficulty": 2,
+    "category": "concept"
+   }
+  ]
  }
 }

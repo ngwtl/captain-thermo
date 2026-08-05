@@ -798,7 +798,7 @@ def grade(req: GradeRequest, student: str = Depends(require_access)):
     # reads as a learning event rather than two unrelated submissions.
     prior = analytics.find_prior_attempt(
         analytics.pseudonym(student), out.get("concept_tested")) or {}
-    analytics.record(
+    event_id = analytics.record(
         **prior,
         student=analytics.pseudonym(student), tool="grade", served_from="live",
         model=MODEL_GRADER, latency_ms=int((time.time() - t0) * 1000),
@@ -810,6 +810,10 @@ def grade(req: GradeRequest, student: str = Depends(require_access)):
         cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
         in_tokens=u.input_tokens, out_tokens=u.output_tokens,
         cost_usd=analytics.cost(MODEL_GRADER, u, CACHE_TTL))
+    # Let the client rate this specific piece of feedback. Passcode-gated
+    # already, so the row id is not sensitive.
+    if event_id:
+        out["event_id"] = event_id
     return out
 
 
@@ -898,6 +902,27 @@ def solution_revealed(ev: RevealEvent, student: str = Depends(require_access)) -
     analytics.record(student=analytics.pseudonym(student), tool="generate",
                      topic=ev.topic, session_id=ev.session_id, served_from="bank",
                      solution_revealed_after_s=ev.seconds, cost_usd=0.0)
+    return {"ok": True}
+
+
+class RatingEvent(BaseModel):
+    event_id: int
+    rating: Literal[-1, 1]
+    session_id: str | None = Field(default=None, max_length=64)
+
+
+@app.post("/api/telemetry/rating")
+def rate_feedback(ev: RatingEvent, student: str = Depends(require_access)) -> dict:
+    """Student rated a piece of grader feedback helpful (+1) or not (-1).
+
+    Stored as its own row pointing at what was rated, so the log stays
+    append-only. Rating only, no free-text box: student prose can carry names,
+    matric numbers or complaints about staff, which would change the privacy
+    posture of the whole table for a marginal gain in signal.
+    """
+    analytics.record(student=analytics.pseudonym(student), tool="rating",
+                     prior_event_id=ev.event_id, rating=ev.rating,
+                     session_id=ev.session_id, cost_usd=0.0)
     return {"ok": True}
 
 

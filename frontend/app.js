@@ -534,6 +534,25 @@ gradeForm.addEventListener("submit", async (e) => {
       </div>
     `;
     typeset(gradeOut);
+
+    // Was this feedback useful? One tap, no text box. Rating only — a comment
+    // field is student-authored prose that could carry names or matric numbers.
+    if (g.event_id) {
+      const bar = document.createElement("div");
+      bar.className = "mt-3 flex items-center gap-2 text-xs text-gray-400";
+      bar.innerHTML = `<span>Was this feedback helpful?</span>
+        <button data-r="1"  class="rate px-2 py-1 rounded bg-gray-700 hover:bg-gray-600" aria-label="Helpful">&#128077;</button>
+        <button data-r="-1" class="rate px-2 py-1 rounded bg-gray-700 hover:bg-gray-600" aria-label="Not helpful">&#128078;</button>`;
+      gradeOut.firstElementChild.appendChild(bar);
+      bar.querySelectorAll(".rate").forEach((b) =>
+        b.addEventListener("click", () => {
+          bar.innerHTML = '<span class="text-green-400">Thanks — noted.</span>';
+          fetch(API + "/api/telemetry/rating", {
+            method: "POST", headers: authHeaders(), keepalive: true,
+            body: JSON.stringify({ event_id: g.event_id, rating: Number(b.dataset.r), session_id: sessionId() }),
+          }).catch(() => {});
+        }));
+    }
   } catch (err) {
     gradeOut.innerHTML = `<div class="text-red-400">Error: ${err.message}</div>`;
   } finally {

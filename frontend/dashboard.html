@@ -8,6 +8,10 @@
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .bar { background: #3b82f6; height: 10px; border-radius: 999px; }
+  .hm-grid { display: grid; grid-template-columns: 2.6rem repeat(24, 1fr); gap: 2px; min-width: 620px; }
+  .hm-cell { aspect-ratio: 1; border-radius: 2px; box-shadow: inset 0 0 0 1px #374151; }
+  .hm-lab { font-size: 0.7rem; color: #9ca3af; display: flex; align-items: center; }
+  .hm-hr  { font-size: 0.62rem; color: #6b7280; text-align: center; }
   th { font-weight: 600; text-align: left; }
   td, th { padding: 5px 10px; border-bottom: 1px solid #1f2937; font-size: 0.875rem; }
   @media print { .noprint { display: none } body { background: #fff; color: #000 } }
@@ -40,8 +44,8 @@
 
 <script>
 const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? "—").replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
 const DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const esc = (s) => String(s ?? "—").replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
 
 function card(title, subtitle, body) {
   return `<section><h2 class="text-lg font-semibold mb-1">${title}</h2>
@@ -53,6 +57,77 @@ function table(rows, cols) {
   return `<table class="w-full"><thead><tr>${cols.map(c=>`<th>${c[0]}</th>`).join("")}</tr></thead>
     <tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${esc(c[1](r))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
 }
+// Sequential single-hue ramp, low -> high. Validated against this dashboard's
+// card surface (#1f2937): monotone lightness, adjacent steps >= 0.06 apart, and
+// the darkest step clears 2:1 against the surface so "1 request" is visibly
+// different from "none". Do not substitute a rainbow — magnitude needs one hue.
+const RAMP = ["#256abf", "#3987e5", "#6da7ec", "#9ec5f4", "#cde2fb"];
+let heatMode = "week";   // "week" = mean per occurrence of that weekday
+
+function heatmap(rows, weekdayCounts, windowInfo) {
+  if (!rows || !rows.length) return '<p class="text-sm text-gray-500">No data yet.</p>';
+  const grid = {};
+  rows.forEach(r => { grid[`${r.dow}|${r.hour}`] = r.n; });
+  const div = (d) => (heatMode === "week" && weekdayCounts && weekdayCounts[d]) ? weekdayCounts[d] : 1;
+  const val = (d, h) => (grid[`${d}|${h}`] || 0) / div(d);
+  let max = 0;
+  for (let d = 0; d < 7; d++) for (let h = 0; h < 24; h++) max = Math.max(max, val(d, h));
+  const fmt = (v) => heatMode === "week" ? (v < 0.05 ? "0" : v.toFixed(1)) : String(Math.round(v));
+
+  // Quantile bucketing, not linear. Usage is heavily skewed — in testing the
+  // busiest hour was 10x the 95th percentile, and a linear scale put 67 of 68
+  // active cells in the same shade with one lone outlier at the top. The map
+  // then showed nothing. Quantiles give each step an equal share of cells, so
+  // the pattern reads whatever the distribution.
+  // The cost is that colour spacing is no longer proportional to magnitude, so
+  // the legend prints the actual thresholds and every cell carries an exact
+  // value on hover.
+  const nonzero = [];
+  for (let d = 0; d < 7; d++) for (let h = 0; h < 24; h++) { const v = val(d, h); if (v > 0) nonzero.push(v); }
+  nonzero.sort((a, b) => a - b);
+  const cuts = RAMP.slice(1).map((_, i) =>
+    nonzero.length ? nonzero[Math.floor(((i + 1) / RAMP.length) * (nonzero.length - 1))] : 0);
+  const colour = (v) => {
+    if (v <= 0) return "transparent";
+    let i = 0;
+    while (i < cuts.length && v > cuts[i]) i++;
+    return RAMP[i];
+  };
+
+  let cells = "";
+  for (let d = 0; d < 7; d++) {
+    cells += `<div class="hm-lab">${DOW[d]}</div>`;
+    for (let h = 0; h < 24; h++) {
+      const v = val(d, h), raw = grid[`${d}|${h}`] || 0;
+      const tip = heatMode === "week"
+        ? `${DOW[d]} ${String(h).padStart(2,"0")}:00 — ${fmt(v)} per week (${raw} total over ${div(d)} ${DOW[d]}s)`
+        : `${DOW[d]} ${String(h).padStart(2,"0")}:00 — ${raw} request${raw===1?"":"s"}`;
+      cells += `<div class="hm-cell" style="background:${colour(v)}" title="${esc(tip)}"></div>`;
+    }
+  }
+  let hours = '<div class="hm-lab"></div>';
+  for (let h = 0; h < 24; h++) hours += `<div class="hm-hr">${h % 3 === 0 ? String(h).padStart(2,"0") : ""}</div>`;
+
+  // Legend prints the quantile thresholds, since the steps aren't linear.
+  const legend = RAMP.map((c, i) =>
+    `<span class="inline-flex flex-col items-center gap-0.5">
+       <span class="inline-block w-8 h-2.5 rounded-sm" style="background:${c}"></span>
+       <span class="text-[0.6rem] text-gray-500">${i < cuts.length ? "\u2264" + fmt(cuts[i]) : ">" + fmt(cuts[cuts.length-1])}</span>
+     </span>`).join("");
+
+  return `<div class="mb-3 flex items-center gap-3 text-xs">
+      <button id="hm-toggle" class="px-2 py-1 rounded bg-gray-700 hover:bg-gray-600">
+        ${heatMode === "week" ? "Showing: average per week" : "Showing: total over the whole period"}
+      </button>
+      ${windowInfo ? `<span class="text-gray-500">${esc(windowInfo.start)} to ${esc(windowInfo.end)} · ${windowInfo.weeks} weeks</span>` : ""}
+    </div>
+    <div class="hm-grid">${cells}${hours}</div>
+    <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+      <span>less</span>${legend}<span>more</span>
+      <span class="ml-2 text-gray-500">peak ${fmt(max)}${heatMode === "week" ? "/week" : ""} in one hour</span>
+    </div>`;
+}
+
 function hbar(rows, labelFn, valFn) {
   if (!rows || !rows.length) return '<p class="text-sm text-gray-500">No data yet.</p>';
   const max = Math.max(...rows.map(valFn)) || 1;
@@ -137,6 +212,42 @@ async function load() {
     table(d.by_tool, [["Tool", r=>r.tool], ["Requests", r=>r.n], ["Students", r=>r.students],
                       ["Spend", r=>"$"+(r.spend??0)], ["Mean latency", r=>Math.round(r.avg_ms||0)+" ms"]])));
 
+  out.push(card("When students work",
+    `Requests by local hour and weekday (${esc(d.tz_offset || "+8 hours")} from UTC). ` +
+    `The per-week view divides each cell by how many of that weekday actually ` +
+    `occurred, so a quiet Monday doesn't inflate the other Mondays. Hover for detail.`,
+    heatmap(d.heatmap, d.weekday_counts, d.window)));
+
+  const weak = d.weak_concepts || [];
+  if (weak.length) out.push(card("Where understanding is weak",
+    "Ranked by mean score, minimum 3 attempts across 2+ students. " +
+    "<em>Students</em> separates one person struggling repeatedly from a cohort-wide gap; " +
+    "<em>main error</em> decides the remedy — conceptual means reteach, algebra means more practice.",
+    table(weak, [["Lecture", r=>r.topic], ["Concept", r=>r.concept], ["Attempts", r=>r.attempts],
+                 ["Students", r=>r.students], ["Mean", r=>r.mean_score],
+                 ["% wrong", r=>r.pct_wrong + "%"], ["Main error", r=>(r.main_error||"").replace(/_/g," ")]])));
+
+  const gaps = d.persistent_gaps || [];
+  if (gaps.length) out.push(card("Where feedback didn't land",
+    "Concepts students attempted <em>again</em> after being told what went wrong. " +
+    "A near-zero gain means feedback already had its chance — that's a teaching gap, not a slip. " +
+    "Sorted worst first.",
+    table(gaps, [["Lecture", r=>r.topic], ["Concept", r=>r.concept], ["Retries", r=>r.retries],
+                 ["Before", r=>r.mean_before], ["After", r=>r.mean_after],
+                 ["Gain", r=>(r.mean_gain>0?"+":"")+r.mean_gain]])));
+
+  const sat = (d.satisfaction || [])[0];
+  if (sat && sat.rated) out.push(card("Student satisfaction",
+    "Thumbs on grader feedback. The row that matters is <em>incorrect</em> — students told they " +
+    "were wrong still rating the feedback helpful is the sign it teaches rather than flatters.",
+    `<div class="grid grid-cols-3 gap-4 mb-4">
+       ${[["Rated", sat.rated], ["Helpful", sat.helpful], ["Not helpful", sat.not_helpful]]
+         .map(([k,v]) => `<div><div class="text-xl font-bold">${esc(v)}</div>
+           <div class="text-xs text-gray-400">${k}</div></div>`).join("")}
+     </div>
+     ${table(d.satisfaction_by_verdict, [["Verdict", r=>(r.verdict||"").replace(/_/g," ")],
+                                         ["Rated", r=>r.rated], ["% helpful", r=>r.pct_helpful + "%"]])}`));
+
   out.push(card("Activity by lecture", "", hbar(d.by_topic, r=>r.topic, r=>r.n)));
   out.push(card("Time of day (UTC)", "Shift by +8h for Singapore time.", hbar(d.by_hour, r=>String(r.hour).padStart(2,"0")+":00", r=>r.n)));
   out.push(card("Day of week", "", hbar(d.by_dow, r=>DOW[r.dow] ?? r.dow, r=>r.n)));
@@ -151,6 +262,8 @@ async function load() {
       table(d.errors, [["Kind", r=>r.error_kind], ["n", r=>r.n]])));
 
   $("out").innerHTML = out.join("");
+  const tgl = $("hm-toggle");
+  if (tgl) tgl.onclick = () => { heatMode = heatMode === "week" ? "total" : "week"; load(); };
   $("out").classList.remove("hidden");
   $("gate").classList.add("hidden");
 }

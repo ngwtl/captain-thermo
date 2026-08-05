@@ -35,7 +35,7 @@ from pathlib import Path
 
 log = logging.getLogger("captain_thermo.analytics")
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 # On Render this should point at a mounted disk; the container filesystem is
 # wiped on every deploy, which would silently discard a term of data.
@@ -43,6 +43,10 @@ DB_PATH = Path(os.getenv("ANALYTICS_DB", str(Path(__file__).resolve().parent.par
 ENABLED = os.getenv("ANALYTICS_ENABLED", "true").lower() in ("1", "true", "yes")
 _SALT = os.getenv("ANALYTICS_SALT", "").encode() or secrets.token_bytes(32)
 _EPHEMERAL_SALT = not os.getenv("ANALYTICS_SALT")
+# Timestamps are stored UTC (correct — unambiguous, DST-free). Reports are read
+# by a person in one place, so the heat map converts on the way out.
+# SQLite modifier form, e.g. "+8 hours" for Singapore.
+TZ_OFFSET = os.getenv("ANALYTICS_TZ_OFFSET", "+8 hours")
 
 _lock = threading.Lock()
 _conn: sqlite3.Connection | None = None
@@ -93,6 +97,12 @@ CREATE TABLE IF NOT EXISTS events (
   -- appeared? A short delay is answer-seeking; a long one is productive
   -- struggle. Null means never opened.
   solution_revealed_after_s REAL,
+  -- Student satisfaction: +1 / -1 on a piece of feedback, recorded as its own
+  -- row with prior_event_id pointing at what was rated (the log stays
+  -- append-only). Deliberately a rating and not free text — a comment box is
+  -- student-authored prose that can carry names, matric numbers or complaints
+  -- about staff, which would change the privacy posture of the whole table.
+  rating          INTEGER,
   -- performance & cost
   latency_ms      INTEGER,
   cache_read      INTEGER,
@@ -136,6 +146,7 @@ def _migrate(conn: sqlite3.Connection) -> None:
         "prior_score": "INTEGER",
         "minutes_since_prior": "REAL",
         "solution_revealed_after_s": "REAL",
+        "rating": "INTEGER",
     }
     have = {r[1] for r in conn.execute("PRAGMA table_info(events)")}
     added = [c for c in expected if c not in have]
@@ -207,7 +218,7 @@ def record(**f) -> int | None:
             "student", "tool", "topic", "difficulty", "served_from", "model",
             "verdict", "error_type", "score", "concept", "image_count",
             "turn_index", "session_id", "prior_event_id", "prior_score",
-            "minutes_since_prior", "solution_revealed_after_s",
+            "minutes_since_prior", "solution_revealed_after_s", "rating",
             "latency_ms", "cache_read", "cache_write",
             "in_tokens", "out_tokens", "cost_usd", "error_kind")},
         "ok": 1 if f.get("ok", True) else 0,
@@ -269,6 +280,37 @@ def find_prior_attempt(student: str | None, concept: str | None,
             "minutes_since_prior": round(mins, 1)}
 
 
+def _observation_window() -> dict:
+    """How long the tool has been running, and how many of each weekday fell in it.
+
+    The per-week average heat map needs a divisor per weekday, and the obvious
+    choices are both wrong. Dividing by 16 assumes a full term that may not have
+    elapsed; dividing by "days that had activity" drops quiet days out of the
+    denominator, so a Monday with no usage makes the remaining Mondays look
+    busier. The correct divisor is how many Mondays *occurred* in the window,
+    whether or not anyone used the tool on them.
+    """
+    row = _rows("SELECT MIN(date(ts, ?)) a, MAX(date(ts, ?)) b FROM events WHERE ok=1",
+                (TZ_OFFSET, TZ_OFFSET))
+    if not row or not row[0].get("a"):
+        return {"window": None, "weekday_counts": {}}
+    try:
+        start = datetime.strptime(row[0]["a"], "%Y-%m-%d").date()
+        end = datetime.strptime(row[0]["b"], "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return {"window": None, "weekday_counts": {}}
+
+    days = (end - start).days + 1
+    counts = {d: 0 for d in range(7)}
+    for i in range(days):
+        counts[(start.toordinal() + i - 1) % 7] += 1      # 0 = Monday
+    return {
+        "window": {"start": row[0]["a"], "end": row[0]["b"],
+                   "days": days, "weeks": round(days / 7, 1)},
+        "weekday_counts": counts,
+    }
+
+
 def summary() -> dict:
     """Aggregates for the dashboard and for sharing with colleagues."""
     total = _rows("SELECT COUNT(*) n, COUNT(DISTINCT student) students, "
@@ -317,6 +359,21 @@ def summary() -> dict:
                         "GROUP BY day ORDER BY day"),
         "by_hour": _rows("SELECT hour, COUNT(*) n FROM events WHERE ok=1 "
                          "GROUP BY hour ORDER BY hour"),
+
+        # Day x hour heat map, in LOCAL time. The stored `hour`/`dow` columns
+        # are UTC, and reading a Singapore cohort's routine off UTC shifts every
+        # evening peak into the previous afternoon — "students work at 3pm" when
+        # they actually work at 11pm. So recompute from the raw timestamp with
+        # the offset applied rather than reusing the stored columns.
+        # strftime('%w') is 0=Sunday; +6 %% 7 rotates to 0=Monday.
+        "heatmap": _rows(
+            "SELECT (CAST(strftime('%w', ts, ?) AS INTEGER) + 6) % 7 AS dow, "
+            "CAST(strftime('%H', ts, ?) AS INTEGER) AS hour, "
+            "COUNT(*) n FROM events WHERE ok=1 GROUP BY dow, hour",
+            (TZ_OFFSET, TZ_OFFSET)),
+        "tz_offset": TZ_OFFSET,
+        # Divisor for the per-week average view. See _weekday_occurrences.
+        **_observation_window(),
         "by_dow": _rows("SELECT dow, COUNT(*) n FROM events WHERE ok=1 "
                         "GROUP BY dow ORDER BY dow"),
         # Retention: how many students came back on N distinct days.
@@ -330,6 +387,57 @@ def summary() -> dict:
                           "GROUP BY verdict"),
         "errors": _rows("SELECT error_kind, COUNT(*) n FROM events WHERE ok=0 "
                         "GROUP BY error_kind ORDER BY n DESC"),
+
+        # --- Where understanding is weak ---
+        #
+        # A low mean score alone is a poor signal: it can come from two hard
+        # problems, and it doesn't say what kind of weakness it is. Three things
+        # together make it actionable, so they're reported on one row:
+        #   students   — how widespread it is. One student failing four times is
+        #                a person to help; twenty students failing once is a
+        #                lecture to redo. Ranking on attempts alone conflates them.
+        #   pct_wrong  — the proportion that were outright wrong, which a mean
+        #                hides when scores cluster at the extremes.
+        #   main_error — conceptual vs algebra decides the remedy. Reteaching
+        #                fixes the first; more practice fixes the second.
+        "weak_concepts": _rows(
+            "SELECT topic, concept, COUNT(*) attempts, COUNT(DISTINCT student) students, "
+            "ROUND(AVG(score),2) mean_score, "
+            "ROUND(100.0*SUM(CASE WHEN verdict='incorrect' THEN 1 ELSE 0 END)/COUNT(*)) pct_wrong, "
+            "(SELECT error_type FROM events e2 WHERE e2.concept = e1.concept "
+            "  AND e2.tool='grade' AND e2.ok=1 AND e2.error_type NOT IN ('none') "
+            "  GROUP BY e2.error_type ORDER BY COUNT(*) DESC LIMIT 1) main_error "
+            "FROM events e1 WHERE tool='grade' AND ok=1 AND concept IS NOT NULL "
+            "AND score IS NOT NULL GROUP BY topic, concept "
+            "HAVING attempts >= 3 AND students >= 2 "
+            "ORDER BY mean_score ASC, attempts DESC LIMIT 25"),
+
+        # The strongest signal in the whole schema. A concept students recover
+        # from after one round of feedback was a slip. A concept they attempt
+        # again and still get wrong is a genuine gap in how it was taught —
+        # feedback already had its chance and didn't land.
+        "persistent_gaps": _rows(
+            "SELECT topic, concept, COUNT(*) retries, "
+            "ROUND(AVG(prior_score),2) mean_before, ROUND(AVG(score),2) mean_after, "
+            "ROUND(AVG(score - prior_score),2) mean_gain "
+            "FROM events WHERE prior_event_id IS NOT NULL AND score IS NOT NULL "
+            "AND concept IS NOT NULL GROUP BY topic, concept "
+            "HAVING retries >= 2 ORDER BY mean_gain ASC LIMIT 15"),
+
+        # --- Student satisfaction ---
+        "satisfaction": _rows(
+            "SELECT SUM(CASE WHEN rating > 0 THEN 1 ELSE 0 END) helpful, "
+            "SUM(CASE WHEN rating < 0 THEN 1 ELSE 0 END) not_helpful, "
+            "COUNT(*) rated FROM events WHERE rating IS NOT NULL"),
+        # Satisfaction is only interesting split by outcome: students who were
+        # told they were wrong rating the feedback helpful is the number that
+        # says the tool teaches rather than merely pleases.
+        "satisfaction_by_verdict": _rows(
+            "SELECT p.verdict, COUNT(*) rated, "
+            "ROUND(100.0*SUM(CASE WHEN r.rating > 0 THEN 1 ELSE 0 END)/COUNT(*)) pct_helpful "
+            "FROM events r JOIN events p ON p.id = r.prior_event_id "
+            "WHERE r.rating IS NOT NULL AND p.verdict IS NOT NULL "
+            "GROUP BY p.verdict"),
 
         # --- schema v2: the "did it actually help?" questions ---
 
