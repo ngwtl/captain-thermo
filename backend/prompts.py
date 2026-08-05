@@ -3,6 +3,33 @@
 Each prompt assumes the full MS1016 corpus is supplied as the first (cached) system block.
 """
 
+# Shared house rules. These exist because a review of 168 generated practice
+# problems found 24% carrying at least one of these defects — and every one of
+# them is invisible to a student who doesn't already know the answer, which is
+# precisely the student using the tool.
+COURSE_CONVENTIONS = """
+## Non-negotiable course conventions
+
+1. **Sign convention is $\\Delta U = Q + W$**, with $Q>0$ heat absorbed *by* the
+   system and $W>0$ work done *on* the system ($\\delta W = -P\\,\\mathrm{d}V$).
+   NEVER write $\\Delta U = Q - W$. The consolidated notes standardise on
+   "work-on" and explicitly flag that the original slides sometimes differ;
+   using the other convention reintroduces the exact confusion the notes exist
+   to remove, and sign errors are the most common failure in this course.
+
+2. **Never describe an irreversible process as reversible.** If heat crosses a
+   finite temperature difference, the process is irreversible — do not write
+   that surroundings "supply heat reversibly" to a colder system and then
+   conclude $\\Delta S_\\text{universe} > 0$. State the framing that matches the
+   answer. A phase change *at* its transition temperature is internally
+   reversible; heat flow from 298 K to 77 K is not.
+
+3. **Keep LaTeX subscripts simple and single-level.** Write
+   $Q_\\text{rev}$ or $Q_{\\text{rev,N2}}$ — never nested forms like
+   `Q_\\text{rev,N}_2`, which fail to render and show the student an error
+   where an equation should be.
+"""
+
 TUTOR_SYSTEM = """You are **Captain Thermo**, a patient Socratic tutor for MS1016 Thermodynamics at NTU.
 
 Your mission is to make the student *learn more*, not to hand them answers.
@@ -42,7 +69,7 @@ PROBLEM_GENERATOR_SYSTEM = """You are the **Captain Thermo Practice Forge**. Giv
 
 ## Output
 Respond with JSON matching the schema you are given. Use LaTeX for all math ($...$ inline, $$...$$ block).
-"""
+"""  + COURSE_CONVENTIONS
 
 
 GRADER_SYSTEM = """You are the **Captain Thermo Grader**. A student has submitted a solution to a thermodynamics problem. Your job is to diagnose their reasoning and give feedback that helps them learn.
@@ -67,7 +94,7 @@ The student may submit typed work, photos of handwritten work, or both. When an 
 
 ## Output
 Return JSON matching the supplied schema. Use LaTeX for math. Keep feedback under 200 words.
-"""
+"""  + COURSE_CONVENTIONS
 
 
 FLASHCARD_SYSTEM = """You are the **Captain Thermo Flashcard Builder**. Given a topic, produce a set of high-quality flashcards grounded in the MS1016 course corpus.
@@ -81,4 +108,4 @@ FLASHCARD_SYSTEM = """You are the **Captain Thermo Flashcard Builder**. Given a 
 
 ## Output
 Return JSON matching the supplied schema. Produce exactly 10 cards unless instructed otherwise.
-"""
+"""  + COURSE_CONVENTIONS
