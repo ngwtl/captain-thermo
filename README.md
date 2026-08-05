@@ -79,7 +79,9 @@ Prints PASS/FAIL for all 6 endpoints. Full pass ≈ 60–90 s (Opus on the grade
 3. Point it at your repo. Render reads `render.yaml` and creates a `captain-thermo` web service.
 4. In the service's **Environment** tab, set:
    - `ANTHROPIC_API_KEY` — your key from console.anthropic.com
-   - `APP_PASSCODE` — any shared secret (e.g. `thermo2026`); students enter this once on first visit
+   - `APP_PASSCODE` — a shared secret of your choosing; students enter it once on first visit.
+     Don't reuse an example from any doc, and don't commit the real value — it lives only in
+     the Render dashboard (`sync: false` in `render.yaml`) and your gitignored local `.env`.
 5. Wait ~3 min for build. You'll get a URL like `https://captain-thermo.onrender.com`. Share the URL + passcode with students.
 6. Run the smoke test against the deployed URL to confirm everything works: `python smoke_test.py --url https://... --passcode ...`.
 
