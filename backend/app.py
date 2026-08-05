@@ -905,5 +905,30 @@ def admin_export(since: str | None = None, _: str = Depends(require_access)):
 
 # ---------- static frontend ----------
 
+class RevalidatingStaticFiles(StaticFiles):
+    """Static files that browsers must revalidate before reusing.
+
+    Starlette's StaticFiles sends ETag and Last-Modified but *no*
+    Cache-Control. With no Cache-Control, browsers apply heuristic caching
+    (roughly 10% of the age of the file) and can serve a stale app.js for
+    days without ever asking the server. The effect is that returning
+    students stay pinned to whichever build they first loaded — they keep the
+    old JavaScript after every deploy, silently, and only a hard refresh
+    fixes it. That's how the progress indicators appeared to be "missing"
+    after they shipped.
+
+    `no-cache` does not mean "do not store" — it means "revalidate before
+    use". The browser still sends If-None-Match and still gets a 304 with an
+    empty body when nothing changed, so the cost is one conditional request
+    per file per page load. For a four-file frontend that is nothing, and it
+    makes deploys take effect immediately.
+    """
+
+    async def get_response(self, path: str, scope):
+        response = await super().get_response(path, scope)
+        response.headers.setdefault("Cache-Control", "no-cache")
+        return response
+
+
 if FRONTEND_DIR.exists():
-    app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
+    app.mount("/", RevalidatingStaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
