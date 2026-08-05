@@ -12,7 +12,17 @@ services:
       - key: ANTHROPIC_MODEL_DEFAULT
         value: claude-sonnet-4-6
       - key: ANTHROPIC_MODEL_GRADER
-        value: claude-opus-4-7
+        value: claude-opus-5
+      - key: ANTHROPIC_MODEL_FLASHCARDS
+        value: claude-haiku-4-5
+      - key: CACHE_TTL
+        value: 1h
+      - key: PREWARM_ON_STARTUP
+        value: "true"
+      - key: PREWARM_INTERVAL_MIN     # 0 disables; only warms models in recent use
+        value: "50"
+      - key: PREWARM_IDLE_AFTER_MIN
+        value: "90"
       - key: RATE_LIMIT_PER_MIN
         value: "30"
       - key: RATE_LIMIT_PER_DAY

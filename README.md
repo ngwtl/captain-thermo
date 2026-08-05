@@ -18,8 +18,9 @@ Three tools in one web app, all grounded in your actual course materials (lectur
 - **Backend**: FastAPI (Python 3.12) + Anthropic Python SDK. Course corpus (~280KB, ~70K tokens) is supplied as a prompt-cached system block — every request after the first costs ~10% of uncached tokens for that portion.
 - **Frontend**: Single static page (Tailwind via CDN, MathJax for LaTeX, `marked` for markdown). No build step.
 - **Models**: per-endpoint model selection via env vars.
-  - `ANTHROPIC_MODEL_DEFAULT` — tutor / practice / flashcards (default `claude-sonnet-4-6`, fast + cheap)
-  - `ANTHROPIC_MODEL_GRADER` — grader (default `claude-opus-4-7`, best reasoning for diagnosing errors)
+  - `ANTHROPIC_MODEL_DEFAULT` — tutor / practice (default `claude-sonnet-4-6`, fast + cheap)
+  - `ANTHROPIC_MODEL_GRADER` — grader (default `claude-opus-5`, best reasoning for diagnosing errors)
+  - `ANTHROPIC_MODEL_FLASHCARDS` — flashcards (default `claude-haiku-4-5`; the least reasoning-sensitive tool, ~3× cheaper)
 - **Access control**: optional shared passcode via `APP_PASSCODE`. Frontend prompts once, caches in `localStorage`, sends as `X-Passcode` header.
 - **Rate limiting**: per-IP sliding window (30/min, 300/day by default; tunable via env). In-memory — fine for a single instance; use Redis for multi-instance.
 - **Structured outputs** on Practice / Grade / Flashcards endpoints — guarantees parseable JSON.
@@ -83,16 +84,30 @@ Any platform that runs a Docker container works. The `Dockerfile` listens on `$P
 
 ## Cost notes
 
-Default config (Sonnet for tutor/practice/flashcards, Opus for grader):
-- Cold cache (first request every 5 min): ~70K cached-write tokens ≈ $0.26
-- Cache hit: ~70K cached-read + ~1K live ≈ **$0.02 (Sonnet) to $0.04 (Opus grader) per student action**
+**Cache hit rate is the dominant cost variable — not model choice.** A miss re-writes the whole corpus; a hit costs a tenth of that. All figures below are *measured*, not estimated (`POST /api/prewarm` reports the real prefix sizes).
+
+| Endpoint | Model | Cached prefix | Cache **hit** | Cache **miss** |
+|---|---|---:|---:|---:|
+| Tutor, Practice | `claude-sonnet-4-6` | 99.5K tok | ~$0.045 | ~$0.60 |
+| Grader | `claude-opus-5` | 127.7K tok | ~$0.11 | ~$1.28 |
+| Flashcards | `claude-haiku-4-5` | 99.4K tok | ~$0.018 | ~$0.20 |
+
+A miss costs **10–13×** a hit, so the whole cost strategy is "stay warm":
+
+- **`CACHE_TTL=1h`** (default). A 1h write costs 2× base vs 1.25× for 5m, but survives the gaps that make usage bursty. It pays off from the 2nd request in an hour onward; below that, `5m` is marginally cheaper.
+- **Pre-warming.** `PREWARM_ON_STARTUP` warms all four endpoint shapes at boot. The interval loop (`PREWARM_INTERVAL_MIN`) re-warms only models used within `PREWARM_IDLE_AFTER_MIN`, so an idle deployment costs nothing — a blind timer over all four shapes would burn ~$58/day doing nothing. Warming a *live* shape is a cache read (~$0.06), not a write.
+- **Cron the warm-up.** `POST /api/prewarm` (passcode-protected) about 10 min before a tutorial slot so the first student doesn't eat the miss.
+
+> The corpus is **~99K tokens** (~292 KB), not the ~70K quoted in earlier revisions. Note also that Opus 5 tokenizes the same corpus to 127.7K — a different tokenizer, ~28% more tokens — which is why the grader costs more than the price-per-token ratio alone suggests.
+
+Verify caching is working via `GET /api/health` → `cache`. If `hits` stays 0 while `misses` climbs, something volatile is invalidating the prefix.
 
 Knobs:
-- **Cheaper**: set `ANTHROPIC_MODEL_GRADER=claude-sonnet-4-6` too (~$0.02 across the board). Grader quality drops modestly.
-- **Best quality**: set `ANTHROPIC_MODEL_DEFAULT=claude-opus-4-7` (all endpoints on Opus). ~$0.04 per action.
-- **Cheapest**: `claude-haiku-4-5` for both (~$0.008). Fine for flashcards, OK for tutor, weak for grader.
+- **Cheaper grader**: `ANTHROPIC_MODEL_GRADER=claude-sonnet-4-6` (~$0.045/hit). Quality drops noticeably on diagnosing *why* a student is wrong — this is the endpoint most worth paying for.
+- **Best quality**: `ANTHROPIC_MODEL_DEFAULT=claude-opus-5` for all endpoints.
+- **Don't** switch to `claude-sonnet-5` expecting savings: its tokenizer produces ~30% more tokens, so at list price it costs *more* than Sonnet 4.6 for identical text.
 
-`RATE_LIMIT_PER_MIN` / `RATE_LIMIT_PER_DAY` cap any single student's usage, which bounds your monthly spend. At the default 300/day with Opus-grader cost, that's a ≤$12/day ceiling per student (in practice, far less — students don't grade 300 problems/day).
+`RATE_LIMIT_PER_MIN` / `RATE_LIMIT_PER_DAY` cap any single student's usage. Note the limiter keys on IP, so students behind a shared campus NAT share one quota — raise the limits if that bites.
 
 ## Refreshing course content
 

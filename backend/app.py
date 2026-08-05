@@ -7,8 +7,17 @@ Four tools in one app:
   /api/flashcards      Spaced-repetition deck generator (JSON)
 
 Models:
-  ANTHROPIC_MODEL_DEFAULT  used for tutor, practice, flashcards (default: sonnet-4-6, cheap & fast)
-  ANTHROPIC_MODEL_GRADER   used for the grader (default: opus-4-7, best reasoning)
+  ANTHROPIC_MODEL_DEFAULT     tutor + practice (default: sonnet-4-6, cheap & fast)
+  ANTHROPIC_MODEL_GRADER      grader (default: opus-5, best reasoning)
+  ANTHROPIC_MODEL_FLASHCARDS  flashcards (default: haiku-4-5, ~3x cheaper)
+
+Cost control:
+  CACHE_TTL   corpus cache lifetime, "5m" or "1h" (default 1h).
+              A cache miss re-writes the ~70K-token corpus at 1.25-2x input
+              price; a hit costs 0.1x. Usage is bursty around tutorials, so
+              the 1h TTL bridges the gaps that would otherwise be misses.
+  PREWARM_*   see _prewarm_loop. Warming is demand-gated: only models used
+              recently are re-warmed, so idle periods cost nothing.
 
 Access control:
   APP_PASSCODE    if set, clients must send X-Passcode header matching this value
@@ -17,10 +26,13 @@ Access control:
 """
 from __future__ import annotations
 
+import asyncio
 import json
+import logging
 import os
 import time
 from collections import defaultdict
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal
 
@@ -42,17 +54,45 @@ from prompts import (
 
 load_dotenv()
 
+log = logging.getLogger("captain_thermo")
+
 MODEL_DEFAULT = os.getenv("ANTHROPIC_MODEL_DEFAULT", "claude-sonnet-4-6")
-MODEL_GRADER = os.getenv("ANTHROPIC_MODEL_GRADER", "claude-opus-4-7")
+MODEL_GRADER = os.getenv("ANTHROPIC_MODEL_GRADER", "claude-opus-5")
+MODEL_FLASHCARDS = os.getenv("ANTHROPIC_MODEL_FLASHCARDS", "claude-haiku-4-5")
 APP_PASSCODE = os.getenv("APP_PASSCODE", "").strip()
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "30"))
 RATE_LIMIT_PER_DAY = int(os.getenv("RATE_LIMIT_PER_DAY", "300"))
 
+CACHE_TTL = os.getenv("CACHE_TTL", "1h").strip() or "1h"
+PREWARM_ON_STARTUP = os.getenv("PREWARM_ON_STARTUP", "true").lower() in ("1", "true", "yes")
+PREWARM_INTERVAL_MIN = int(os.getenv("PREWARM_INTERVAL_MIN", "50"))
+PREWARM_IDLE_AFTER_MIN = int(os.getenv("PREWARM_IDLE_AFTER_MIN", "90"))
+
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+
+# Distinct models in play. Caches are model-scoped, so each one is a separate
+# cache prefix that has to be warmed independently.
+ALL_MODELS = sorted({MODEL_DEFAULT, MODEL_GRADER, MODEL_FLASHCARDS})
 
 client = anthropic.Anthropic()
 
-app = FastAPI(title="Captain Thermo", version="1.1")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    task = None
+    if PREWARM_ON_STARTUP:
+        # Warm every endpoint shape once so the first student of the session
+        # doesn't pay the cache-miss latency (and the write is one we'd owe
+        # anyway on their request).
+        await _prewarm_all()
+    if PREWARM_INTERVAL_MIN > 0:
+        task = asyncio.create_task(_prewarm_loop())
+    yield
+    if task:
+        task.cancel()
+
+
+app = FastAPI(title="Captain Thermo", version="1.2", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -117,6 +157,14 @@ def _extract_json(resp) -> dict:
     occasionally the model wraps it in ```json ... ``` or prepends a sentence.
     Try strict parse first; fall back to fence-stripping and brace-scanning.
     """
+    # Check stop_reason before touching content: a safety refusal returns HTTP
+    # 200 with empty or partial content, which would otherwise surface as a
+    # confusing "non-JSON" error.
+    if getattr(resp, "stop_reason", None) == "refusal":
+        raise HTTPException(422, "The model declined this request. Try rephrasing.")
+    if getattr(resp, "stop_reason", None) == "max_tokens":
+        raise HTTPException(502, "Response was truncated — retry, or raise max_tokens.")
+
     text = next((b.text for b in resp.content if b.type == "text"), "").strip()
     if not text:
         raise HTTPException(502, "Model returned no text content")
@@ -146,11 +194,27 @@ def _extract_json(resp) -> dict:
     raise HTTPException(502, f"Model returned non-JSON: {text[:160]}")
 
 
+def _cache_control() -> dict:
+    """Cache directive for the corpus block.
+
+    The API defaults to a 5-minute TTL, which is too short for this workload:
+    students arrive in bursts around tutorial deadlines and the corpus is
+    ~70K tokens, so every gap over 5 min costs a full re-write. The 1h TTL
+    doubles the write premium (1.25x -> 2x) but breaks even at 3 requests
+    per hour, which any active session clears easily.
+    """
+    cc: dict = {"type": "ephemeral"}
+    if CACHE_TTL != "5m":
+        cc["ttl"] = CACHE_TTL
+    return cc
+
+
 def _system_blocks(role_prompt: str) -> list[dict]:
     """Build a two-block system: [cached course corpus, role-specific instructions].
 
     The corpus is the stable prefix — cache_control on this block means subsequent
-    requests reuse it at ~10% cost.
+    requests reuse it at ~10% cost. The breakpoint sits at the end of the corpus,
+    so all four role prompts share one cache entry per model.
     """
     return [
         {
@@ -163,10 +227,120 @@ def _system_blocks(role_prompt: str) -> list[dict]:
                 + CORPUS
                 + "\n\n===== END CORPUS ====="
             ),
-            "cache_control": {"type": "ephemeral"},
+            "cache_control": _cache_control(),
         },
         {"type": "text", "text": role_prompt},
     ]
+
+
+# ---------- cache accounting & pre-warming ----------
+
+# Per-model counters so you can confirm the cache is actually being hit.
+# Exposed on /api/health; if hits stay at 0 across repeated requests,
+# something is invalidating the prefix.
+def _new_stats() -> dict:
+    return {"hits": 0, "misses": 0, "cache_read_tokens": 0, "cache_write_tokens": 0}
+
+
+_cache_stats: dict[str, dict] = defaultdict(_new_stats)
+_last_used: dict[str, float] = {}
+
+
+def _mark_used(model: str) -> None:
+    _last_used[model] = time.time()
+
+
+def _record_usage(model: str, usage) -> None:
+    if usage is None:
+        return
+    read = getattr(usage, "cache_read_input_tokens", 0) or 0
+    written = getattr(usage, "cache_creation_input_tokens", 0) or 0
+    s = _cache_stats[model]
+    s["cache_read_tokens"] += read
+    s["cache_write_tokens"] += written
+    s["hits" if read else "misses"] += 1
+
+
+def _warm_targets() -> list[tuple[str, str, str, dict | None]]:
+    """(label, model, role_prompt, schema) for every endpoint shape.
+
+    Measured behaviour: the corpus breakpoint IS shared across role prompts —
+    tutor, generator and grader prompts all read the same entry. But a request
+    carrying output_config caches a *different*, slightly longer prefix. So
+    plain and structured shapes need warming separately; warming only the
+    tutor shape leaves /generate, /grade and /flashcards cold.
+
+    Schemas are referenced lazily because they're defined further down.
+    """
+    return [
+        ("chat", MODEL_DEFAULT, TUTOR_SYSTEM, None),
+        ("generate", MODEL_DEFAULT, PROBLEM_GENERATOR_SYSTEM, PROBLEM_SCHEMA),
+        ("grade", MODEL_GRADER, GRADER_SYSTEM, GRADE_SCHEMA),
+        ("flashcards", MODEL_FLASHCARDS, FLASHCARD_SYSTEM, FLASHCARD_SCHEMA),
+    ]
+
+
+def _prewarm_shape(label: str, model: str, role: str, schema: dict | None) -> dict:
+    """Write one endpoint's prefix into cache without generating a real response.
+
+    If the entry is already warm this is a cache *read* (~0.1x), so warming a
+    live shape is nearly free. The full write price is only paid when the entry
+    had actually expired — a cost the next real request would have owed anyway.
+    """
+    kwargs: dict = {}
+    if schema is None:
+        # max_tokens=0 runs prefill only and returns immediately.
+        attempts = [0, 1]
+    else:
+        # max_tokens=0 is rejected alongside output_config, so ask for the
+        # smallest completion instead. Warming also pre-compiles the schema.
+        kwargs["output_config"] = {"format": {"type": "json_schema", "schema": schema}}
+        attempts = [1]
+
+    for max_tokens in attempts:
+        try:
+            resp = client.messages.create(
+                model=model,
+                max_tokens=max_tokens,
+                system=_system_blocks(role),
+                messages=[{"role": "user", "content": "warmup"}],
+                **kwargs,
+            )
+        except (anthropic.APIError, TypeError, ValueError) as e:
+            if max_tokens != attempts[-1]:
+                continue
+            log.warning("prewarm failed for %s/%s: %s", label, model, e)
+            return {"endpoint": label, "model": model, "ok": False, "error": str(e)}
+        _record_usage(model, resp.usage)
+        read = getattr(resp.usage, "cache_read_input_tokens", 0) or 0
+        log.info("prewarm %s (%s): %s", label, model, "hit" if read else "wrote cache")
+        return {"endpoint": label, "model": model, "ok": True, "cache_read_tokens": read}
+    return {"endpoint": label, "model": model, "ok": False, "error": "unreachable"}
+
+
+async def _prewarm_all(targets=None) -> list:
+    targets = targets if targets is not None else _warm_targets()
+    results = await asyncio.gather(
+        *(asyncio.to_thread(_prewarm_shape, *t) for t in targets),
+        return_exceptions=True,
+    )
+    return [r if isinstance(r, dict) else {"ok": False, "error": str(r)} for r in results]
+
+
+async def _prewarm_loop() -> None:
+    """Re-warm only the shapes whose model is actually seeing traffic.
+
+    A blind timer over all four shapes would cost roughly $2.40 per round —
+    about $58/day of pure waste on an idle deployment, which would dwarf the
+    savings this is meant to produce. Gating on recent use means a quiet night
+    costs nothing while an active teaching window stays warm.
+    """
+    while True:
+        await asyncio.sleep(PREWARM_INTERVAL_MIN * 60)
+        cutoff = time.time() - PREWARM_IDLE_AFTER_MIN * 60
+        active = [t for t in _warm_targets() if _last_used.get(t[1], 0) > cutoff]
+        if active:
+            await _prewarm_all(active)
 
 
 # ---------- schemas ----------
@@ -217,8 +391,13 @@ def health() -> dict:
         "status": "ok",
         "model_default": MODEL_DEFAULT,
         "model_grader": MODEL_GRADER,
+        "model_flashcards": MODEL_FLASHCARDS,
         "passcode_required": bool(APP_PASSCODE),
         "corpus_chars": len(CORPUS),
+        "cache_ttl": CACHE_TTL,
+        # If `hits` stays 0 while `misses` climbs, the cached prefix is being
+        # invalidated — check that nothing volatile crept into the corpus.
+        "cache": {m: dict(_cache_stats[m]) for m in ALL_MODELS},
     }
 
 
@@ -238,6 +417,8 @@ def chat(req: ChatRequest, _: str = Depends(require_access)):
 
     messages = [{"role": m.role, "content": m.content} for m in req.messages]
 
+    _mark_used(MODEL_DEFAULT)
+
     def event_stream():
         try:
             with client.messages.stream(
@@ -248,6 +429,10 @@ def chat(req: ChatRequest, _: str = Depends(require_access)):
             ) as stream:
                 for text in stream.text_stream:
                     yield f"data: {json.dumps({'text': text})}\n\n"
+                # Accounting only — if the client disconnects mid-stream this
+                # is skipped, so /api/health can undercount chat calls. The
+                # cache entry is still written server-side either way.
+                _record_usage(MODEL_DEFAULT, stream.get_final_message().usage)
                 yield f"data: {json.dumps({'done': True})}\n\n"
         except anthropic.APIError as e:
             yield f"data: {json.dumps({'error': str(e)})}\n\n"
@@ -297,6 +482,7 @@ def generate_problem(req: GenerateRequest, _: str = Depends(require_access)):
         f"{req.topic} — {topic_desc}. Ensure it's original (different numbers / "
         f"framing from the tutorial sheets) but uses the same conventions."
     )
+    _mark_used(MODEL_DEFAULT)
     try:
         resp = client.messages.create(
             model=MODEL_DEFAULT,
@@ -308,6 +494,7 @@ def generate_problem(req: GenerateRequest, _: str = Depends(require_access)):
     except anthropic.APIError as e:
         raise HTTPException(502, f"Anthropic error: {e}") from e
 
+    _record_usage(MODEL_DEFAULT, resp.usage)
     return _extract_json(resp)
 
 
@@ -392,10 +579,15 @@ def grade(req: GradeRequest, _: str = Depends(require_access)):
 
     content.append({"type": "text", "text": "Grade this submission."})
 
+    _mark_used(MODEL_GRADER)
     try:
         resp = client.messages.create(
             model=MODEL_GRADER,
-            max_tokens=4096,
+            # max_tokens caps thinking AND response text together. Adaptive
+            # thinking on a multi-page handwritten submission can eat most of a
+            # 4096 budget and truncate the JSON mid-object, so give it headroom.
+            # Unused tokens aren't billed.
+            max_tokens=8192,
             thinking={"type": "adaptive"},
             system=_system_blocks(GRADER_SYSTEM),
             messages=[{"role": "user", "content": content}],
@@ -404,6 +596,7 @@ def grade(req: GradeRequest, _: str = Depends(require_access)):
     except anthropic.APIError as e:
         raise HTTPException(502, f"Anthropic error: {e}") from e
 
+    _record_usage(MODEL_GRADER, resp.usage)
     return _extract_json(resp)
 
 
@@ -440,9 +633,10 @@ def flashcards(req: FlashcardRequest, _: str = Depends(require_access)):
     user_msg = (
         f"Produce exactly {req.count} flashcards for topic {req.topic} — {topic_desc}."
     )
+    _mark_used(MODEL_FLASHCARDS)
     try:
         resp = client.messages.create(
-            model=MODEL_DEFAULT,
+            model=MODEL_FLASHCARDS,
             max_tokens=4096,
             system=_system_blocks(FLASHCARD_SYSTEM),
             messages=[{"role": "user", "content": user_msg}],
@@ -451,7 +645,18 @@ def flashcards(req: FlashcardRequest, _: str = Depends(require_access)):
     except anthropic.APIError as e:
         raise HTTPException(502, f"Anthropic error: {e}") from e
 
+    _record_usage(MODEL_FLASHCARDS, resp.usage)
     return _extract_json(resp)
+
+
+@app.post("/api/prewarm")
+async def prewarm(_: str = Depends(require_access)) -> dict:
+    """Warm every model's corpus cache on demand.
+
+    Point a cron job at this ~10 minutes before a tutorial slot so the first
+    student of the session doesn't wait on a cold cache.
+    """
+    return {"results": await _prewarm_all()}
 
 
 # ---------- static frontend ----------
