@@ -103,6 +103,9 @@ CREATE TABLE IF NOT EXISTS events (
   ok              INTEGER NOT NULL DEFAULT 1,
   error_kind      TEXT                -- set when the request failed
 );
+"""
+
+INDEXES = """
 CREATE INDEX IF NOT EXISTS ix_events_day    ON events(day);
 CREATE INDEX IF NOT EXISTS ix_events_tool   ON events(tool);
 CREATE INDEX IF NOT EXISTS ix_events_topic  ON events(topic);
@@ -110,6 +113,37 @@ CREATE INDEX IF NOT EXISTS ix_events_student ON events(student);
 CREATE INDEX IF NOT EXISTS ix_events_session ON events(session_id);
 CREATE INDEX IF NOT EXISTS ix_events_concept ON events(student, concept);
 """
+
+
+def _migrate(conn: sqlite3.Connection) -> None:
+    """Add any columns the running code expects but an older DB lacks.
+
+    `CREATE TABLE IF NOT EXISTS` is a no-op against an existing table, so the
+    DDL above does NOT bring a v1 database up to v2 — it silently leaves the
+    new columns missing. The failure then surfaces somewhere unrelated: the
+    index creation raises "no such column: session_id", _connect() swallows it,
+    and analytics stops recording entirely while the app looks healthy.
+
+    That is exactly what happened on the v1 -> v2 deploy. The fix is to diff
+    the live table against what the code expects and ALTER in the difference,
+    which also means future column additions need no bespoke migration — add
+    the column to the DDL and to the list below, and old databases catch up on
+    next boot.
+    """
+    expected = {
+        "session_id": "TEXT",
+        "prior_event_id": "INTEGER",
+        "prior_score": "INTEGER",
+        "minutes_since_prior": "REAL",
+        "solution_revealed_after_s": "REAL",
+    }
+    have = {r[1] for r in conn.execute("PRAGMA table_info(events)")}
+    added = [c for c in expected if c not in have]
+    for col in added:
+        conn.execute(f"ALTER TABLE events ADD COLUMN {col} {expected[col]}")
+    if added:
+        conn.commit()
+        log.info("analytics: migrated schema, added %s", ", ".join(added))
 
 
 def _connect() -> sqlite3.Connection | None:
@@ -122,7 +156,9 @@ def _connect() -> sqlite3.Connection | None:
         DB_PATH.parent.mkdir(parents=True, exist_ok=True)
         c = sqlite3.connect(str(DB_PATH), check_same_thread=False)
         c.execute("PRAGMA journal_mode=WAL")      # survives an unclean restart
-        c.executescript(DDL)
+        c.executescript(DDL)                      # no-op if the table exists
+        _migrate(c)                               # bring an older table up to date
+        c.executescript(INDEXES)                  # only after columns exist
         c.commit()
         _conn = c
         if _EPHEMERAL_SALT:

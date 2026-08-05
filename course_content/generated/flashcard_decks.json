@@ -123,5 +123,243 @@
     "category": "pitfall"
    }
   ]
+ },
+ "L1": {
+  "topic": "L1 — The First Law: Conservation of Energy",
+  "cards": [
+   {
+    "front": "State the First Law of Thermodynamics in both words and equation form (using our sign convention).",
+    "back": "In words: Energy is never created or destroyed; any change in a system's internal energy is accounted for by the heat it absorbs and the work done on it. Equation: $\\Delta U = Q + W$, where $Q > 0$ is heat absorbed by the system and $W > 0$ is work done on the system.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Why do we write $\\delta Q$ and $\\delta W$ (with $\\delta$) but $\\mathrm{d}U$ (with $\\mathrm{d}$) in the differential form of the First Law?",
+    "back": "$U$ is a state function — its value depends only on the current state, so it has an exact differential $\\mathrm{d}U$. In contrast, $Q$ and $W$ are path functions — the amounts depend on how the change happened, so they use the inexact differential $\\delta$. This notation reminds us that we cannot point to \"heat inside the system\" the way we can to internal energy.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "For expansion/compression work on a gas at constant pressure, derive the relationship between work and volume change.",
+    "back": "Work done on the gas is $W = -P\\,\\Delta V$. When the gas expands ($\\Delta V > 0$), $W < 0$ — the gas does work on the surroundings. When compressed ($\\Delta V < 0$), $W > 0$ — the surroundings do work on the gas. The negative sign reflects our convention that work-on is positive.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "Why is enthalpy ($H = U + PV$) defined as it is? What is its physical significance?",
+    "back": "Enthalpy bundles internal energy and $PV$ expansion work into a single state function. At constant pressure with only $PV$ work, $\\mathrm{d}H = \\delta Q$ — the heat absorbed equals the enthalpy change. This is why tables of reaction enthalpies are so useful: at atmospheric pressure (almost all lab and industrial processes), enthalpy directly equals the heat of reaction.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Under what conditions is $\\Delta H = Q$ (heat absorbed equals enthalpy change)? Why?",
+    "back": "At constant pressure with no non-$PV$ work. Proof: $\\mathrm{d}H = \\mathrm{d}U + P\\,\\mathrm{d}V + V\\,\\mathrm{d}P$. At constant $P$, $\\mathrm{d}P = 0$ and $\\mathrm{d}H = \\mathrm{d}U + P\\,\\mathrm{d}V$. From the First Law, $\\mathrm{d}U = \\delta Q - P\\,\\mathrm{d}V$, so $\\mathrm{d}H = \\delta Q$.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "What is the relationship between heat capacity at constant volume ($C_V$) and heat capacity at constant pressure ($C_P$) for an ideal gas?",
+    "back": "$C_P - C_V = R$ (Mayer's relation). Physically: at constant pressure, some of the absorbed heat goes into doing expansion work against the atmosphere, so you need more heat to raise the temperature by 1 K compared to constant volume. For a monoatomic ideal gas, $C_V = \\frac{3}{2}R$ and $C_P = \\frac{5}{2}R$.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "A constant-volume process has $\\Delta V = 0$, so $\\delta W = -P\\,\\mathrm{d}V = 0$. Does this mean no work is done in a rigid container?",
+    "back": "Correct — no $PV$ expansion work. However, other forms of work (electrical, magnetic, shaft work) could still be done on or by the system. The rule $W = -\\int P\\,\\mathrm{d}V = 0$ specifically forbids volume-change work, which is the most common form in thermodynamics problems.",
+    "difficulty": 2,
+    "category": "pitfall"
+   },
+   {
+    "front": "Explain the common student mistake: *'If I know $\\Delta U$ for a reaction, I also know $Q$ and $W$.'*",
+    "back": "This is wrong. The First Law is $\\Delta U = Q + W$, which relates three quantities. Knowing $\\Delta U$ alone does not determine $Q$ and $W$ separately — they depend on the path taken. For example, a gas can reach the same final internal energy by absorbing 100 J of heat and losing 50 J of work, or absorbing 200 J and losing 150 J. Only the sum is fixed.",
+    "difficulty": 2,
+    "category": "pitfall"
+   },
+   {
+    "front": "For an ideal gas undergoing an adiabatic ($\\delta Q = 0$) reversible expansion, the relationship is $PV^\\gamma = \\text{const}$. Derive this, starting from the First Law.",
+    "back": "First Law (adiabatic): $\\mathrm{d}U = -P\\,\\mathrm{d}V$. For an ideal gas, $\\mathrm{d}U = nC_V\\,\\mathrm{d}T$, so $nC_V\\,\\mathrm{d}T = -P\\,\\mathrm{d}V$. Differentiating the ideal-gas law $PV = nRT$ gives $P\\,\\mathrm{d}V + V\\,\\mathrm{d}P = nR\\,\\mathrm{d}T$. Substitute $nC_V\\,\\mathrm{d}T = -P\\,\\mathrm{d}V$ and use $C_P - C_V = R$ to obtain $PV^\\gamma = \\text{const}$, where $\\gamma = C_P/C_V$.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "What does it mean that enthalpy is a state function, and why is this useful for computing reaction enthalpies?",
+    "back": "Because $H$ is a state function, $\\Delta H_\\text{rxn}$ depends only on the products and reactants' identities, not on the reaction pathway. This is Hess's Law: $\\Delta H_\\text{rxn} = \\sum_\\text{products} n_p \\Delta H_f^\\circ - \\sum_\\text{reactants} n_r \\Delta H_f^\\circ$. You can compute reaction enthalpies from standard formation enthalpies, even for reactions that are hard to measure directly.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "A furnace heats 1 kg of iron from 300 K to 1000 K at constant 1 atm pressure. Is it more accurate to use $\\Delta H$ or $\\Delta U$ to compute the heat supplied?",
+    "back": "Use $\\Delta H$. At constant pressure, $\\Delta H = Q$ (and the $P\\,\\Delta V$ expansion work is small for a solid). Additionally, tabulated heat capacity data ($C_P$) are standard, making the enthalpy calculation straightforward: $\\Delta H = \\int_{300}^{1000} mC_P\\,\\mathrm{d}T$. Using $\\Delta U$ would require knowing $C_V$ and separately accounting for $P\\Delta V$ work.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "In a throttling (Joule-Thomson) expansion, a gas flows through a valve from high to low pressure adiabatically. Show that enthalpy is conserved.",
+    "back": "Apply the open-system First Law at steady state: $\\sum_i \\underline{H}_i\\,m_i - \\sum_o \\underline{H}_o\\,m_o = Q + W$. No heat flow ($Q = 0$), no moving parts doing external work ($W = 0$), and inlet and outlet mass flows are equal ($m_i = m_o$). Therefore $\\underline{H}_i = \\underline{H}_o$ — enthalpy is unchanged. For an ideal gas, $H = H(T)$ only, so throttling causes no temperature drop.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "Why can Hess's Law be applied to enthalpy but NOT directly to heat? Provide an example.",
+    "back": "Enthalpy is a state function — $\\Delta H$ depends only on initial and final states. Heat is a path function — $Q$ depends on how the reaction occurred. Example: The combustion C + O₂ → CO₂ releases the same $\\Delta H$ whether you burn the carbon directly or first form CO then oxidise it. However, the heat $Q$ absorbed by the surroundings differs between these paths (one releases it all at once, the other in two steps).",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "For a gas in a piston, distinguish between reversible and irreversible expansion work. Which does more work on the surroundings?",
+    "back": "In reversible expansion, the external pressure equals the gas pressure at each instant — the gas pushes back against an nearly-equal opposing force. Work extracted is $W_\\text{rev} = \\int P\\,\\mathrm{d}V$ (area under the $P$-$V$ curve). In irreversible expansion, the external pressure is much lower, so less work is extracted ($W_\\text{irr} < W_\\text{rev}$). The 'lost work' is dissipated as entropy in the surroundings — a hallmark of irreversibility.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain why the internal energy of an ideal gas depends only on temperature, not on pressure or volume.",
+    "back": "For an ideal gas, intermolecular forces are negligible. The internal energy is purely the sum of kinetic energies of the molecules, which scales with temperature only. Changing pressure or volume at constant $T$ does not change the average kinetic energy, so $U = U(T)$ alone. Mathematically, $(\\partial U/\\partial V)_T = 0$ and $(\\partial U/\\partial P)_T = 0$ for an ideal gas.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "A system absorbs 100 J of heat and has 50 J of work done on it. What is $\\Delta U$?",
+    "back": "$\\Delta U = Q + W = 100 + 50 = 150$ J. The system's internal energy increases by 150 J — the combination of absorbed heat and external work both raise the internal energy.",
+    "difficulty": 1,
+    "category": "equation"
+   },
+   {
+    "front": "Why is it incorrect to say 'a gas has 500 J of heat'? Rephrase it correctly.",
+    "back": "Because heat is a path function — energy in transit, not a property of the gas itself. Correct phrasing: 'The gas absorbed 500 J of heat' or 'The surroundings transferred 500 J of heat to the gas.' Heat only makes sense when discussing energy crossing a boundary during a process.",
+    "difficulty": 1,
+    "category": "pitfall"
+   },
+   {
+    "front": "During a phase change (melting, boiling), the temperature is constant. How can internal energy change if $T$ is constant?",
+    "back": "For a pure substance at equilibrium, $U = U(T, V, n, \\ldots)$. Although $T$ is constant during a phase change, the volume and/or structure of the matter changes — latent heat goes into breaking bonds and rearranging the material, not into raising kinetic energy (temperature). The enthalpy of the phase change, $\\Delta H_\\text{trans} = L$ (latent heat), reflects this internal energy reorganisation.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Write the open-system First Law in steady state (neglecting kinetic and potential energy changes).",
+    "back": "$\\sum_i \\underline{H}_i\\,m_i - \\sum_o \\underline{H}_o\\,m_o = Q + W$. This says: (enthalpy in) − (enthalpy out) = (heat in) + (work in). This is the equation used for heat exchangers, turbines, compressors, and furnaces — essentially every flowing process in industry.",
+    "difficulty": 2,
+    "category": "equation"
+   }
+  ]
+ },
+ "L2": {
+  "topic": "L2 — Second Law of Thermodynamics",
+  "cards": [
+   {
+    "front": "What is the relationship between entropy $S$, the number of accessible microstates $\\Omega$, and Boltzmann's constant $k_B$?",
+    "back": "$S = k_B \\ln \\Omega$. Entropy is a logarithmic measure of how many microscopic arrangements of particles correspond to a given macroscopic state. Higher $\\Omega$ means more disorder and higher entropy.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "State the Carnot-Clausius form of the Second Law for a reversible process.",
+    "back": "$\\mathrm{d}S = \\frac{\\delta Q_\\text{rev}}{T}$. In a reversible heat exchange at temperature $T$, the entropy change of the system equals the heat absorbed divided by the absolute temperature.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Why is the Second Law stated as $\\mathrm{d}S_\\text{universe} \\geq 0$ rather than $\\mathrm{d}S_\\text{system} \\geq 0$?",
+    "back": "A system's entropy alone can increase, decrease, or stay constant depending on heat flow and processes. Only the *total* entropy of an isolated system (universe) must increase or stay the same — it cannot spontaneously decrease. This distinction separates reversible ($\\mathrm{d}S_\\text{universe} = 0$) from irreversible ($\\mathrm{d}S_\\text{universe} > 0$) processes.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "For a phase change (e.g., melting or vaporisation) at constant $T$ and $P$, derive $\\Delta S_\\text{transition}$.",
+    "back": "At phase transition, the process is reversible at constant $T$, so $\\Delta S = \\int \\frac{\\mathrm{d}H}{T} = \\frac{\\Delta H_\\text{transition}}{T_\\text{transition}}$. The entropy change equals the latent heat divided by the absolute transition temperature. Always positive for melting/vaporisation (disorder increases).",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "How do you compute $\\Delta S$ when heating a substance over a temperature range with no phase change?",
+    "back": "$\\Delta S = \\int_{T_1}^{T_2} \\frac{C_P}{T}\\,\\mathrm{d}T$. If $C_P = a + bT + c/T^2$, then $\\Delta S = a\\ln(T_2/T_1) + b(T_2 - T_1) - \\frac{c}{2}(1/T_2^2 - 1/T_1^2)$. Note: entropy integral has $1/T$ factor, unlike enthalpy which has no denominator.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "What is the Third Law of Thermodynamics and why is it important for thermodynamic tables?",
+    "back": "As $T \\to 0\\,\\text{K}$, the entropy of a perfect crystal approaches zero: $S_0^\\circ = 0$. This provides an absolute reference point for entropy, allowing construction of tabulated standard entropies $S^\\circ_{298}$ by integrating $C_P/T$ from 0 K upward while accounting for phase transitions.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "How is standard entropy $S^\\circ_{298}$ of a substance built up from zero kelvin?",
+    "back": "$S^\\circ_{298} = \\int_0^{T_\\text{melt}} \\frac{C_P^\\text{solid}}{T}\\,\\mathrm{d}T + \\frac{\\Delta H_\\text{fus}}{T_\\text{melt}} + \\int_{T_\\text{melt}}^{T_\\text{boil}} \\frac{C_P^\\text{liq}}{T}\\,\\mathrm{d}T + \\frac{\\Delta H_\\text{vap}}{T_\\text{boil}} + \\int_{T_\\text{boil}}^{298} \\frac{C_P^\\text{gas}}{T}\\,\\mathrm{d}T$. Each phase-change term contributes a latent-heat jump; the integrals cover sensible heating in each phase.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "Compute $\\Delta S^\\circ_{298}$ for a reaction using tabulated data, and explain the sign of the result for C(s) + ½O₂(g) → CO(g).",
+    "back": "$\\Delta S^\\circ_\\text{rxn} = \\sum_\\text{products} n_p S^\\circ_p - \\sum_\\text{reactants} n_r S^\\circ_r$. For C + ½O₂ → CO, we gain gas moles (0.5 → 1 mol gas), so $\\Delta S > 0$. Entropy increases because the product is a less-ordered gas phase.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Derive the fundamental thermodynamic equation $\\mathrm{d}U = T\\,\\mathrm{d}S - P\\,\\mathrm{d}V$ by combining the First and Second Laws.",
+    "back": "First Law (reversible): $\\mathrm{d}U = \\delta Q_\\text{rev} + \\delta W_\\text{rev} = \\delta Q_\\text{rev} - P\\,\\mathrm{d}V$. Second Law: $\\delta Q_\\text{rev} = T\\,\\mathrm{d}S$. Substitute: $\\mathrm{d}U = T\\,\\mathrm{d}S - P\\,\\mathrm{d}V$. This equation is exact and fundamental — from it follow the Maxwell relations and all property derivatives.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "What is 'lost work' and how does it relate to entropy generation in an irreversible process?",
+    "back": "Lost work $l_w$ is the difference between reversible and actual (irreversible) work: $l_w = W_\\text{rev} - W_\\text{irr} \\geq 0$. It manifests as extra entropy generated: $\\mathrm{d}S_\\text{universe} = l_w / T$. Every irreversibility — friction, throttling, sudden expansion — converts some available work into dissipated heat and disorder.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "State the Carnot efficiency formula and explain why 100% efficiency is impossible.",
+    "back": "$\\eta_\\text{Carnot} = 1 - \\frac{T_L}{T_H}$. To reach $\\eta = 1$ requires either $T_L = 0$ (absolute zero, unattainable by the Third Law) or $T_H = \\infty$ (impossible). All real engines are less efficient than Carnot, and no engine can convert all heat from the hot reservoir into work — some must always be dumped to the cold side.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "In the Rankine cycle (steam power), why are the turbine and pump steps idealised as isentropic?",
+    "back": "Both steps are modelled as adiabatic (no heat loss in short residence times) and reversible (no friction). Together, adiabatic + reversible = isentropic ($\\mathrm{d}S = 0$ for the working fluid). Real turbines and pumps have friction and lose work — they generate entropy and deviate from isentropic paths, reducing cycle efficiency.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "How does entropy change in three different scenarios: (i) reversible adiabatic, (ii) irreversible adiabatic, (iii) reversible non-adiabatic?",
+    "back": "(i) Reversible adiabatic: $\\mathrm{d}S_\\text{system} = 0$ (isentropic), $\\mathrm{d}S_\\text{universe} = 0$. (ii) Irreversible adiabatic: $\\mathrm{d}S_\\text{system} > 0$ (entropy rises from lost work), $\\mathrm{d}S_\\text{universe} > 0$. (iii) Reversible non-adiabatic: $\\mathrm{d}S_\\text{system}$ can be any sign depending on heat flow, but $\\mathrm{d}S_\\text{universe} = 0$ (surroundings absorb opposite entropy change).",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "What common pitfall do students make when confusing 'reversible' with 'isentropic'?",
+    "back": "The error: thinking all reversible processes have $\\mathrm{d}S = 0$. The truth: only reversible *adiabatic* processes are isentropic. A reversible isothermal expansion absorbs heat, so $\\mathrm{d}S_\\text{system} = Q/T \\neq 0$. The system's entropy increases, but the universe's entropy stays constant (surroundings lose the same entropy the system gains).",
+    "difficulty": 3,
+    "category": "pitfall"
+   },
+   {
+    "front": "How do you read an entropy-temperature ($T$–$S$) diagram for a phase transition or heat cycle?",
+    "back": "On a $T$–$S$ plot, area under a path = heat absorbed ($Q = \\int T\\,\\mathrm{d}S$). A horizontal line represents isothermal process; a vertical line represents adiabatic process. Phase-transition lines are horizontal (constant $T$ during melting/boiling). Cycle area = net work done. The Rankine cycle on a $T$–$S$ diagram shows heat-addition regions (top, higher $T$) and heat-rejection regions (bottom, lower $T$).",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "For an ideal gas compressed isothermally, predict the sign of $\\Delta S$ and explain why.",
+    "back": "$\\Delta S < 0$ (entropy decreases). Isothermal compression reduces the volume → fewer accessible microstates for the molecules. From $\\Delta S = nR\\ln(V_f/V_i)$, if $V_f < V_i$, then $\\ln(V_f/V_i) < 0$, so $\\Delta S < 0$. This local entropy decrease must be compensated by positive entropy in the surroundings (heat is expelled) to satisfy $\\mathrm{d}S_\\text{universe} \\geq 0$.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Why does melting always have $\\Delta S_\\text{fus} > 0$, and why is the numerical value useful for predicting melting points?",
+    "back": "Melting increases disorder (solid lattice → mobile liquid), so entropy always increases: $\\Delta S_\\text{fus} = \\Delta H_\\text{fus} / T_\\text{melt} > 0$. Since melting occurs at $\\Delta G = 0$, the melting point is approximately $T_\\text{melt} \\approx \\Delta H_\\text{fus} / \\Delta S_\\text{fus}$. Materials with high latent heats but low entropy changes melt at higher temperatures (strong bonding).",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "What is the difference between $\\Delta S^\\circ_{298}$ and $\\Delta S_{rxn}$ at an arbitrary temperature $T$?",
+    "back": "$\\Delta S^\\circ_{298}$ is the standard entropy change at 298 K (from tables). $\\Delta S_\\text{rxn}(T)$ at temperature $T$ is found via Kirchhoff's Law: $\\Delta S_T = \\Delta S_{298} + \\int_{298}^{T} \\frac{\\Delta C_P}{T}\\,\\mathrm{d}T$, where $\\Delta C_P = \\sum_\\text{prod} C_P - \\sum_\\text{reac} C_P$. The reaction's entropy balance changes with temperature if heat capacities of products and reactants differ.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "Common pitfall: A reaction has $\\Delta H > 0$ and $\\Delta S < 0$ at 298 K. A student claims 'this reaction is never spontaneous.' What is the error?",
+    "back": "The error assumes $\\Delta G$ is independent of temperature. In fact, $\\Delta G = \\Delta H - T\\Delta S$. At very low $T$, the $T\\Delta S$ term (negative) becomes small, so $\\Delta G \\approx \\Delta H > 0$ (non-spontaneous). But the student neglected that spontaneity can flip at very high $T$ if $\\Delta S$ becomes large enough... wait, here $\\Delta S < 0$, so $-T\\Delta S > 0$ always, making $\\Delta G$ more positive at high $T$. The student is *correct* — this reaction is never spontaneous at any $T$. The pitfall is forgetting to check the sign of $\\Delta S$ when predicting temperature dependence.",
+    "difficulty": 3,
+    "category": "pitfall"
+   }
+  ]
  }
 }
