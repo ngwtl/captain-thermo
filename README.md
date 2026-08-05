@@ -125,6 +125,38 @@ Knobs:
 
 > **These are fairness limits, not a budget control.** 170 students × 40/day is still a theoretical ~$610/day. The only real ceiling is an org-level spend limit in the [Anthropic Console](https://console.anthropic.com) (Billing → Limits) — set one before sharing the URL widely.
 
+## Analytics and education research
+
+Every request writes one pseudonymous row to a SQLite event log (`backend/analytics.py`). Two surfaces on top of it:
+
+| | |
+|---|---|
+| `/dashboard.html` | Charts and tables — enter the access code. Print-friendly for sharing with colleagues. |
+| `GET /api/admin/export.csv` | Full event export, one row per request, for R / Python / SPSS. |
+| `GET /api/admin/stats` | The same aggregates as JSON. |
+
+### What makes this worth analysing
+
+The grader already emits structured JSON, so asking it for `topic` and `concept_tested` costs **nothing extra** — and that turns a usage log into teaching signal. Instead of *"340 gradings this term"* you get:
+
+> *L4 · Clausius–Clapeyron · 14 submissions · mean score 5.5 — the lowest on the course.*
+
+Questions the schema answers directly:
+
+- **Misconception cartography** — `error_type` × `topic` × `concept`, ranked by frequency and by mean score. Which lectures produce conceptual errors versus algebra slips.
+- **Adoption and retention** — distinct students per week, and how many distinct days each student returns.
+- **Temporal patterns** — hour of day, day of week, daily volume against tutorial deadlines.
+- **Tool preference** — do students choose being asked (tutor) or being told (grader)?
+- **Cost** — spend per tool, per day, per student.
+
+### Privacy
+
+Metadata only. **No student work, submissions, photos, or feedback text is stored** — inspect the `CREATE TABLE` in `analytics.py`; there is no column for any of it. Client ids are HMAC'd with `ANALYTICS_SALT` before storage, so rows link into a per-student sequence without identifying anyone.
+
+> ⚠️ **Before the term starts.** Publishing on student data means human-subjects research: get NTU IRB/ethics review and student notice in place first — consent cannot usually be retro-fitted to data already collected. A notice is in the app footer; check it satisfies your ethics board. Note also that `ANALYTICS_SALT` must be **set and stable** — leave it unset and pseudonyms regenerate on every restart, which silently breaks retention and improvement analysis.
+
+Storage is a 1 GB Render disk at `/var/data` (see `render.yaml`). The container filesystem is wiped on every deploy, so without the disk a term of data would vanish. Attaching a disk pins the service to one instance — fine here, but it rules out horizontal scaling without moving to Postgres.
+
 ## The pre-generated bank
 
 Practice problems and flashcards are **not** generated per request. They're built once by `scripts/build_bank.py` via the Batch API (50% off) and committed to `course_content/generated/`, so they ship inside the container and survive deploys — Render has no persistent disk.

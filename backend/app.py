@@ -49,10 +49,11 @@ import anthropic
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+import analytics
 import bank
 from corpus import CORPUS, TOPIC_INDEX
 from prompts import (
@@ -531,9 +532,11 @@ def config() -> dict:
 
 
 @app.post("/api/chat")
-def chat(req: ChatRequest, _: str = Depends(require_access)):
+def chat(req: ChatRequest, student: str = Depends(require_access)):
     if not req.messages:
         raise HTTPException(400, "messages cannot be empty")
+    t0 = time.time()
+    turn = sum(1 for m in req.messages if m.role == "user")
 
     messages = [{"role": m.role, "content": m.content} for m in req.messages]
 
@@ -552,9 +555,20 @@ def chat(req: ChatRequest, _: str = Depends(require_access)):
                 # Accounting only — if the client disconnects mid-stream this
                 # is skipped, so /api/health can undercount chat calls. The
                 # cache entry is still written server-side either way.
-                _record_usage(MODEL_DEFAULT, stream.get_final_message().usage)
+                u = stream.get_final_message().usage
+                _record_usage(MODEL_DEFAULT, u)
+                analytics.record(
+                    student=analytics.pseudonym(student), tool="chat", served_from="live",
+                    model=MODEL_DEFAULT, turn_index=turn,
+                    latency_ms=int((time.time() - t0) * 1000),
+                    cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
+                    in_tokens=u.input_tokens, out_tokens=u.output_tokens,
+                    cost_usd=analytics.cost(MODEL_DEFAULT, u, CACHE_TTL))
                 yield f"data: {json.dumps({'done': True})}\n\n"
         except anthropic.APIError as e:
+            analytics.record(student=analytics.pseudonym(student), tool="chat",
+                             served_from="live", model=MODEL_DEFAULT, turn_index=turn,
+                             ok=False, error_kind=type(e).__name__)
             # Same translation as the JSON endpoints; the raw message would be
             # shown verbatim in the chat bubble.
             yield f"data: {json.dumps({'error': _api_error(e).detail})}\n\n"
@@ -597,10 +611,15 @@ PROBLEM_SCHEMA = {
 
 
 @app.post("/api/generate")
-def generate_problem(req: GenerateRequest, _: str = Depends(require_access)):
+def generate_problem(req: GenerateRequest, student: str = Depends(require_access)):
+    t0 = time.time()
     if USE_BANK:
         banked = bank.get_problem(req.topic, req.difficulty)
         if banked:
+            analytics.record(student=analytics.pseudonym(student), tool="generate",
+                             topic=req.topic, difficulty=req.difficulty,
+                             served_from="bank", cost_usd=0.0,
+                             latency_ms=int((time.time() - t0) * 1000))
             return banked  # pre-vetted, no API call
 
     topic_desc = TOPIC_INDEX.get(req.topic, req.topic)
@@ -619,9 +638,19 @@ def generate_problem(req: GenerateRequest, _: str = Depends(require_access)):
             output_config={"format": {"type": "json_schema", "schema": PROBLEM_SCHEMA}},
         )
     except anthropic.APIError as e:
+        analytics.record(student=analytics.pseudonym(student), tool="generate",
+                         topic=req.topic, difficulty=req.difficulty, served_from="live",
+                         model=MODEL_DEFAULT, ok=False, error_kind=type(e).__name__)
         raise _api_error(e) from e
 
     _record_usage(MODEL_DEFAULT, resp.usage)
+    u = resp.usage
+    analytics.record(student=analytics.pseudonym(student), tool="generate",
+                     topic=req.topic, difficulty=req.difficulty, served_from="live",
+                     model=MODEL_DEFAULT, latency_ms=int((time.time() - t0) * 1000),
+                     cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
+                     in_tokens=u.input_tokens, out_tokens=u.output_tokens,
+                     cost_usd=analytics.cost(MODEL_DEFAULT, u, CACHE_TTL))
     return _extract_json(resp)
 
 
@@ -653,6 +682,22 @@ GRADE_SCHEMA = {
             "type": "string",
             "description": "A specific next action to take (e.g. 'revisit L2 §Entropy, redo part (b) using dS = dQ_rev/T').",
         },
+        # Classification for analytics. Free: the model is already producing
+        # structured output, so these add no extra call. They're what turns a
+        # usage log into teaching signal — "61% of L4 errors were conceptual,
+        # clustered on Clausius-Clapeyron" is actionable; "340 gradings" isn't.
+        "topic": {
+            "type": "string",
+            "enum": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7", "unknown"],
+            "description": "Which lecture this problem belongs to.",
+        },
+        "concept_tested": {
+            "type": "string",
+            "description": "The specific concept or relationship under test, as a short "
+                           "canonical noun phrase reusable across submissions — e.g. "
+                           "'entropy change on heating at constant P', 'Clausius-Clapeyron', "
+                           "'lever rule'. Not a restatement of the problem.",
+        },
     },
     "required": [
         "verdict",
@@ -662,13 +707,16 @@ GRADE_SCHEMA = {
         "feedback",
         "what_was_right",
         "suggested_next_step",
+        "topic",
+        "concept_tested",
     ],
     "additionalProperties": False,
 }
 
 
 @app.post("/api/grade")
-def grade(req: GradeRequest, _: str = Depends(require_access)):
+def grade(req: GradeRequest, student: str = Depends(require_access)):
+    t0 = time.time()
     if not req.student_work.strip() and not req.images:
         raise HTTPException(400, "Provide typed work, an image, or both.")
 
@@ -724,10 +772,26 @@ def grade(req: GradeRequest, _: str = Depends(require_access)):
             },
         )
     except anthropic.APIError as e:
+        analytics.record(student=analytics.pseudonym(student), tool="grade",
+                         served_from="live", model=MODEL_GRADER,
+                         image_count=len(req.images), ok=False, error_kind=type(e).__name__)
         raise _api_error(e) from e
 
     _record_usage(MODEL_GRADER, resp.usage)
-    return _extract_json(resp)
+    out = _extract_json(resp)
+    u = resp.usage
+    analytics.record(
+        student=analytics.pseudonym(student), tool="grade", served_from="live",
+        model=MODEL_GRADER, latency_ms=int((time.time() - t0) * 1000),
+        # The classification the grader just produced for free — this is the
+        # column that answers "which lecture produces which errors".
+        topic=out.get("topic"), concept=out.get("concept_tested"),
+        verdict=out.get("verdict"), error_type=out.get("error_type"),
+        score=out.get("score_out_of_10"), image_count=len(req.images),
+        cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
+        in_tokens=u.input_tokens, out_tokens=u.output_tokens,
+        cost_usd=analytics.cost(MODEL_GRADER, u, CACHE_TTL))
+    return out
 
 
 FLASHCARD_SCHEMA = {
@@ -758,10 +822,14 @@ FLASHCARD_SCHEMA = {
 
 
 @app.post("/api/flashcards")
-def flashcards(req: FlashcardRequest, _: str = Depends(require_access)):
+def flashcards(req: FlashcardRequest, student: str = Depends(require_access)):
+    t0 = time.time()
     if USE_BANK:
         banked = bank.get_cards(req.topic, req.count)
         if banked:
+            analytics.record(student=analytics.pseudonym(student), tool="flashcards",
+                             topic=req.topic, served_from="bank", cost_usd=0.0,
+                             latency_ms=int((time.time() - t0) * 1000))
             return banked  # sampled from a larger pre-built deck
 
     topic_desc = TOPIC_INDEX.get(req.topic, req.topic)
@@ -778,9 +846,19 @@ def flashcards(req: FlashcardRequest, _: str = Depends(require_access)):
             output_config={"format": {"type": "json_schema", "schema": FLASHCARD_SCHEMA}},
         )
     except anthropic.APIError as e:
+        analytics.record(student=analytics.pseudonym(student), tool="flashcards",
+                         topic=req.topic, served_from="live", model=MODEL_FLASHCARDS,
+                         ok=False, error_kind=type(e).__name__)
         raise _api_error(e) from e
 
     _record_usage(MODEL_FLASHCARDS, resp.usage)
+    u = resp.usage
+    analytics.record(student=analytics.pseudonym(student), tool="flashcards",
+                     topic=req.topic, served_from="live", model=MODEL_FLASHCARDS,
+                     latency_ms=int((time.time() - t0) * 1000),
+                     cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
+                     in_tokens=u.input_tokens, out_tokens=u.output_tokens,
+                     cost_usd=analytics.cost(MODEL_FLASHCARDS, u, CACHE_TTL))
     return _extract_json(resp)
 
 
@@ -792,6 +870,37 @@ async def prewarm(_: str = Depends(require_access)) -> dict:
     student of the session doesn't wait on a cold cache.
     """
     return {"results": await _prewarm_all()}
+
+
+# ---------- analytics (passcode-protected) ----------
+
+
+@app.get("/api/admin/stats")
+def admin_stats(_: str = Depends(require_access)) -> dict:
+    """Aggregates for the dashboard and for sharing with colleagues."""
+    return analytics.summary()
+
+
+@app.get("/api/admin/export.csv")
+def admin_export(since: str | None = None, _: str = Depends(require_access)):
+    """Full pseudonymous event export for analysis in R / Python / SPSS.
+
+    `since` is an inclusive YYYY-MM-DD lower bound. Contains no student work —
+    see analytics.py for what is and isn't retained.
+    """
+    import csv
+    import io
+
+    cols, rows = analytics.export_rows(since)
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(cols)
+    w.writerows(rows)
+    return Response(
+        content=buf.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="captain_thermo_events.csv"'},
+    )
 
 
 # ---------- static frontend ----------

@@ -39,4 +39,19 @@ services:
         value: "600"
       - key: IP_RATE_LIMIT_PER_DAY
         value: "20000"
+      # Analytics. The container filesystem is wiped on every deploy, so the
+      # event DB must live on a mounted disk or a term of data disappears.
+      - key: ANALYTICS_ENABLED
+        value: "true"
+      - key: ANALYTICS_DB
+        value: /var/data/analytics.db
+      - key: ANALYTICS_SALT     # set in the dashboard; pseudonyms break if it changes
+        sync: false
     healthCheckPath: /api/health
+    # NOTE: attaching a disk pins the service to a single instance. Fine here
+    # (the rate limiter and cache counters are already in-process), but it
+    # rules out horizontal scaling without moving to Postgres first.
+    disk:
+      name: analytics-data
+      mountPath: /var/data
+      sizeGB: 1
