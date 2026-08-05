@@ -156,7 +156,10 @@ chatForm.addEventListener("submit", async (e) => {
   addBubble("user", text);
   messages.push({ role: "user", content: text });
 
-  const assistantBody = addBubble("assistant", "…");
+  const assistantBody = addBubble("assistant", "");
+  // Animated dots until the first token lands, so the gap before streaming
+  // starts doesn't look like a dropped request.
+  assistantBody.innerHTML = '<div class="ct-typing"><span></span><span></span><span></span></div>';
   let acc = "";
 
   try {
@@ -203,6 +206,69 @@ chatForm.addEventListener("submit", async (e) => {
   }
 });
 
+// ---------- Progress indicator ----------
+// The grader and generator take 25-35s (Opus 5 reasoning). Show motion, a
+// truthful elapsed count, and an expected duration so a long wait doesn't
+// read as a crash. `stages` are {at: seconds, text} in ascending order and
+// describe what the model is genuinely doing at that point.
+function startProgress(container, stages, expected) {
+  const t0 = Date.now();
+  container.innerHTML = `
+    <div class="ct-progress">
+      <div class="ct-spinner"></div>
+      <div class="flex-1 min-w-0">
+        <div class="ct-stage"></div>
+        <div class="ct-meta"></div>
+        <div class="ct-bar"></div>
+      </div>
+    </div>`;
+  const stageEl = container.querySelector(".ct-stage");
+  const metaEl = container.querySelector(".ct-meta");
+
+  // On the Grader and Practice tabs the output panel sits below the fold, so
+  // without this the student sees only a greyed-out button and assumes the
+  // page has hung — the exact failure this indicator exists to prevent.
+  // Scroll only when it isn't already fully visible ("nearest" isn't enough:
+  // it stops as soon as the top edge appears, leaving the text clipped).
+  const r = container.getBoundingClientRect();
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  if (r.top < 0 || r.bottom > vh) {
+    try {
+      container.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch {
+      container.scrollIntoView();
+    }
+  }
+
+  function tick() {
+    const s = Math.floor((Date.now() - t0) / 1000);
+    let cur = stages[0].text;
+    for (const st of stages) if (s >= st.at) cur = st.text;
+    stageEl.textContent = cur;
+    metaEl.textContent =
+      s < expected * 2
+        ? `${s}s elapsed · usually about ${expected}s`
+        : `${s}s elapsed · taking longer than usual, still working`;
+  }
+  tick();
+  const timer = setInterval(tick, 250);
+  return () => clearInterval(timer);
+}
+
+// Disable a form's submit button while a request is in flight. Double-submits
+// cost real money here and burn the student's rate-limit quota.
+function lockSubmit(form, label) {
+  const btn = form.querySelector('button[type="submit"], button:not([type])');
+  if (!btn) return () => {};
+  const original = btn.textContent;
+  btn.disabled = true;
+  if (label) btn.textContent = label;
+  return () => {
+    btn.disabled = false;
+    btn.textContent = original;
+  };
+}
+
 // ---------- Practice ----------
 const practiceForm = document.getElementById("practice-form");
 const practiceOut = document.getElementById("practice-out");
@@ -211,7 +277,17 @@ practiceForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const topic = document.getElementById("practice-topic").value;
   const difficulty = document.getElementById("practice-difficulty").value;
-  practiceOut.innerHTML = '<div class="text-gray-400 text-sm">Forging a new problem…</div>';
+  const stopProgress = startProgress(
+    practiceOut,
+    [
+      { at: 0, text: "Forging a new problem…" },
+      { at: 6, text: "Choosing realistic numbers and units…" },
+      { at: 15, text: "Working through the full solution…" },
+      { at: 26, text: "Noting the misconceptions students hit here…" },
+    ],
+    30
+  );
+  const unlock = lockSubmit(practiceForm, "Generating…");
   try {
     const r = await apiFetch(API + "/api/generate", {
       method: "POST",
@@ -242,6 +318,9 @@ practiceForm.addEventListener("submit", async (e) => {
     typeset(practiceOut);
   } catch (err) {
     practiceOut.innerHTML = `<div class="text-red-400">Error: ${err.message}</div>`;
+  } finally {
+    stopProgress();
+    unlock();
   }
 });
 
@@ -375,7 +454,17 @@ gradeForm.addEventListener("submit", async (e) => {
     alert("Add some typed working, upload photos of handwritten work, or both.");
     return;
   }
-  gradeOut.innerHTML = '<div class="text-gray-400 text-sm">Reading your work carefully…</div>';
+  const stopProgress = startProgress(
+    gradeOut,
+    [
+      { at: 0, text: gradeImages.length ? "Reading your handwriting…" : "Reading your work…" },
+      { at: 7, text: "Following your reasoning step by step…" },
+      { at: 16, text: "Finding where the reasoning first goes wrong…" },
+      { at: 27, text: "Writing your feedback…" },
+    ],
+    30
+  );
+  const unlock = lockSubmit(gradeForm, "Grading…");
   try {
     const payload = {
       problem,
@@ -407,6 +496,9 @@ gradeForm.addEventListener("submit", async (e) => {
     typeset(gradeOut);
   } catch (err) {
     gradeOut.innerHTML = `<div class="text-red-400">Error: ${err.message}</div>`;
+  } finally {
+    stopProgress();
+    unlock();
   }
 });
 
@@ -417,7 +509,17 @@ const cardsOut = document.getElementById("cards-out");
 cardsForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const topic = document.getElementById("cards-topic").value;
-  cardsOut.innerHTML = '<div class="text-gray-400 text-sm col-span-full">Building deck…</div>';
+  cardsOut.innerHTML = '<div class="col-span-full"></div>';
+  const stopProgress = startProgress(
+    cardsOut.firstElementChild,
+    [
+      { at: 0, text: "Building your deck…" },
+      { at: 5, text: "Picking the concepts worth testing…" },
+      { at: 11, text: "Writing the answers…" },
+    ],
+    10
+  );
+  const unlock = lockSubmit(cardsForm, "Building…");
   try {
     const r = await apiFetch(API + "/api/flashcards", {
       method: "POST",
@@ -454,6 +556,9 @@ cardsForm.addEventListener("submit", async (e) => {
     typeset(cardsOut);
   } catch (err) {
     cardsOut.innerHTML = `<div class="text-red-400 col-span-full">Error: ${err.message}</div>`;
+  } finally {
+    stopProgress();
+    unlock();
   }
 });
 

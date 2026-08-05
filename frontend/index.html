@@ -23,6 +23,31 @@
     .prose-cap code { background: #111827; padding: 2px 6px; border-radius: 4px; }
     .prose-cap pre { background: #111827; padding: 12px; border-radius: 6px; overflow-x: auto; }
     .prose-cap h3 { font-weight: 600; margin-top: 1em; color: #f3f4f6; }
+    /* ---- Progress indicator ----
+       The grader and problem generator routinely take 25-35s (Opus 5 thinking).
+       Static text at that duration reads as a hung page, so show motion,
+       a truthful elapsed counter, and an expected duration. The bar is
+       deliberately indeterminate — we can't know real progress, and a fake
+       percentage that stalls at 90% is worse than none. */
+    .ct-progress { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; background: #1f2937; border-radius: 8px; }
+    .ct-spinner { width: 18px; height: 18px; flex: 0 0 auto; margin-top: 2px; border: 2px solid #374151; border-top-color: #60a5fa; border-radius: 50%; animation: ct-spin 0.8s linear infinite; }
+    @keyframes ct-spin { to { transform: rotate(360deg); } }
+    .ct-stage { color: #e5e7eb; font-size: 0.9rem; }
+    .ct-meta { color: #9ca3af; font-size: 0.75rem; margin-top: 3px; font-variant-numeric: tabular-nums; }
+    .ct-bar { margin-top: 9px; height: 3px; border-radius: 999px; background: #374151; overflow: hidden; }
+    .ct-bar::after { content: ""; display: block; width: 40%; height: 100%; border-radius: 999px; background: #60a5fa; animation: ct-slide 1.5s ease-in-out infinite; }
+    @keyframes ct-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
+    /* Chat typing dots — shown until the first streamed token arrives. */
+    .ct-typing span { display: inline-block; width: 6px; height: 6px; margin-right: 3px; border-radius: 50%; background: #9ca3af; animation: ct-bounce 1.2s infinite; }
+    .ct-typing span:nth-child(2) { animation-delay: 0.15s; }
+    .ct-typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes ct-bounce { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+    @media (prefers-reduced-motion: reduce) {
+      .ct-spinner, .ct-bar::after, .ct-typing span { animation: none; }
+      .ct-spinner { border-top-color: #60a5fa; }
+    }
+    button[disabled] { opacity: 0.55; cursor: not-allowed; }
+
     .flip-card { perspective: 1000px; cursor: pointer; }
     .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }
     .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
