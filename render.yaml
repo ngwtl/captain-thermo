@@ -26,8 +26,10 @@ services:
       # Counted per student (X-Client-Id), not per IP — see README.
       - key: RATE_LIMIT_PER_MIN
         value: "30"
+      # 40/day is generous (a heavy student does ~10/week) and cuts the
+      # theoretical worst-case spend across 170 students by ~7x.
       - key: RATE_LIMIT_PER_DAY
-        value: "300"
+        value: "40"
       # Per-IP abuse backstop; must exceed a whole tutorial group on campus NAT.
       - key: IP_RATE_LIMIT_PER_MIN
         value: "600"

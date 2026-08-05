@@ -245,9 +245,30 @@ def _cache_control() -> dict:
 def _system_blocks(role_prompt: str) -> list[dict]:
     """Build a two-block system: [cached course corpus, role-specific instructions].
 
-    The corpus is the stable prefix — cache_control on this block means subsequent
-    requests reuse it at ~10% cost. The breakpoint sits at the end of the corpus,
-    so all four role prompts share one cache entry per model.
+    Two breakpoints: end of corpus, end of role prompt.
+
+    How the cache actually partitions here, measured against the live API:
+
+      * Role prompt does NOT fork the cache. Several role prompts sharing one
+        (model, schema) read the same corpus entry and write only their own
+        few hundred tokens.
+      * `output_config` DOES fork it, at the root. A request carrying a JSON
+        schema shares nothing with one that doesn't, and two different schemas
+        share nothing with each other.
+
+    So entries partition by (model, schema), and the four endpoints are already
+    four distinct pairs — chat/Sonnet-none, generate/Sonnet-PROBLEM,
+    grade/Opus-GRADE, flashcards/Haiku-FLASHCARD. Nothing shares today, and
+    ~$2.40 per cold round is the floor for a 99K corpus across four entries.
+
+    The second breakpoint is therefore not a cost win at present; it caches the
+    role prompt (worth ~0.1x on a few hundred tokens) and means any future
+    endpoint added to an existing (model, schema) pair costs ~450 tokens to
+    warm rather than ~99,000.
+
+    Keeping the role prompt in `system` rather than folding it into the user
+    turn preserves its authority — the tutor's refusal to hand over answers is
+    the whole point of the tool.
     """
     return [
         {
@@ -262,7 +283,7 @@ def _system_blocks(role_prompt: str) -> list[dict]:
             ),
             "cache_control": _cache_control(),
         },
-        {"type": "text", "text": role_prompt},
+        {"type": "text", "text": role_prompt, "cache_control": _cache_control()},
     ]
 
 
