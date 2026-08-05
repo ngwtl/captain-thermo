@@ -15,6 +15,8 @@ Three tools in one web app, all grounded in your actual course materials (lectur
 
 ## Architecture
 
+> Diagrams: [`docs/architecture.md`](docs/architecture.md) — request flow, cost structure, build pipeline.
+
 - **Backend**: FastAPI (Python 3.12) + Anthropic Python SDK. Course corpus (~292 KB, ~99K tokens) is supplied as a prompt-cached system block — every request after the first costs ~10% of uncached tokens for that portion.
 - **Frontend**: Single static page (Tailwind via CDN, MathJax for LaTeX, `marked` for markdown). No build step.
 - **Models**: per-endpoint model selection via env vars.
