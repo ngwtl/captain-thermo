@@ -11,18 +11,27 @@ Models:
   ANTHROPIC_MODEL_GRADER      grader (default: opus-5, best reasoning)
   ANTHROPIC_MODEL_FLASHCARDS  flashcards (default: haiku-4-5, ~3x cheaper)
 
+Practice and flashcards are normally served from a pre-generated bank
+(see bank.py) and make no API call at all; they fall back to live generation
+when the bank has no entry.
+
 Cost control:
   CACHE_TTL   corpus cache lifetime, "5m" or "1h" (default 1h).
-              A cache miss re-writes the ~70K-token corpus at 1.25-2x input
+              A cache miss re-writes the ~99K-token corpus at 1.25-2x input
               price; a hit costs 0.1x. Usage is bursty around tutorials, so
               the 1h TTL bridges the gaps that would otherwise be misses.
+  USE_BANK    serve practice/flashcards from the bank (default true).
+  GRADER_EFFORT  Opus 5 reasoning depth (default medium; see the constant).
   PREWARM_*   see _prewarm_loop. Warming is demand-gated: only models used
               recently are re-warmed, so idle periods cost nothing.
 
 Access control:
   APP_PASSCODE    if set, clients must send X-Passcode header matching this value
-  RATE_LIMIT_PER_MIN    per-IP requests per minute on /api/* (default 30)
-  RATE_LIMIT_PER_DAY    per-IP requests per day on /api/* (default 300)
+  RATE_LIMIT_PER_MIN    per-student requests per minute on /api/* (default 30)
+  RATE_LIMIT_PER_DAY    per-student requests per day on /api/* (default 40)
+  IP_RATE_LIMIT_*       per-IP abuse backstop, deliberately much higher
+
+Limits key on the X-Client-Id header, not the IP — see require_access.
 """
 from __future__ import annotations
 
@@ -251,6 +260,36 @@ def _cache_control() -> dict:
     if CACHE_TTL != "5m":
         cc["ttl"] = CACHE_TTL
     return cc
+
+
+def _api_error(e: anthropic.APIError) -> HTTPException:
+    """Translate an Anthropic error into something a student can act on.
+
+    `f"Anthropic error: {e}"` leaks internal detail and reads as a crash. Two
+    cases genuinely reach students: the organisation's monthly spend cap being
+    hit — which looks like a total outage unless it's named — and transient
+    overload. Everything else is logged for you and shown as a generic retry.
+    """
+    etype = getattr(e, "type", None)
+    status = getattr(e, "status_code", None)
+
+    if etype == "billing_error" or status == 402:
+        log.error("BILLING: spend cap or credit exhausted — %s", e)
+        return HTTPException(
+            503,
+            "Captain Thermo has reached its monthly usage budget. "
+            "Please let Prof Ng know — normal service resumes once it's topped up.",
+        )
+    if status == 429:
+        return HTTPException(429, "Captain Thermo is busy right now — try again in a moment.")
+    if status == 401 or status == 403:
+        log.error("AUTH/PERMISSION problem talking to Anthropic: %s", e)
+        return HTTPException(503, "Captain Thermo is misconfigured. Please let Prof Ng know.")
+    if status and status >= 500:
+        return HTTPException(503, "Captain Thermo is temporarily unavailable — try again shortly.")
+
+    log.warning("Unclassified Anthropic error: %s", e)
+    return HTTPException(502, "Something went wrong reaching Claude. Please try again.")
 
 
 def _system_blocks(role_prompt: str) -> list[dict]:
@@ -516,7 +555,9 @@ def chat(req: ChatRequest, _: str = Depends(require_access)):
                 _record_usage(MODEL_DEFAULT, stream.get_final_message().usage)
                 yield f"data: {json.dumps({'done': True})}\n\n"
         except anthropic.APIError as e:
-            yield f"data: {json.dumps({'error': str(e)})}\n\n"
+            # Same translation as the JSON endpoints; the raw message would be
+            # shown verbatim in the chat bubble.
+            yield f"data: {json.dumps({'error': _api_error(e).detail})}\n\n"
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
@@ -578,7 +619,7 @@ def generate_problem(req: GenerateRequest, _: str = Depends(require_access)):
             output_config={"format": {"type": "json_schema", "schema": PROBLEM_SCHEMA}},
         )
     except anthropic.APIError as e:
-        raise HTTPException(502, f"Anthropic error: {e}") from e
+        raise _api_error(e) from e
 
     _record_usage(MODEL_DEFAULT, resp.usage)
     return _extract_json(resp)
@@ -683,7 +724,7 @@ def grade(req: GradeRequest, _: str = Depends(require_access)):
             },
         )
     except anthropic.APIError as e:
-        raise HTTPException(502, f"Anthropic error: {e}") from e
+        raise _api_error(e) from e
 
     _record_usage(MODEL_GRADER, resp.usage)
     return _extract_json(resp)
@@ -737,7 +778,7 @@ def flashcards(req: FlashcardRequest, _: str = Depends(require_access)):
             output_config={"format": {"type": "json_schema", "schema": FLASHCARD_SCHEMA}},
         )
     except anthropic.APIError as e:
-        raise HTTPException(502, f"Anthropic error: {e}") from e
+        raise _api_error(e) from e
 
     _record_usage(MODEL_FLASHCARDS, resp.usage)
     return _extract_json(resp)
