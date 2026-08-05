@@ -1,0 +1,127 @@
+{
+ "L0": {
+  "topic": "L0 — Introduction to Thermodynamics",
+  "cards": [
+   {
+    "front": "Define a closed system and distinguish it from an open system.",
+    "back": "A closed system allows energy (heat and work) to cross its boundary but not matter. An open system allows both matter and energy to cross. Example: a sealed pot of boiling water is closed; a coffee cup with an open top is open.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "State the First Law of Thermodynamics in words and then in symbols (using our convention).",
+    "back": "Energy is never created or destroyed; it is only transferred or converted. Symbolically: $\\Delta U = Q + W$, where $\\Delta U$ is the change in internal energy, $Q$ is heat absorbed by the system, and $W$ is work done on the system.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Explain why the sign convention matters in $\\Delta U = Q + W$. What happens if you use the opposite convention?",
+    "back": "In our convention, $Q > 0$ means heat flows into the system and $W > 0$ means work is done on the system (compression). If you swap to $W = $ work done *by* the system, the First Law becomes $\\Delta U = Q - W$. The physics is identical; only the bookkeeping sign flips. Always state which convention you are using.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "What is the key difference between a state function and a path function?",
+    "back": "A state function (like $U$, $H$, $S$) depends only on the present macrostate and is independent of how you got there; $\\Delta$ between two states is well-defined. A path function (like $Q$ and $W$) depends on the route taken; you can only talk about $\\delta Q$ or $\\delta W$ along a specific path, never the \"total heat in the system.\"",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Why is internal energy $U$ a state function while heat $Q$ is not, even though both relate to energy?",
+    "back": "Internal energy $U$ is a microscopic property—the sum of all kinetic and potential energies of atoms/molecules in a system. It depends only on the current state (temperature, pressure, composition). Heat is energy *in transit* across a boundary; it only has meaning during a process, not as a static property. Two states may have the same $U$ but different amounts of $Q$ absorbed depending on the path connecting them.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "List three forms of work other than pressure-volume work and write the expression for one.",
+    "back": "Electrical work: $W_{\\text{elec}} = V \\cdot I \\cdot t$ (voltage × current × time). Magnetic work: $W_{\\text{mag}} \\propto H \\cdot M$ (field × magnetisation). Surface work: $W_{\\text{surf}} = \\gamma \\cdot \\mathrm{d}A$ (surface tension × area change). Chemical work (bond-breaking) is also relevant in phase changes.",
+    "difficulty": 1,
+    "category": "equation"
+   },
+   {
+    "front": "Derive the expression for reversible expansion work $\\delta W = -P\\,\\mathrm{d}V$ from first principles.",
+    "back": "Work is force times displacement: $W = F \\cdot d$. For a piston of area $A$, force is $F = P \\cdot A$. When the volume changes by $\\mathrm{d}V = A \\cdot dx$, the work done *on* the gas is $\\delta W = P \\cdot A \\cdot (-\\mathrm{d}x) = -P\\,\\mathrm{d}V$ (negative sign because expansion is positive $\\mathrm{d}V$ but work goes out of the system).",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "A gas expands against a constant external pressure of 2 atm. Is the work done reversible or irreversible?",
+    "back": "Irreversible. In a reversible process, the external pressure equals the gas pressure at every instant (quasi-static). Here, if the gas is pushing against a fixed external pressure, the process is not quasi-static. The gas pressure drops as it expands, so external pressure cannot equal it throughout. Irreversible expansion does *less* work than reversible expansion between the same two states.",
+    "difficulty": 2,
+    "category": "pitfall"
+   },
+   {
+    "front": "Why is density (mass/volume) an intensive property while mass is extensive?",
+    "back": "Intensive properties are independent of system size: if you combine two identical samples, the density stays the same. Extensive properties scale with size: combining two samples doubles the mass. Since density = mass/volume (ratio of two extensives), it is intensive because both numerator and denominator scale equally, cancelling the size factor.",
+    "difficulty": 1,
+    "category": "concept"
+   },
+   {
+    "front": "Give an example of a process with only heat transfer and another with only work done. Explain why mixing them is thermodynamically interesting.",
+    "back": "Heat only: sunlight warming a rock (no mechanical work, just radiative energy transfer). Work only: adiabatic compression of gas in an insulated piston (boundary prevents heat flow; volume change is pure work). Most real processes involve both; the balance between $Q$ and $W$ determines whether $U$ rises or falls—central to understanding engines, refrigerators, and chemical reactions.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Complete the statement: a process is adiabatic if ___. Name one example from materials science.",
+    "back": "A process is adiabatic if $Q = 0$ (no heat crosses the boundary). Example: rapid expansion of helium through a valve in an insulated tank (Joule-Thomson throttling), or quenching a hot metal part in a well-insulated chamber. In both, the short timescale prevents significant heat loss despite temperature changes.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "What does the Third Law of Thermodynamics tell us, and why is it important for computing absolute entropies?",
+    "back": "The Third Law states: the entropy of a perfect crystalline solid approaches zero as temperature approaches 0 K. This gives us a universal reference point ($S_0 = 0$ at 0 K) so we can define absolute entropies instead of only entropy *changes*. All tabulated $S^\\circ_{298}$ values rely on integrating from 0 K upward, using the Third Law as the anchor.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Distinguish between $\\mathrm{d}U$, $\\partial U$, $\\delta Q$, and $\\Delta U$.",
+    "back": "$\\mathrm{d}U$ = infinitesimal change in the state function $U$ (exact differential). $\\partial U$ = partial derivative of $U$ with respect to one variable holding others fixed. $\\delta Q$ = infinitesimal heat transfer along a *path* (inexact differential; not a state function). $\\Delta U$ = finite total change in $U$ between two states (path-independent). Use $\\mathrm{d}$ for state functions, $\\delta$ for path functions, $\\Delta$ for integrated changes.",
+    "difficulty": 2,
+    "category": "pitfall"
+   },
+   {
+    "front": "Why can you write $\\mathrm{d}U$ but never $\\mathrm{d}Q$?",
+    "back": "$U$ is a state function: its value is uniquely determined by the current macrostate, so the differential $\\mathrm{d}U$ represents a true infinitesimal change between states. $Q$ is a path function: it only exists during a process (energy in transit across a boundary), not as a static property. You must write $\\delta Q$ to signal that the heat depends on the path taken.",
+    "difficulty": 3,
+    "category": "pitfall"
+   },
+   {
+    "front": "A 5 kg box is lifted 2 m against gravity. Calculate the work done. Then explain whether this equals the change in the box's internal energy.",
+    "back": "Work $W = mgh = 5 \\times 9.81 \\times 2 = 98.1$ J. This work goes into gravitational potential energy, not into the box's internal energy (kinetic energy of atoms). The box's temperature and microscopic state do not change, so $\\Delta U = 0$. The potential energy is *not* internal energy; it is work done by an external field.",
+    "difficulty": 2,
+    "category": "pitfall"
+   },
+   {
+    "front": "Use the power rule to differentiate $y = 2x^4$, then explain how this applies to computing $\\Delta H$ when $C_P$ is given as a polynomial.",
+    "back": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 8x^3$ (bring down the 4, reduce exponent by 1). For $C_P = a + bT + c/T^2$, integrating gives $\\Delta H = a\\Delta T + \\frac{b}{2}(T_2^2 - T_1^2) - c(1/T_2 - 1/T_1)$. Each power of $T$ is integrated by the reverse power rule.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "What is the physical meaning of the molar Gibbs energy (chemical potential) $\\mu$, and why does it appear at phase equilibrium?",
+    "back": "The molar Gibbs energy $\\mu = G/n$ represents the Gibbs energy per mole of a substance. At equilibrium between two phases, the chemical potentials of each component are *equal* in both phases: $\\mu_A^{\\text{phase 1}} = \\mu_A^{\\text{phase 2}}$. This equality is the condition for zero net diffusion—no spontaneous transfer of atoms between phases.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Describe the relationship between intensive and extensive variables. If you double a system's size, what happens to each?",
+    "back": "Extensive variables (mass, $V$, $U$, $S$) scale linearly with system size; doubling the system doubles them. Intensive variables ($T$, $P$, density, molar mass) are independent of size; doubling the system leaves them unchanged. Molar or specific quantities (dividing extensive by moles or mass) convert extensive to intensive.",
+    "difficulty": 1,
+    "category": "concept"
+   },
+   {
+    "front": "The Zeroth Law of Thermodynamics states: if A and B are each in equilibrium with C, then A and B are in equilibrium with each other. Why does this law justify a definition of temperature?",
+    "back": "The Zeroth Law establishes that thermal equilibrium is a transitive relation. This allows us to define a single *number*—temperature—that characterizes thermal equilibrium. Two systems at the same temperature are in thermal equilibrium; if they touch heat will not flow. Without the Zeroth Law, we couldn't use a single thermometer to compare multiple systems reliably.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Is it possible for a system to have zero internal energy? Explain.",
+    "back": "No (for a real substance). Internal energy includes kinetic energy from thermal motion of atoms. At absolute zero (0 K, unattainable by the Third Law), $U \\to 0$ only for a perfect crystal with no vibrational, rotational, or electronic motion. At any measurable temperature, atoms jiggle and $U > 0$. In practice, we always measure *changes* $\\Delta U$, not absolute $U$.",
+    "difficulty": 3,
+    "category": "pitfall"
+   }
+  ]
+ }
+}

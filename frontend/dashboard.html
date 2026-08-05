@@ -101,6 +101,38 @@ async function load() {
     table(d.concepts, [["Lecture", r=>r.topic], ["Concept", r=>r.concept],
                        ["n", r=>r.n], ["Mean score", r=>r.avg_score]])));
 
+  const imp = (d.improvement || [])[0];
+  if (imp && imp.pairs) {
+    const pct = (n) => `${n} (${Math.round(n / imp.pairs * 100)}%)`;
+    out.push(card("Did the feedback help?",
+      "Paired submissions: the same student attempting the same concept again after being graded. " +
+      "Pairs more than 72h apart are excluded — those aren't a response to feedback.",
+      `<div class="grid grid-cols-4 gap-4 mb-4">
+        ${[["Pairs", imp.pairs], ["Mean before", imp.mean_before], ["Mean after", imp.mean_after],
+           ["Mean gain", (imp.mean_gain > 0 ? "+" : "") + imp.mean_gain]]
+          .map(([k,v]) => `<div><div class="text-xl font-bold">${esc(v)}</div>
+            <div class="text-xs text-gray-400">${k}</div></div>`).join("")}
+       </div>
+       ${table([{}], [["Improved", ()=>pct(imp.improved)], ["Unchanged", ()=>pct(imp.unchanged)],
+                      ["Got worse", ()=>pct(imp.worse)],
+                      ["Median gap", ()=>Math.round(imp.mean_minutes_between||0) + " min"]])}`));
+    if ((d.improvement_by_topic||[]).length)
+      out.push(card("Improvement by lecture", "Where feedback lands, and where it doesn't.",
+        table(d.improvement_by_topic, [["Lecture", r=>r.topic], ["Pairs", r=>r.pairs],
+                                       ["Mean gain", r=>(r.mean_gain>0?"+":"")+r.mean_gain]])));
+  }
+
+  if ((d.conversation_depth||[]).length)
+    out.push(card("Conversation depth",
+      "Turns per tutor conversation. Tests whether Socratic questioning gets students there — " +
+      "a long tail means students are working it through; a spike at 1 means they gave up.",
+      hbar(d.conversation_depth, r=>r.turns + (r.turns===1?" turn":" turns"), r=>r.conversations)));
+
+  if ((d.solution_reveal||[]).length)
+    out.push(card("Time before revealing the worked solution",
+      "A short delay reads as answer-seeking; a long one as a genuine attempt first.",
+      hbar(d.solution_reveal, r=>r.bucket, r=>r.n)));
+
   out.push(card("Tool usage", "Which tools students actually reach for.",
     table(d.by_tool, [["Tool", r=>r.tool], ["Requests", r=>r.n], ["Students", r=>r.students],
                       ["Spend", r=>"$"+(r.spend??0)], ["Mean latency", r=>Math.round(r.avg_ms||0)+" ms"]])));

@@ -35,7 +35,7 @@ from pathlib import Path
 
 log = logging.getLogger("captain_thermo.analytics")
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 # On Render this should point at a mounted disk; the container filesystem is
 # wiped on every deploy, which would silently discard a term of data.
@@ -77,6 +77,22 @@ CREATE TABLE IF NOT EXISTS events (
   image_count     INTEGER,
   -- engagement
   turn_index      INTEGER,            -- nth turn of a chat conversation
+  -- Groups turns into one conversation, and successive practice/grade events
+  -- into one working session. Without it turn_index is unusable: you can count
+  -- turns but not conversations, so "median turns to resolution" — the number
+  -- that actually tests whether Socratic gating works — can't be computed.
+  -- Cannot be retro-fitted, which is why it ships before students arrive.
+  session_id      TEXT,
+  -- Set when a submission follows an earlier grading of the same concept by
+  -- the same student. Turns "47 conceptual errors on L4" into "conceptual
+  -- errors on L4 fell 60% after one round of feedback".
+  prior_event_id  INTEGER,
+  prior_score     INTEGER,
+  minutes_since_prior REAL,
+  -- Practice: was the worked solution revealed, and how long after the problem
+  -- appeared? A short delay is answer-seeking; a long one is productive
+  -- struggle. Null means never opened.
+  solution_revealed_after_s REAL,
   -- performance & cost
   latency_ms      INTEGER,
   cache_read      INTEGER,
@@ -91,6 +107,8 @@ CREATE INDEX IF NOT EXISTS ix_events_day    ON events(day);
 CREATE INDEX IF NOT EXISTS ix_events_tool   ON events(tool);
 CREATE INDEX IF NOT EXISTS ix_events_topic  ON events(topic);
 CREATE INDEX IF NOT EXISTS ix_events_student ON events(student);
+CREATE INDEX IF NOT EXISTS ix_events_session ON events(session_id);
+CREATE INDEX IF NOT EXISTS ix_events_concept ON events(student, concept);
 """
 
 
@@ -137,11 +155,11 @@ def cost(model: str, usage, cache_ttl: str = "1h") -> float:
     ) / 1e6
 
 
-def record(**f) -> None:
-    """Insert one event. Silently drops on any failure — never breaks a request."""
+def record(**f) -> int | None:
+    """Insert one event, returning its id. Drops silently on failure — never breaks a request."""
     conn = _connect()
     if conn is None:
-        return
+        return None
     now = datetime.now(timezone.utc)
     row = {
         "ts": now.isoformat(timespec="seconds"),
@@ -152,18 +170,23 @@ def record(**f) -> None:
         **{k: f.get(k) for k in (
             "student", "tool", "topic", "difficulty", "served_from", "model",
             "verdict", "error_type", "score", "concept", "image_count",
-            "turn_index", "latency_ms", "cache_read", "cache_write",
+            "turn_index", "session_id", "prior_event_id", "prior_score",
+            "minutes_since_prior", "solution_revealed_after_s",
+            "latency_ms", "cache_read", "cache_write",
             "in_tokens", "out_tokens", "cost_usd", "error_kind")},
         "ok": 1 if f.get("ok", True) else 0,
     }
     cols = ",".join(row)
     try:
         with _lock:
-            conn.execute(f"INSERT INTO events ({cols}) VALUES ({','.join('?' * len(row))})",
-                         list(row.values()))
+            cur = conn.execute(
+                f"INSERT INTO events ({cols}) VALUES ({','.join('?' * len(row))})",
+                list(row.values()))
             conn.commit()
+            return cur.lastrowid
     except Exception as e:                        # noqa: BLE001
         log.warning("analytics insert failed: %s", e)
+    return None
 
 
 def _rows(sql: str, params: tuple = ()) -> list[dict]:
@@ -178,6 +201,36 @@ def _rows(sql: str, params: tuple = ()) -> list[dict]:
     except Exception as e:                        # noqa: BLE001
         log.warning("analytics query failed: %s", e)
         return []
+
+
+def find_prior_attempt(student: str | None, concept: str | None,
+                       within_hours: int = 72) -> dict | None:
+    """The same student's most recent graded attempt at the same concept.
+
+    Used to link a resubmission to what came before, so the pair can be read as
+    a learning event rather than two unrelated rows. Bounded by `within_hours`
+    because two attempts a month apart aren't a response to feedback — they're
+    just two attempts, and treating them as a before/after pair would inflate
+    any measured improvement.
+    """
+    if not student or not concept:
+        return None
+    rows = _rows(
+        "SELECT id, score, ts FROM events WHERE student=? AND concept=? "
+        "AND tool='grade' AND ok=1 AND score IS NOT NULL "
+        "ORDER BY id DESC LIMIT 1", (student, concept))
+    if not rows:
+        return None
+    prior = rows[0]
+    try:
+        then = datetime.fromisoformat(prior["ts"])
+        mins = (datetime.now(timezone.utc) - then).total_seconds() / 60
+    except (ValueError, TypeError):
+        return None
+    if mins > within_hours * 60:
+        return None
+    return {"prior_event_id": prior["id"], "prior_score": prior["score"],
+            "minutes_since_prior": round(mins, 1)}
 
 
 def summary() -> dict:
@@ -241,6 +294,42 @@ def summary() -> dict:
                           "GROUP BY verdict"),
         "errors": _rows("SELECT error_kind, COUNT(*) n FROM events WHERE ok=0 "
                         "GROUP BY error_kind ORDER BY n DESC"),
+
+        # --- schema v2: the "did it actually help?" questions ---
+
+        # Does feedback change the next attempt? Each row is a genuine
+        # before/after pair on the same concept by the same student.
+        "improvement": _rows(
+            "SELECT COUNT(*) pairs, ROUND(AVG(prior_score),2) mean_before, "
+            "ROUND(AVG(score),2) mean_after, ROUND(AVG(score - prior_score),2) mean_gain, "
+            "SUM(CASE WHEN score > prior_score THEN 1 ELSE 0 END) improved, "
+            "SUM(CASE WHEN score = prior_score THEN 1 ELSE 0 END) unchanged, "
+            "SUM(CASE WHEN score < prior_score THEN 1 ELSE 0 END) worse, "
+            "ROUND(AVG(minutes_since_prior)) mean_minutes_between "
+            "FROM events WHERE prior_event_id IS NOT NULL AND score IS NOT NULL"),
+        "improvement_by_topic": _rows(
+            "SELECT topic, COUNT(*) pairs, ROUND(AVG(score - prior_score),2) mean_gain "
+            "FROM events WHERE prior_event_id IS NOT NULL AND score IS NOT NULL "
+            "GROUP BY topic HAVING pairs >= 2 ORDER BY mean_gain DESC"),
+
+        # Does Socratic questioning get students there, and in how many turns?
+        # Abandonment is the honest counterweight to a low median.
+        "conversation_depth": _rows(
+            "SELECT turns, COUNT(*) conversations FROM ("
+            "  SELECT session_id, MAX(turn_index) turns FROM events "
+            "  WHERE tool='chat' AND ok=1 AND session_id IS NOT NULL "
+            "  GROUP BY session_id"
+            ") GROUP BY turns ORDER BY turns"),
+
+        # Short delay = answer-seeking; long delay = productive struggle.
+        "solution_reveal": _rows(
+            "SELECT CASE "
+            "  WHEN solution_revealed_after_s IS NULL THEN 'never opened' "
+            "  WHEN solution_revealed_after_s < 30 THEN 'under 30s' "
+            "  WHEN solution_revealed_after_s < 120 THEN '30s-2min' "
+            "  WHEN solution_revealed_after_s < 600 THEN '2-10min' "
+            "  ELSE 'over 10min' END AS bucket, COUNT(*) n "
+            "FROM events WHERE tool='generate' AND ok=1 GROUP BY bucket"),
     }
 
 

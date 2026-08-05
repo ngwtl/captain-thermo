@@ -162,10 +162,13 @@ Storage is a 1 GB Render disk at `/var/data` (see `render.yaml`). The container 
 Practice problems and flashcards are **not** generated per request. They're built once by `scripts/build_bank.py` via the Batch API (50% off) and committed to `course_content/generated/`, so they ship inside the container and survive deploys — Render has no persistent disk.
 
 ```bash
-python scripts/build_bank.py                      # ~10 min, submits one batch
-python scripts/build_bank.py --resume BATCH_ID    # collect an earlier run
+python scripts/build_bank.py --direct             # ordinary API calls, ~15 min
+python scripts/build_bank.py                      # Batch API, 50% off, queue-dependent
+python scripts/build_bank.py --resume BATCH_ID    # collect an earlier batch
 python scripts/build_bank.py --per-combo 15       # more variety per topic
 ```
+
+`--direct` costs about 2× what batch does (~$19 vs ~$10) but finishes in minutes. Batch runs on Anthropic's queue and can sit for hours — and every hour spent waiting is an hour the app keeps generating live at the higher per-request rate, which erases the saving. If a batch hasn't started after ~30 minutes, cancel it and use `--direct`.
 
 Why this beats generating live:
 

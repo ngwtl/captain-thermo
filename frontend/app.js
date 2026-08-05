@@ -38,6 +38,23 @@ if (!clientId) {
   localStorage.setItem("ct_client_id", clientId);
 }
 
+// ---------- Session id ----------
+// Groups a burst of activity into one working session so turns can be counted
+// as conversations. Resets after 30 min idle — a student returning the next
+// evening is a new session, not a 12-hour conversation.
+const SESSION_IDLE_MS = 30 * 60 * 1000;
+function sessionId() {
+  const now = Date.now();
+  let id = sessionStorage.getItem("ct_session");
+  const last = Number(sessionStorage.getItem("ct_session_at") || 0);
+  if (!id || now - last > SESSION_IDLE_MS) {
+    id = (crypto.randomUUID && crypto.randomUUID()) || `${now}-${Math.random().toString(36).slice(2)}`;
+    sessionStorage.setItem("ct_session", id);
+  }
+  sessionStorage.setItem("ct_session_at", String(now));
+  return id;
+}
+
 function authHeaders(extra = {}) {
   const h = { "Content-Type": "application/json", ...extra };
   if (passcode) h["X-Passcode"] = passcode;
@@ -165,7 +182,7 @@ chatForm.addEventListener("submit", async (e) => {
   try {
     const resp = await apiFetch(API + "/api/chat", {
       method: "POST",
-      body: JSON.stringify({ messages }),
+      body: JSON.stringify({ messages, session_id: sessionId() }),
     });
     if (!resp.ok || !resp.body) {
       assistantBody.textContent = "Network error.";
@@ -291,7 +308,7 @@ practiceForm.addEventListener("submit", async (e) => {
   try {
     const r = await apiFetch(API + "/api/generate", {
       method: "POST",
-      body: JSON.stringify({ topic, difficulty }),
+      body: JSON.stringify({ topic, difficulty, session_id: sessionId() }),
     });
     const p = await r.json();
     practiceOut.innerHTML = `
@@ -316,6 +333,28 @@ practiceForm.addEventListener("submit", async (e) => {
       </details>
     `;
     typeset(practiceOut);
+
+    // How long before the student opened the worked solution? Fires once, on
+    // first open. A short delay reads as answer-seeking; a long one as a
+    // genuine attempt. Fire-and-forget — analytics must never break the page.
+    const shownAt = Date.now();
+    const details = practiceOut.querySelector("details");
+    if (details) {
+      details.addEventListener("toggle", () => {
+        if (!details.open || details.dataset.logged) return;
+        details.dataset.logged = "1";
+        fetch(API + "/api/telemetry/solution-revealed", {
+          method: "POST",
+          headers: authHeaders(),
+          body: JSON.stringify({
+            session_id: sessionId(),
+            topic: p.topic,
+            seconds: (Date.now() - shownAt) / 1000,
+          }),
+          keepalive: true,
+        }).catch(() => {});
+      });
+    }
   } catch (err) {
     practiceOut.innerHTML = `<div class="text-red-400">Error: ${err.message}</div>`;
   } finally {
@@ -470,6 +509,7 @@ gradeForm.addEventListener("submit", async (e) => {
       problem,
       student_work: work,
       images: gradeImages.map(({ media_type, data }) => ({ media_type, data })),
+      session_id: sessionId(),
     };
     const r = await apiFetch(API + "/api/grade", {
       method: "POST",
@@ -523,7 +563,7 @@ cardsForm.addEventListener("submit", async (e) => {
   try {
     const r = await apiFetch(API + "/api/flashcards", {
       method: "POST",
-      body: JSON.stringify({ topic, count: 10 }),
+      body: JSON.stringify({ topic, count: 10, session_id: sessionId() }),
     });
     const deck = await r.json();
     if (!Array.isArray(deck.cards) || deck.cards.length === 0) {

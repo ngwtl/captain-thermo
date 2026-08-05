@@ -467,11 +467,13 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: list[ChatMessage]
+    session_id: str | None = Field(default=None, max_length=64)
 
 
 class GenerateRequest(BaseModel):
     topic: str = Field(description="Lecture code (L1..L8) or topic name")
     difficulty: Literal["easy", "medium", "hard"] = "medium"
+    session_id: str | None = Field(default=None, max_length=64)
 
 
 class GradeImage(BaseModel):
@@ -484,11 +486,13 @@ class GradeRequest(BaseModel):
     student_work: str = ""
     images: list[GradeImage] = Field(default_factory=list, max_length=8)
     reference_solution: str | None = None
+    session_id: str | None = Field(default=None, max_length=64)
 
 
 class FlashcardRequest(BaseModel):
     topic: str
     count: int = Field(default=10, ge=3, le=20)
+    session_id: str | None = Field(default=None, max_length=64)
 
 
 # ---------- open endpoints (no passcode / rate limit) ----------
@@ -566,7 +570,7 @@ def chat(req: ChatRequest, student: str = Depends(require_access)):
                     cost_usd=analytics.cost(MODEL_DEFAULT, u, CACHE_TTL))
                 yield f"data: {json.dumps({'done': True})}\n\n"
         except anthropic.APIError as e:
-            analytics.record(student=analytics.pseudonym(student), tool="chat",
+            analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="chat",
                              served_from="live", model=MODEL_DEFAULT, turn_index=turn,
                              ok=False, error_kind=type(e).__name__)
             # Same translation as the JSON endpoints; the raw message would be
@@ -616,7 +620,7 @@ def generate_problem(req: GenerateRequest, student: str = Depends(require_access
     if USE_BANK:
         banked = bank.get_problem(req.topic, req.difficulty)
         if banked:
-            analytics.record(student=analytics.pseudonym(student), tool="generate",
+            analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="generate",
                              topic=req.topic, difficulty=req.difficulty,
                              served_from="bank", cost_usd=0.0,
                              latency_ms=int((time.time() - t0) * 1000))
@@ -638,14 +642,14 @@ def generate_problem(req: GenerateRequest, student: str = Depends(require_access
             output_config={"format": {"type": "json_schema", "schema": PROBLEM_SCHEMA}},
         )
     except anthropic.APIError as e:
-        analytics.record(student=analytics.pseudonym(student), tool="generate",
+        analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="generate",
                          topic=req.topic, difficulty=req.difficulty, served_from="live",
                          model=MODEL_DEFAULT, ok=False, error_kind=type(e).__name__)
         raise _api_error(e) from e
 
     _record_usage(MODEL_DEFAULT, resp.usage)
     u = resp.usage
-    analytics.record(student=analytics.pseudonym(student), tool="generate",
+    analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="generate",
                      topic=req.topic, difficulty=req.difficulty, served_from="live",
                      model=MODEL_DEFAULT, latency_ms=int((time.time() - t0) * 1000),
                      cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
@@ -772,7 +776,7 @@ def grade(req: GradeRequest, student: str = Depends(require_access)):
             },
         )
     except anthropic.APIError as e:
-        analytics.record(student=analytics.pseudonym(student), tool="grade",
+        analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="grade",
                          served_from="live", model=MODEL_GRADER,
                          image_count=len(req.images), ok=False, error_kind=type(e).__name__)
         raise _api_error(e) from e
@@ -780,7 +784,12 @@ def grade(req: GradeRequest, student: str = Depends(require_access)):
     _record_usage(MODEL_GRADER, resp.usage)
     out = _extract_json(resp)
     u = resp.usage
+    # Link to the same student's last attempt at this concept, so the pair
+    # reads as a learning event rather than two unrelated submissions.
+    prior = analytics.find_prior_attempt(
+        analytics.pseudonym(student), out.get("concept_tested")) or {}
     analytics.record(
+        **prior,
         student=analytics.pseudonym(student), tool="grade", served_from="live",
         model=MODEL_GRADER, latency_ms=int((time.time() - t0) * 1000),
         # The classification the grader just produced for free — this is the
@@ -827,7 +836,7 @@ def flashcards(req: FlashcardRequest, student: str = Depends(require_access)):
     if USE_BANK:
         banked = bank.get_cards(req.topic, req.count)
         if banked:
-            analytics.record(student=analytics.pseudonym(student), tool="flashcards",
+            analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="flashcards",
                              topic=req.topic, served_from="bank", cost_usd=0.0,
                              latency_ms=int((time.time() - t0) * 1000))
             return banked  # sampled from a larger pre-built deck
@@ -846,20 +855,40 @@ def flashcards(req: FlashcardRequest, student: str = Depends(require_access)):
             output_config={"format": {"type": "json_schema", "schema": FLASHCARD_SCHEMA}},
         )
     except anthropic.APIError as e:
-        analytics.record(student=analytics.pseudonym(student), tool="flashcards",
+        analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="flashcards",
                          topic=req.topic, served_from="live", model=MODEL_FLASHCARDS,
                          ok=False, error_kind=type(e).__name__)
         raise _api_error(e) from e
 
     _record_usage(MODEL_FLASHCARDS, resp.usage)
     u = resp.usage
-    analytics.record(student=analytics.pseudonym(student), tool="flashcards",
+    analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="flashcards",
                      topic=req.topic, served_from="live", model=MODEL_FLASHCARDS,
                      latency_ms=int((time.time() - t0) * 1000),
                      cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
                      in_tokens=u.input_tokens, out_tokens=u.output_tokens,
                      cost_usd=analytics.cost(MODEL_FLASHCARDS, u, CACHE_TTL))
     return _extract_json(resp)
+
+
+class RevealEvent(BaseModel):
+    session_id: str | None = Field(default=None, max_length=64)
+    topic: str | None = Field(default=None, max_length=16)
+    seconds: float = Field(ge=0, le=86400)
+
+
+@app.post("/api/telemetry/solution-revealed")
+def solution_revealed(ev: RevealEvent, student: str = Depends(require_access)) -> dict:
+    """Student opened the worked solution, `seconds` after the problem appeared.
+
+    A short delay suggests answer-seeking; a long one suggests the student
+    actually attempted it first. Recorded as its own row rather than mutating
+    the original generate event, so the event log stays append-only.
+    """
+    analytics.record(student=analytics.pseudonym(student), tool="generate",
+                     topic=ev.topic, session_id=ev.session_id, served_from="bank",
+                     solution_revealed_after_s=ev.seconds, cost_usd=0.0)
+    return {"ok": True}
 
 
 @app.post("/api/prewarm")
