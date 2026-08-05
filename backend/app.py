@@ -926,6 +926,24 @@ def rate_feedback(ev: RatingEvent, student: str = Depends(require_access)) -> di
     return {"ok": True}
 
 
+class ResetRequest(BaseModel):
+    confirm: str = Field(description='Must be exactly "DELETE ALL ANALYTICS"')
+
+
+@app.post("/api/admin/reset")
+def admin_reset(req: ResetRequest, _: str = Depends(require_access)) -> dict:
+    """Wipe the analytics event log. Backs up to CSV first; refuses if that fails.
+
+    Deliberately awkward: a typed confirmation phrase, and no GET equivalent, so
+    it cannot be triggered by a link, a prefetch, or a stray click. The data it
+    destroys is a term of student usage that cannot be recreated.
+    """
+    result = analytics.reset(req.confirm)
+    if not result.get("ok"):
+        raise HTTPException(400, result.get("error", "reset refused"))
+    return result
+
+
 @app.post("/api/prewarm")
 async def prewarm(_: str = Depends(require_access)) -> dict:
     """Warm every model's corpus cache on demand.

@@ -372,6 +372,28 @@ def summary() -> dict:
             "COUNT(*) n FROM events WHERE ok=1 GROUP BY dow, hour",
             (TZ_OFFSET, TZ_OFFSET)),
         "tz_offset": TZ_OFFSET,
+
+        # Term progression: teaching week x weekday. The day-x-hour map above
+        # collapses the whole term into one average and so cannot show the arc
+        # — adoption ramping in weeks 1-3, spikes the night before each tutorial,
+        # the revision surge before exams. Week 0 is the week of the first
+        # event, so the row index reads as "week of term".
+        "heatmap_weekly": _rows(
+            "SELECT CAST((julianday(date(ts, ?)) - julianday((SELECT MIN(date(ts, ?)) "
+            "  FROM events WHERE ok=1))) / 7 AS INTEGER) AS week, "
+            "(CAST(strftime('%w', ts, ?) AS INTEGER) + 6) % 7 AS dow, "
+            "COUNT(*) n, COUNT(DISTINCT student) students "
+            "FROM events WHERE ok=1 GROUP BY week, dow ORDER BY week, dow",
+            (TZ_OFFSET, TZ_OFFSET, TZ_OFFSET)),
+
+        # Same weeks, one number each — the term-level trend line the weekly
+        # grid is a decomposition of.
+        "by_week": _rows(
+            "SELECT CAST((julianday(date(ts, ?)) - julianday((SELECT MIN(date(ts, ?)) "
+            "  FROM events WHERE ok=1))) / 7 AS INTEGER) AS week, "
+            "COUNT(*) n, COUNT(DISTINCT student) students, ROUND(SUM(cost_usd),2) spend "
+            "FROM events WHERE ok=1 GROUP BY week ORDER BY week",
+            (TZ_OFFSET, TZ_OFFSET)),
         # Divisor for the per-week average view. See _weekday_occurrences.
         **_observation_window(),
         "by_dow": _rows("SELECT dow, COUNT(*) n FROM events WHERE ok=1 "
@@ -475,6 +497,53 @@ def summary() -> dict:
             "  ELSE 'over 10min' END AS bucket, COUNT(*) n "
             "FROM events WHERE tool='generate' AND ok=1 GROUP BY bucket"),
     }
+
+
+def reset(confirm: str) -> dict:
+    """Delete all recorded events, after backing them up.
+
+    This throws away research data that cannot be recreated — a term of student
+    usage exists once. So it does two things before deleting anything:
+
+      1. Requires the caller to type the exact phrase, so it can't be triggered
+         by a stray click or a curl someone pasted from a chat log.
+      2. Writes a timestamped CSV of everything next to the database first. If
+         the reset turns out to have been a mistake — wrong environment, wrong
+         moment, a pilot week you actually wanted — the data is still there.
+
+    Deletes rows rather than the file so the schema, indexes and WAL survive,
+    and recording resumes immediately without a reconnect.
+    """
+    if confirm != "DELETE ALL ANALYTICS":
+        return {"ok": False, "error": "confirmation phrase did not match"}
+    conn = _connect()
+    if conn is None:
+        return {"ok": False, "error": "database unavailable"}
+
+    cols, rows = export_rows()
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    backup = DB_PATH.parent / f"analytics_backup_{stamp}.csv"
+    try:
+        import csv
+        with backup.open("w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(cols)
+            w.writerows(rows)
+    except Exception as e:                            # noqa: BLE001
+        # Refuse to delete if the safety net failed to deploy.
+        log.error("analytics reset aborted, backup failed: %s", e)
+        return {"ok": False, "error": f"backup failed, nothing deleted: {e}"}
+
+    try:
+        with _lock:
+            conn.execute("DELETE FROM events")
+            conn.commit()
+            conn.execute("VACUUM")
+    except Exception as e:                            # noqa: BLE001
+        return {"ok": False, "error": str(e)}
+
+    log.warning("ANALYTICS RESET: %d rows deleted, backup at %s", len(rows), backup)
+    return {"ok": True, "deleted": len(rows), "backup": str(backup)}
 
 
 def export_rows(since: str | None = None) -> tuple[list[str], list[tuple]]:

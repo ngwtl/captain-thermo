@@ -8,6 +8,7 @@
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .bar { background: #3b82f6; height: 10px; border-radius: 999px; }
+  .hm-week { display: grid; grid-template-columns: 3.2rem repeat(7, minmax(0,3rem)); gap: 2px; }
   .hm-grid { display: grid; grid-template-columns: 2.6rem repeat(24, 1fr); gap: 2px; min-width: 620px; }
   .hm-cell { aspect-ratio: 1; border-radius: 2px; box-shadow: inset 0 0 0 1px #374151; }
   .hm-lab { font-size: 0.7rem; color: #9ca3af; display: flex; align-items: center; }
@@ -39,6 +40,17 @@
   <footer class="noprint mt-10 pt-6 border-t border-gray-800 text-xs text-gray-500">
     <a id="csv" href="#" class="text-blue-400 hover:underline">Download full event CSV</a>
     · for analysis in R / Python / SPSS · one row per request
+    <div class="mt-4">
+      <button id="reset-btn" class="text-red-400 hover:text-red-300 underline">Reset all analytics data</button>
+      <div id="reset-box" class="hidden mt-2 p-3 bg-red-950 border border-red-800 rounded">
+        <p class="text-red-200 mb-2">This deletes every recorded event. A timestamped CSV backup
+           is written next to the database first, and the reset aborts if that backup fails.</p>
+        <p class="text-red-200 mb-2">Type <code class="bg-gray-800 px-1">DELETE ALL ANALYTICS</code> to confirm:</p>
+        <input id="reset-confirm" class="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-sm w-72" />
+        <button id="reset-go" class="ml-2 bg-red-700 hover:bg-red-600 text-white rounded px-3 py-1 text-sm">Reset</button>
+        <span id="reset-msg" class="ml-3"></span>
+      </div>
+    </div>
   </footer>
 </div>
 
@@ -126,6 +138,45 @@ function heatmap(rows, weekdayCounts, windowInfo) {
       <span>less</span>${legend}<span>more</span>
       <span class="ml-2 text-gray-500">peak ${fmt(max)}${heatMode === "week" ? "/week" : ""} in one hour</span>
     </div>`;
+}
+
+// Term progression: one row per teaching week, one column per weekday.
+// Shares the ramp and the quantile bucketing with the daily map; the axes are
+// what differ, and they answer a different question — the daily map shows the
+// rhythm of a typical week, this shows how the term unfolded.
+function weeklyHeatmap(rows) {
+  if (!rows || !rows.length) return '<p class="text-sm text-gray-500">No data yet.</p>';
+  const grid = {}, weeks = new Set();
+  rows.forEach(r => { grid[`${r.week}|${r.dow}`] = r; weeks.add(r.week); });
+  const maxWeek = Math.max(...weeks);
+
+  const nonzero = [];
+  for (let w = 0; w <= maxWeek; w++) for (let d = 0; d < 7; d++) {
+    const g = grid[`${w}|${d}`]; if (g && g.n > 0) nonzero.push(g.n);
+  }
+  nonzero.sort((a, b) => a - b);
+  const cuts = RAMP.slice(1).map((_, i) =>
+    nonzero.length ? nonzero[Math.floor(((i + 1) / RAMP.length) * (nonzero.length - 1))] : 0);
+  const colour = (v) => { if (!v) return "transparent"; let i = 0; while (i < cuts.length && v > cuts[i]) i++; return RAMP[i]; };
+
+  let body = "";
+  for (let w = 0; w <= maxWeek; w++) {
+    body += `<div class="hm-lab">wk ${w + 1}</div>`;
+    for (let d = 0; d < 7; d++) {
+      const g = grid[`${w}|${d}`], n = g ? g.n : 0;
+      const tip = `Week ${w + 1}, ${DOW[d]} — ${n} request${n === 1 ? "" : "s"}` +
+                  (g ? ` from ${g.students} student${g.students === 1 ? "" : "s"}` : "");
+      body += `<div class="hm-cell" style="background:${colour(n)}" title="${esc(tip)}"></div>`;
+    }
+  }
+  let head = '<div class="hm-lab"></div>' + DOW.map(x => `<div class="hm-hr">${x}</div>`).join("");
+  const legend = RAMP.map((c, i) =>
+    `<span class="inline-flex flex-col items-center gap-0.5">
+       <span class="inline-block w-8 h-2.5 rounded-sm" style="background:${c}"></span>
+       <span class="text-[0.6rem] text-gray-500">${i < cuts.length ? "\u2264" + cuts[i] : ">" + cuts[cuts.length-1]}</span>
+     </span>`).join("");
+  return `<div class="hm-week">${head}${body}</div>
+    <div class="mt-3 flex items-center gap-2 text-xs text-gray-400"><span>less</span>${legend}<span>more</span></div>`;
 }
 
 function hbar(rows, labelFn, valFn) {
@@ -218,6 +269,15 @@ async function load() {
     `occurred, so a quiet Monday doesn't inflate the other Mondays. Hover for detail.`,
     heatmap(d.heatmap, d.weekday_counts, d.window)));
 
+  out.push(card("How the term unfolded",
+    "One row per week of deployment, one column per weekday. This is the arc the " +
+    "daily map averages away — adoption ramping, spikes before tutorials, the revision surge.",
+    weeklyHeatmap(d.heatmap_weekly)));
+
+  if ((d.by_week || []).length) out.push(card("Weekly totals", "",
+    table(d.by_week, [["Week", r=>"wk " + (r.week + 1)], ["Requests", r=>r.n],
+                      ["Students", r=>r.students], ["Spend", r=>"$" + (r.spend ?? 0)]])));
+
   const weak = d.weak_concepts || [];
   if (weak.length) out.push(card("Where understanding is weak",
     "Ranked by mean score, minimum 3 attempts across 2+ students. " +
@@ -262,6 +322,19 @@ async function load() {
       table(d.errors, [["Kind", r=>r.error_kind], ["n", r=>r.n]])));
 
   $("out").innerHTML = out.join("");
+  $("reset-btn").onclick = () => $("reset-box").classList.toggle("hidden");
+  $("reset-go").onclick = async () => {
+    const resp = await fetch("/api/admin/reset", {
+      method: "POST", headers: {"Content-Type": "application/json", "X-Passcode": pass, "X-Client-Id": "dashboard"},
+      body: JSON.stringify({ confirm: $("reset-confirm").value }),
+    });
+    const body = await resp.json().catch(() => ({}));
+    $("reset-msg").textContent = resp.ok
+      ? `Deleted ${body.deleted} rows. Backup: ${String(body.backup).split("/").pop()}`
+      : (body.detail || "Reset refused.");
+    $("reset-msg").className = "ml-3 text-sm " + (resp.ok ? "text-green-400" : "text-red-300");
+    if (resp.ok) setTimeout(load, 1200);
+  };
   const tgl = $("hm-toggle");
   if (tgl) tgl.onclick = () => { heatMode = heatMode === "week" ? "total" : "week"; load(); };
   $("out").classList.remove("hidden");
