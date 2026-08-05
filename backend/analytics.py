@@ -184,9 +184,30 @@ def summary() -> dict:
     """Aggregates for the dashboard and for sharing with colleagues."""
     total = _rows("SELECT COUNT(*) n, COUNT(DISTINCT student) students, "
                   "ROUND(SUM(cost_usd),2) spend FROM events WHERE ok=1")
+    # Health of the collection itself. Both of these fail silently in ways that
+    # only become visible when you go to analyse a term of data and find it
+    # missing or unlinkable, so surface them where they'll be noticed.
+    on_disk = str(DB_PATH).startswith("/var/data") or str(DB_PATH).startswith("/data")
+    warnings = []
+    if not ENABLED:
+        warnings.append("ANALYTICS_ENABLED is false — nothing is being recorded.")
+    if _conn is None and ENABLED:
+        warnings.append(f"database could not be opened at {DB_PATH} — nothing is being recorded.")
+    if not on_disk:
+        warnings.append(
+            f"database is at {DB_PATH}, which is NOT a mounted disk — on Render this "
+            "is wiped on every deploy. Set ANALYTICS_DB=/var/data/analytics.db and "
+            "confirm the disk is attached.")
+    if _EPHEMERAL_SALT:
+        warnings.append(
+            "ANALYTICS_SALT is unset — student pseudonyms regenerate on every "
+            "restart, so retention and improvement analysis will be wrong.")
     return {
         "totals": total[0] if total else {},
         "schema_version": SCHEMA_VERSION,
+        "collection": {"db_path": str(DB_PATH), "on_persistent_disk": on_disk,
+                       "enabled": ENABLED, "stable_pseudonyms": not _EPHEMERAL_SALT,
+                       "warnings": warnings},
         "by_tool": _rows("SELECT tool, COUNT(*) n, COUNT(DISTINCT student) students, "
                          "ROUND(SUM(cost_usd),2) spend, ROUND(AVG(latency_ms)) avg_ms "
                          "FROM events WHERE ok=1 GROUP BY tool ORDER BY n DESC"),

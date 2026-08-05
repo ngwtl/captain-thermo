@@ -79,6 +79,12 @@ async function load() {
 
   const t = d.totals || {};
   const out = [];
+
+  const warn = (d.collection || {}).warnings || [];
+  if (warn.length) out.push(`<section class="bg-amber-950 border border-amber-700 rounded-lg p-4">
+    <div class="font-semibold text-amber-300 mb-2">⚠ Data collection needs attention</div>
+    <ul class="list-disc pl-5 text-sm text-amber-100 space-y-1">
+      ${warn.map(w => `<li>${esc(w)}</li>`).join("")}</ul></section>`);
   out.push(`<div class="grid grid-cols-3 gap-4">
     ${[["Requests", t.n ?? 0], ["Distinct students", t.students ?? 0], ["API spend", "$" + (t.spend ?? 0)]]
       .map(([k,v]) => `<div class="bg-gray-800 rounded-lg p-4">
