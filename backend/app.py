@@ -55,7 +55,7 @@ from pydantic import BaseModel, Field
 
 import analytics
 import bank
-from corpus import CORPUS, TOPIC_INDEX
+from corpus import CA_PAPERS, CORPUS, TOPIC_INDEX
 from prompts import (
     FLASHCARD_SYSTEM,
     GRADER_SYSTEM,
@@ -90,6 +90,14 @@ USE_BANK = os.getenv("USE_BANK", "true").lower() in ("1", "true", "yes")
 # 13.1s). The win here is latency — the cached corpus read dominates cost, so
 # effort barely moves the bill.
 GRADER_EFFORT = os.getenv("GRADER_EFFORT", "medium").strip()
+# Past CAs add ~40% to the corpus, so they're attached per-tool rather than
+# globally. The grader needs them — they're the only source for what earns full
+# marks in this course. The tutor's job is asking the next question, which the
+# notes already support, so it isn't charged 40% for them by default.
+# Costs nothing extra in cache prefixes: chat and grade already occupy separate
+# entries (different model, different schema).
+CA_FOR_GRADER = os.getenv("CA_FOR_GRADER", "true").lower() in ("1", "true", "yes")
+CA_FOR_TUTOR = os.getenv("CA_FOR_TUTOR", "false").lower() in ("1", "true", "yes")
 PREWARM_ON_STARTUP = os.getenv("PREWARM_ON_STARTUP", "true").lower() in ("1", "true", "yes")
 PREWARM_INTERVAL_MIN = int(os.getenv("PREWARM_INTERVAL_MIN", "50"))
 PREWARM_IDLE_AFTER_MIN = int(os.getenv("PREWARM_IDLE_AFTER_MIN", "90"))
@@ -293,7 +301,7 @@ def _api_error(e: anthropic.APIError) -> HTTPException:
     return HTTPException(502, "Something went wrong reaching Claude. Please try again.")
 
 
-def _system_blocks(role_prompt: str) -> list[dict]:
+def _system_blocks(role_prompt: str, include_ca: bool = False) -> list[dict]:
     """Build a two-block system: [cached course corpus, role-specific instructions].
 
     Two breakpoints: end of corpus, end of role prompt.
@@ -330,6 +338,7 @@ def _system_blocks(role_prompt: str) -> list[dict]:
                 "conventions, and equations.\n\n"
                 "===== MS1016 COURSE CORPUS =====\n\n"
                 + CORPUS
+                + (CA_PAPERS if (include_ca and CA_PAPERS) else "")
                 + "\n\n===== END CORPUS ====="
             ),
             "cache_control": _cache_control(),
@@ -416,7 +425,8 @@ def _prewarm_shape(label: str, model: str, role: str, schema: dict | None) -> di
             resp = client.messages.create(
                 model=model,
                 max_tokens=max_tokens,
-                system=_system_blocks(role),
+                system=_system_blocks(role, include_ca=(role is GRADER_SYSTEM and CA_FOR_GRADER)
+                                      or (role is TUTOR_SYSTEM and CA_FOR_TUTOR)),
                 messages=[{"role": "user", "content": "warmup"}],
                 **kwargs,
             )
@@ -551,7 +561,7 @@ def chat(req: ChatRequest, student: str = Depends(require_access)):
             with client.messages.stream(
                 model=MODEL_DEFAULT,
                 max_tokens=4096,
-                system=_system_blocks(TUTOR_SYSTEM),
+                system=_system_blocks(TUTOR_SYSTEM, include_ca=CA_FOR_TUTOR),
                 messages=messages,
             ) as stream:
                 for text in stream.text_stream:
@@ -768,7 +778,7 @@ def grade(req: GradeRequest, student: str = Depends(require_access)):
             # Unused tokens aren't billed.
             max_tokens=8192,
             thinking={"type": "adaptive"},
-            system=_system_blocks(GRADER_SYSTEM),
+            system=_system_blocks(GRADER_SYSTEM, include_ca=CA_FOR_GRADER),
             messages=[{"role": "user", "content": content}],
             output_config={
                 "format": {"type": "json_schema", "schema": GRADE_SCHEMA},

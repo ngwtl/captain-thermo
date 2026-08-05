@@ -1,0 +1,4630 @@
+
+========================================================================
+CA1 Sep 2021  (source: 1_CA1_solution_sept 2021.pdf)
+========================================================================
+NAME:_______________________________      MATRIC NUMBER:_________________    
+ 
+ 
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING 
+ 
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2021-2022 
+ 
+MS1016 – THERMODYNAMICS OF MATERIAL  
+ 
+ 
+20 September 2021 
+Time Allowed: 1 hour  
+ 
+INSTRUCTIONS 
+ 
+1. 
+This paper contains THREE (3) short questions and TEN (10) MCQ questions. 
+ 
+2. 
+Answer ALL questions. 
+ 
+3. 
+This is an open book test. 
+ 
+4. 
+All questions have ONLY ONE correct answer for the MCQ questions.  
+ 
+ 
+PART I – SHORT QUESTIONS 
+ 
+(1) 
+Explain the term ‘Isentropic’ condition. Name a process that is isentropic for a system 
+under a specific condition. 
+(20 marks)  
+ 
+Isentropic process is a process where the entropy is constant. This means the total 
+entropy change (system and surrounding).  
+ 
+dS = 0 
+ 
+Isentropic process is an idealized process in which the process is totally reversible. 
+By Carnot’s theorem, 
+ 
+𝑑𝑆= 𝛿𝑄
+𝑇 
+ 
+Based on the above equation, for a reversible process, isentropic process must imply  
+Q = 0. This mean that no heat is absorbed or released. This condition is also called 
+the adiabatic process. Therefore, an isentropic process is also an adiabatic process 
+when it is reversible. If the process is irreversible, then 
+ 
+dS = 
+ఋொ் > 0 
+ 
+This means Q > 0 implying that the process is not isentropic 
+ 
+
+2. Given dH = TdS + VdP. Show that  
+ 
+൬𝜕𝐻
+𝜕𝑃൰்
+= 𝑉(1 −𝛼𝑇) 
+ 
+ 
+where  is the isobaric coefficient of thermal expansion. V and T are the volume and 
+temperature respectively. H is the enthalpy, P, the pressure and S, the entropy. Given: dG 
+= VdP – SdT. 
+(20 marks) 
+ 
+Given                                       dH = TdS + VdP 
+ 
+൬𝜕𝐻
+𝜕𝑃൰்
+= 𝑇൬𝜕𝑆
+𝜕𝑃൰்+ 𝑉൬𝜕𝑃
+𝜕𝑃൰் 
+ 
+ 
+൬𝜕𝐻
+𝜕𝑃൰்
+= 𝑇൬𝜕𝑆
+𝜕𝑃൰்+ 𝑉 
+ 
+From Maxwell’ relationship 
+൬𝜕𝐻
+𝜕𝑃൰்= −𝑇൬𝜕𝑉
+𝜕𝑇൰
+௉
++ 𝑉 
+ 
+൬𝜕𝐻
+𝜕𝑃൰்
+= −𝑇𝛼𝑉+ 𝑉 
+ 
+൬𝜕𝑆
+𝜕𝑃൰்
+= 𝑉(1 − 𝛼𝑇) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+3. 
+Why do solid melts when heated above the melting point? 
+(20 marks) 
+The Gibbs free energy, G is given as 
+ 
+G = H – TS 
+ 
+Where H is the enthalpy and S the entropy. T is the temperature. 
+ 
+It can be seen from the Gibbs free energy equation that the state with the highest 
+stability will be that with the best compromise between low enthalpy and high entropy. 
+At low temperatures, solid phases are most stable since they have strongest atomic 
+bonding and therefore lowest internal energy (enthalpy). At high temperatures, the term 
+–TS dominates and phases with more freedom of atom movement, gases and liquids 
+become most stable. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+PART II MCQ QUESTIONS 
+ 
+ 
+ 
+(4) 
+Answer all the TEN MCQ questions below. There is only ONE answer for each 
+question. 
+(50 marks) 
+ 
+(a) 
+For an ideal gas, it is given that 
+T
+P
+H 
+
+
+
+
+
+
+
+= 0. This implies that  
+ 
+A 
+Enthalpy is not a function P 
+ 
+ 
+B 
+Enthalpy is not a function of T 
+ 
+ 
+C 
+Enthalpy is a function of P and T 
+ 
+ 
+D 
+Enthalpy is not a function of P and T 
+ 
+ 
+E 
+Enthalpy is a function of P 
+ 
+ 
+ 
+(b) 
+In the ______________ compression and expansion of an ideal gas, the temperature 
+decreases due to decreasing ___________ . 
+ 
+A 
+Isobaric, pressure 
+ 
+B 
+Adiabatic, pressure 
+ 
+C 
+Isothermal, enthalpy 
+ 
+D 
+Adiabatic, entropy 
+ 
+E 
+Adiabatic, enthalpy 
+ 
+ 
+(c) 
+2 rectangular pieces of brick with different mass and temperature come into contact at 
+one face. If the 2 bricks are completely isolated from the surrounding, which of the 
+following is likely to be true at equilibrium? 
+ 
+ 
+A 
+They have different temperature 
+ 
+ 
+B 
+Their combined entropy is maximum 
+ 
+ 
+C 
+Their respective internal energy are constant 
+ 
+ 
+D 
+The combined enthalpy is maximum 
+ 
+ 
+E 
+Work done is PdV 
+ANS: A 
+ANS: B 
+ANS: B 
+
+ (d) A perfectly insulated, evacuated, rigid sphere is surrounded by air at 300 K and 1 atm. 
+Suddenly a hole is punched in the sphere. What will happen? 
+ 
+ 
+A 
+the temperature inside the sphere will be 300 K 
+ 
+ 
+B 
+the pressure inside will decrease 
+ 
+ 
+C 
+the temperature inside will decrease 
+ 
+ 
+D 
+the temperature inside will increase 
+ 
+ 
+E 
+none of the above 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(e) 
+“in all energy exchanges, if no energy enters or leaves the system, the potential energy 
+of the state will always be less than that of the initial state.” The statement is 
+synonymous to: 
+ 
+ 
+A 
+First Law of Thermodynamics 
+ 
+ 
+B 
+Second Law of Thermodynamics 
+ 
+ 
+C 
+Third Law of Thermodynamics 
+ 
+ 
+D 
+Zeroth Law of Thermodynamics 
+ 
+ 
+E 
+Gibbs Criteria for Equilibrium 
+ 
+ 
+(f) 
+“energy can be changed from one form to another, but it cannot be created or destroyed. 
+The total amount of energy and matter in the Universe remains constant, merely 
+changing from one form to another”. The statement is synonymous to: 
+ 
+ 
+A 
+First Law of Thermodynamics 
+ 
+ 
+B 
+Second Law of Thermodynamics 
+ 
+ 
+C 
+Third Law of Thermodynamics 
+ 
+ 
+D 
+Zeroth Law of Thermodynamics 
+ 
+ 
+E 
+Fourth Law of Thermodynamics 
+ 
+ 
+ANS: D
+vacumn
+300 K
+ANS: B 
+ANS: A 
+
+(g) 
+What is the heat of formation of a compound? 
+ 
+ 
+A 
+energy evolved or absorbed during the formation of the compound 
+ 
+ 
+B 
+internal energy of the compound 
+ 
+ 
+C 
+entropy change in the formation of the compound 
+ 
+ 
+D 
+enthalpy change in the formation of the compound under changing pressure 
+ 
+ 
+E 
+mass change in the formation of a compound 
+ 
+(h) 
+Which of the following statements is most likely to be TRUE? 
+ 
+ 
+A 
+The entropy of a system cannot be decreased 
+ 
+ 
+B 
+The entropy of a system can only be increased by decreasing the entropy of the 
+surrounding 
+ 
+ 
+C 
+The entropy of a system can be decreased by interacting with the surrounding 
+ 
+ 
+D 
+The total entropy of the system and surrounding is constant 
+ 
+ 
+E 
+Spontaneous reaction is associated with a decrease in entropy 
+ 
+(i) 
+When the pressure on a solid with positive volumetric coefficient of thermal 
+expansion, is increased abruptly,  
+ 
+ 
+A 
+the volume decreases 
+ 
+ 
+B 
+the volume increases 
+ 
+ 
+C 
+the temperature of the solid remains constant 
+ 
+ 
+D 
+the temperature of the solid increases 
+ 
+ 
+E 
+the temperature of the solid decreases 
+ 
+(j) 
+The rate of decrease in Gibbs free energy with temperature at constant P equals to the 
+_______of the system: 
+ 
+ 
+A 
+enthalpy 
+ 
+ 
+B 
+internal energy 
+ 
+ 
+C 
+pressure 
+ 
+ 
+D 
+volume 
+ 
+ 
+E 
+entropy 
+ 
+ANS: A 
+ANS: C
+ANS: E 
+ANS: D
+
+========================================================================
+CA1 Sep 2022  (source: 5_CA1_solution_sept 2022.pdf)
+========================================================================
+NAME:_______________________________      MATRIC NUMBER:_________________    
+ 
+ 
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING 
+ 
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2022-2023 
+ 
+MS1016 – THERMODYNAMICS OF MATERIAL  
+ 
+ 
+20 September 2022 
+Time Allowed: 1 hour  
+ 
+INSTRUCTIONS 
+ 
+1. 
+This paper contains THREE (3) short questions and TEN (10) MCQ questions. 
+ 
+2. 
+Answer ALL questions. 
+ 
+3. 
+This is an open book test. 
+ 
+4. 
+All questions have ONLY ONE correct answer for the MCQ questions.  
+ 
+ 
+PART I – SHORT QUESTIONS 
+ 
+(1) 
+Give a brief description of the terms, ‘reversible’ and ‘irreversible’ work in 
+thermodynamics. Explain the effect of irreversible work on the efficiency of the system. 
+(20 marks)  
+ 
+Reversible work is defined as work performed under equilibrium condition. This 
+implies a quasi-static condition. 
+ 
+ 
+Given that the entropy change of the combined system and surrounding is greater 
+than or equal to 0. 
+ 
+dStotal  ≥  0 
+ 
+For reversible work the change in entropy of the system is 0, dS = 0 
+ 
+For an irreversible condition change in entropy of the system greater than 0, dS > 0 
+ 
+Since dS = 𝛿Q/T, this means  
+ 
+dSirreversible = dSreversible  + lost work 
+ 
+ 
+Irreversible work results in reduced efficiency as a result of lost work caused by 
+spontaneous increase in the entropy 
+ 
+
+2. 
+Explain the term ‘Gibbs free energy’ of a system. 
+ 
+ 
+Explain why the Gibbs free energy is unique for an isolated system when the temperature 
+is constant. 
+(20 marks) 
+ 
+The Gibbs free energy is defined the maximum energy in a system that is available to 
+do work, other than mechanical work. It is defined as  
+ 
+G = H – TS  
+ 
+Where H is the enthalpy, T the temperature and S the entropy. 
+ 
+dG = dH – TdS – SdT  
+ 
+From Enthalpy equation,             dH = dU + PdV + VdP 
+ 
+ 
+From first Law (system performing work), 
+ 
+                                                           dU = 𝛿Q – PdV 
+ 
+ 
+Substituting                                  dH = TdS – PdV + PdV + VdP = TdS + VdP 
+ 
+Since                                            𝛿Q = TdS. 
+                          
+Therefore                                     dG = VdP – SdT 
+ 
+At constant, T and P, dT and dP = 0, 
+ 
+Therefore                                      dG = 0 
+ 
+This means that G is constant and therefore unique at constant temperature and 
+pressure. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+3. 
+Using S as a function of T and V, show that. 
+ 
+dS = c୴
+T dT + ൬dP
+dT൰
+୴
+dV 
+ 
+ 
+S = entropy, cv = constant volume heat capacity, T = temperature, P = pressure, V = 
+volume  
+(20 marks) 
+ 
+Let S = S(T, V) 
+ 
+∴dS = ൬∂S
+∂T൰
+୴
+dT + ൬∂S
+∂V൰
+୘
+dV 
+ 
+But                                                              
+𝑑𝑆= 𝛿𝑄
+𝑇= ൬𝜕𝑄
+𝜕𝑇൰
+௏
+𝑑𝑇
+𝑇= 𝐶௏𝑑𝑇
+𝑇
+ 
+ 
+∴ ൬𝜕𝑆
+𝜕𝑇൰
+௏
+=  𝐶௏
+𝑇 
+                                       
+∴dS = 𝐶௏
+𝑇dT + ൬∂S
+∂V൰
+୘
+dV 
+  
+From the relationship,                              dF = –SdT – PdV          
+ 
+Maxwell’s relationship gives                 ቀ
+డௌ
+డ௏ቁ்
+=  ቀ
+డ௉
+డ்ቁ
+௏   
+ 
+ 
+∴dS = 𝐶௏
+𝑇dT + ൬∂P
+∂T൰
+୚
+dV 
+ 
+ 
+
+PART II MCQ QUESTIONS 
+ 
+ 
+(4) 
+Answer all the TEN MCQ questions below. There is only ONE answer for each 
+question. 
+(40 marks) 
+ 
+ 
+(a) 
+The work done is pulling the object with a force, F by a distance, d from point A to 
+B, as shown in the figure below is 
+ 
+ 
+ 
+ 
+ 
+ 
+A 
+(F ) x d 
+ 
+ 
+B 
+(F cos ) x d 
+ 
+ 
+C 
+(F sin ) x d 
+ 
+ 
+D 
+(F) x (d cos ) 
+ 
+ 
+E 
+(F) x (d sin ) 
+ 
+ 
+ 
+ 
+(b) 
+Which of the following statement best describe an isothermal process accurately? 
+ 
+A 
+constant internal energy to maintain constant T 
+ 
+B 
+constant entropy to maintain constant T 
+ 
+C 
+no heat absorbed in the process to maintain constant T 
+ 
+D 
+no heat released in the process to maintain constant T 
+ 
+E 
+heat absorbed or released to maintain constant T 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: B 
+ANS: E 
+
+(c) 
+Which of the following statements is NOT a true property of the entropy of a system? 
+ 
+ 
+A 
+cannot be decreased 
+ 
+ 
+B 
+always increase spontaneously 
+ 
+ 
+C 
+unit is Joules/K 
+ 
+ 
+D 
+dS = 0 for a reversible process 
+ 
+ 
+E 
+can be decreased 
+ 
+ 
+ 
+ (d) When the pressure of a system is increased adiabatically. 
+ 
+ 
+A 
+temperature remains constant 
+ 
+ 
+B 
+temperature will decrease 
+ 
+ 
+C 
+temperature will increase 
+ 
+ 
+D 
+insufficient information to determine the path of temperature 
+ 
+ 
+E 
+none of the above 
+ 
+ 
+ 
+(e) 
+The enthalpy of a solid metal represents the  
+   
+ 
+A 
+crystal structure of the metal 
+ 
+ 
+B 
+temperature of the metal 
+ 
+ 
+C 
+the bond energy of the atoms 
+ 
+ 
+D 
+the vibrational energy of the atoms 
+ 
+ 
+E 
+All the above 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: A 
+ANS: C
+ANS: E 
+
+(f) 
+Which of the following best describes the free energy of a system? 
+ 
+ 
+A 
+energy of the system of when enthalpy and entropy are maximum 
+  
+ 
+B 
+energy of the system available to perform mechanical work 
+ 
+ 
+C 
+total internal energy of the system 
+ 
+ 
+D 
+total energy of the system available to perform chemical work 
+ 
+ 
+E 
+total energy of the system at constant pressure 
+ 
+ 
+ 
+(g) 
+The rate of decrease of free energy of the Gibbs of a system with respect to the 
+temperature is defined as 
+ 
+ 
+A 
+entropy 
+ 
+ 
+B 
+internal energy 
+ 
+ 
+C 
+pressure 
+ 
+ 
+D 
+volume 
+ 
+ 
+E 
+enthalpy 
+ 
+  
+ 
+(h) 
+Which of the following is NOT a reversible process  
+ 
+ 
+A 
+equilibrium 
+ 
+ 
+B 
+compression of a gas 
+ 
+ 
+C 
+burning of fuel 
+ 
+ 
+D 
+expansion of a solid metal 
+ 
+ 
+E 
+compression of a spring 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: D 
+ANS: C
+ANS: A 
+ 
+
+(i) 
+The efficiency of a heat machine can be increased by,  
+ 
+ 
+A 
+decreasing the temperature of the energy input 
+ 
+ 
+B 
+minimizing the entropy increase 
+ 
+ 
+C 
+increasing the temperature of the energy input 
+ 
+ 
+D 
+minimize the temperature between the input and output energies, T = 0 
+ 
+ 
+E 
+minimize the temperature of the heat machine  
+ 
+ 
+ 
+(j) 
+The enthalpy of formation of a compound is: 
+ 
+ 
+A 
+heat released at equilibrium oxygen pressure 
+ 
+ 
+B 
+heat released during a reaction 
+ 
+ 
+C 
+internal heat at constant pressure 
+ 
+ 
+D 
+enthalpy change of the material between 2 states 
+ 
+ 
+E 
+total internal energy of the reaction at atmospheric pressure 
+ 
+ANS: D 
+ANS: B or C
+
+========================================================================
+CA1 Feb 2023  (source: 7_CA1_solution_Feb 2023.pdf)
+========================================================================
+NAME:_______________________________      MATRIC NUMBER:_________________    
+ 
+ 
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING 
+ 
+CONTINUOUS ASSESSMENT 1 SEMESTER 2 2022-2023 
+ 
+MS1016 – THERMODYNAMICS OF MATERIAL  
+ 
+ 
+21 February 2023 
+Time Allowed: 1 hour  
+ 
+INSTRUCTIONS 
+ 
+1. 
+This paper contains THREE (3) short questions and TEN (10) MCQ questions. 
+ 
+2. 
+Answer ALL questions. 
+ 
+3. 
+This is an open book test. 
+ 
+4. 
+All questions have ONLY ONE correct answer for the MCQ questions.  
+ 
+ 
+PART I – SHORT QUESTIONS 
+ 
+1. 
+Explain what you understand by an isothermal process and what are the essential 
+conditions for this process.  Describe an example of this process in a living organism.  
+(20 marks) 
+ 
+An isothermal process is one in which the temperature of the system remains 
+constant, i.e. T = 0 during the process. This is achieved by absorbing heat or 
+releasing heat during the process. 
+ 
+The essential conditions are (1) the system must be thermally conducting to the 
+surrounding and (2) the process must be carried out very slowly (reversible) such that 
+there is sufficient time for the heat to be transferred while maintaining a constant 
+temperature. 
+ 
+Example of a living organism is the hot blooded mammals where the body 
+temperature is kept constant by perspiration of by respiratory action.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+2. 
+Explain, briefly the concept of the second law of thermodynamics.  Also explain the 
+relationship between entropy, work and efficiency. 
+(20 marks)TT 
+ 
+The second law of thermodynamics state that for a spontaneous event to take place, it 
+must be accompanied by an increase in the entropy. 
+ 
+A system can lowered its entropy spontaneously by interacting with the surrounding 
+or with another system but it must be accompanied by an increase in the entropy of 
+the combined systems. 
+ 
+Therefore                        dSsystem + dS surrounding > 0  
+ 
+In the special case where the interaction is perfectly reversible, 
+ 
+                                          dSsystem + dS surrounding = 0 
+ 
+For an isolated system, entropy change in a process is given as 
+ 
+dSsystem = 𝛿Q/T 
+ 
+Therefore for a reversible process, there is no net increase in the combined entropy. 
+For a spontaneous process which is irreversible,  
+ 
+dSirreversible  > dSreversible 
+ 
+Increase in the entropy means more heat is required to perform the same amount of 
+work. Therefore, irreversible work results in a loss in the efficiency. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+3. Letting U = U(T, V), show that for an isolated system, 
+ 
+𝛿𝑄= ൬𝜕𝑈
+𝜕𝑇൰
+௏
+𝑑𝑇+ ൤𝑃+ ൬𝜕𝑈
+𝜕𝑉൰்൨𝑑𝑉 
+ 
+ 
+where Q is the heat, T, the temperature, U, the internal energy, P, the pressure and V, the 
+volume. 
+(20 marks) 
+ 
+Let U = U(T, V) 
+ 
+∴𝑑𝑈= ൬𝜕𝑈
+𝜕𝑇൰
+௏
+𝑑𝑇+ ൬𝜕𝑈
+𝜕𝑉൰்𝑑𝑉 
+ 
+But from 1st Law of Thermodynamics, 
+ 
+𝑑𝑈= 𝛿𝑄−𝑃𝑑𝑉  
+ 
+Substituting, 
+ 
+𝛿𝑄−𝑃𝑑𝑉= ൬𝜕𝑈
+𝜕𝑇൰
+௏
+𝑑𝑇+ ൬𝜕𝑈
+𝜕𝑉൰்𝑑𝑉 
+ 
+ 
+𝛿𝑄= ൬𝜕𝑈
+𝜕𝑇൰
+௏
+𝑑𝑇+ ൬𝜕𝑈
+𝜕𝑉൰்𝑑𝑉+ 𝑃𝑑𝑉 
+ 
+ 
+𝛿𝑄= ൬𝜕𝑈
+𝜕𝑇൰
+௏
+𝑑𝑇+ ൤൬𝜕𝑈
+𝜕𝑉൰்+ 𝑃൨𝑑𝑉 
+ 
+ 
+ 
+ 
+
+PART II MCQ QUESTIONS 
+ 
+ 
+ 
+(4) 
+Answer all the TEN MCQ questions below. There is only ONE answer for each 
+question. 
+(40 marks) 
+ 
+(a) 
+Which of the following is NOT always true of a reversible adiabatic process? 
+  
+ 
+A 
+No heat is absorbed in the process 
+ 
+ 
+B 
+No heat is released in the process 
+ 
+ 
+C 
+constant temperature in the process 
+ 
+ 
+D 
+change in internal energy, dU = adiabatic work 
+ 
+ 
+E 
+it is also an isentropic process 
+ 
+ 
+ 
+(b) 
+Which of the following is likely to be associated with an isochoric process in an isolated 
+system? 
+ 
+ 
+A 
+energy transferred by mechanical work 
+ 
+ 
+B 
+energy transferred by thermal interaction only 
+ 
+ 
+C 
+constant pressure condition 
+ 
+ 
+D 
+Adiabatic process 
+ 
+ 
+E 
+constant enthalpy 
+ 
+ 
+(c) 
+2 objects with different mass and temperature come into contact. If the 2 objects are 
+completely isolated from the surrounding, which of the following is likely to be true at 
+equilibrium? 
+ 
+ 
+A 
+Their combined accessible microstate is maximum 
+ 
+ 
+B 
+Their combined temperature is maximum 
+ 
+ 
+C 
+Their respective internal energy are equal 
+  
+ 
+D 
+The combined enthalpy is maximum 
+ 
+ 
+E 
+Work done is PdV 
+ 
+ANS: C 
+ANS: B 
+ANS: A 
+
+ (d) 
+A volume of gas is separated from a perfect vacuum as shown in the figure below. 
+Given that the 2 containers are identical and insulated from the surrounding, which of 
+the following is likely to be true if the gas is allowed to expand into the vacuum 
+suddenly? 
+ 
+ 
+A 
+The pressure of the gas remains constant 
+ 
+ 
+B 
+The temperature of the gas will increase 
+ 
+ 
+C 
+The internal energy of the gas will be halved 
+ 
+ 
+D 
+Work done by the gas is 0 
+ 
+ 
+E 
+The volume of the gas remains constant 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(e) 
+“in all interaction between isolated systems, the energy available to perform work will 
+always be less than that of the initial state.” The statement is synonymous to: 
+ 
+ 
+A 
+First Law of Thermodynamics 
+ 
+ 
+B 
+ Equilibrium  
+ 
+ 
+C 
+Third Law of Thermodynamics 
+ 
+ 
+D 
+Zeroth Law of Thermodynamics 
+ 
+ 
+E 
+Second Law of Thermodynamics 
+ 
+ 
+(f) 
+“the internal energy of an ideal gas is only dependent on its temperature and not the 
+volume” The statement implies : 
+ 
+ 
+A 
+ቀ
+డ௎
+డ௏ቁ்
+= 0 
+ 
+ 
+B 
+ቀ
+డ௎
+డ்ቁ
+௏= 0 
+ 
+ 
+C 
+ቀ
+డ௏
+డ்ቁ
+௎= 0 
+ 
+ 
+D 
+ቀ
+డ௎
+డ௏ቁ்
+≠0 
+ 
+ 
+E 
+ቀ
+డ௏
+డ்ቁ
+௎≠0 
+ANS: D
+ANS: E 
+ANS: A 
+vacuum
+Ideal gas
+
+ 
+(g) 
+Which of the following process may be described as the Joule-Thompson effect? 
+ 
+ 
+A 
+isentropic 
+ 
+ 
+B 
+isenthalpic 
+ 
+ 
+C 
+isothermal 
+ 
+ 
+D 
+isochoric 
+ 
+ 
+E 
+isobaric 
+ 
+ 
+ 
+(h) 
+Which of the following is NOT a property of an ideal gas? 
+ 
+ 
+A 
+The internal energy is not a function of the volume 
+  
+ 
+B 
+The enthalpy is not a function of the pressure 
+ 
+ 
+C 
+PV = nRT 
+ 
+ 
+D 
+CV – CP = R 
+ 
+ 
+E 
+No intermolecular forces 
+ 
+ 
+(i) 
+At constant temperature and pressure, which of the following is NOT true? 
+ 
+ 
+A 
+the internal energy of an isolated system is constant 
+ 
+ 
+B 
+the Gibbs free energy of an isolated system is constant 
+ 
+ 
+C 
+the Helmholtz free energy of an isolated system is constant 
+ 
+ 
+D 
+the enthalpy of an isolated system is constant 
+ 
+ 
+E 
+the entropy of an isolated system is constant 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: B 
+ANS: D
+ANS: C
+
+(j) 
+The rate of decrease in Helmholtz free energy with temperature at constant V equals to 
+the _______of the system: 
+ 
+ 
+A 
+enthalpy 
+ 
+ 
+B 
+internal energy 
+ 
+ 
+C 
+pressure 
+ 
+ 
+D 
+volume 
+ 
+ 
+E 
+entropy 
+ 
+ANS: E
+
+========================================================================
+CA1 Sep 2024  (source: CA 1 Sep 2024 solutions (1).docx)
+========================================================================
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING
+
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2024-2025
+
+MS1016 – THERMODYNAMICS OF MATERIALS 
+
+(Answer Sheet)
+
+25 September 2024	Time Allowed: 1 hour	
+
+INSTRUCTIONS
+
+1.	This paper contains THREE (3) short questions and TEN (10) MCQ questions.
+
+2.	Answer ALL questions.
+
+3. 	Write all answers on the answer sheet provided and clearly write your name and matriculation number on it.
+
+4.	This is an open-notes test.
+
+5.	All questions have ONLY ONE correct answer for the MCQ questions. 
+
+6.	You may retain this question sheet. Only answers on the submitted answer sheet will be considered.
+
+PART I – SHORT QUESTIONS
+After vanquishing Voldemort and restoring peace to the Wizarding World, Harry Potter decides to embark on a new academic journey at NTU. In Prof. Leonardo’s class on thermodynamics, Harry learns that the mysteries of magic and science are not so different after all. Fascinated by how energy moves and changes within magical artifacts, Harry seeks to develop a new spell—"Energeum Regulatus"—designed to manipulate the Gibbs free energy of powerful magical objects, like his own wand. However, before he can perfect the spell, Harry must first derive a key thermodynamic relationship using the power of this equation.
+Help Harry master his spell, Energeum Regulatus, by deriving the relationship:
+
+and prove one of the thermodynamic Maxwell relations that Dumbledore himself would be proud of. Through this derivation, Harry will gain the final insight needed to fully control the Gibbs free energy of his wand and cast Energeum Regulatus to its fullest potential. 
+										(10 Marks)
+
+ Now that Harry has mastered the Maxwell relation, he applies Energeum Regulatus to heat 500 mL of water to prepare his favourite Nongshim noodles. To do this, he needs to heat up water from room temperature (25°C) to boiling point (100°C) at constant pressure (1 atm).
+To help Harry, derive the change in entropy ΔS from the relation of heat δ, and use it to calculate the change in entropy during the heating process.
+
+Given:
+Mass of water: 500 g (0.5 kg)
+Initial temperature,  : 25°C = 298.15 K
+Final temperature,  : 100°C = 373.15 K
+Cp​ for water = 4.18 J/g·°C = 4180 J/kg·K
+
+Derive and use the formula:
+
+[Hint: You do not need to use your previously derived Maxwell relation in (a).]
+
+(10 marks)
+Given					 
+		 (1 marks)
+From Enthalpy (H) equation,		  	(1 marks)
+From the first law,  and the second law  		(2 marks)
+Substituting,  		(1 marks)
+Therefore, 
+ 				(0.5 mark)
+Representing the G in terms of P and T:
+
+ 			(1 marks)
+Therefore,			 ; and  			(0.5 mark)
+Find the cross derivatives,
+ , and  	(2 marks)
+For exact differentials, the cross derivatives are equal,
+				(0.5 mark)
+
+Hence, 							(0.5 mark)
+
+Now, to calculate the change in entropy as Harry heats the water, we start with the specific heat capacity at constant pressure:
+
+The change in entropy is defined as:
+
+										(1 mark)
+Substituting into  we get:
+
+										(2 marks)
+To find the total change in entropy over the temperature range from  to  we integrate:
+
+										(2 marks)
+Since the mass m and specific heat capacity​ are constants, they can be factored out:
+
+										(1 mark)
+This integral gives:
+
+Now, substitute the known values:
+
+										(4 marks)
+
+A blast furnace is a massive industrial structure used primarily for the smelting of iron from its ores. One of the reactions that is occurring inside the furnace is the reduction of Iron (II) Oxide (FeO) by Carbon monoxide (CO) to produce iron (Fe) and carbon dioxide (CO2). 
+
+Write the chemical equation for the reduction of iron (II) oxide. (2 marks)
+FeO + CO  Fe + CO2
+
+Calculate the entropy change for the chemical reaction in standard conditions. Write your workings clearly, omission of steps will result in a loss of marks (4 marks)
+
+FeO + CO Fe + CO2
+
+Fe + CO2 – FeO – CO
+
+Sr,298	= 27.16 + 213.63 – 53.97 – 197.9
+= -11.08 J/mol.K
+
+State the concept of the second law of thermodynamics and how it relates to the entropy change calculated in part (b). Also, provide any insights to the value obtained in part (b). (5 marks)
+The second law of thermodynamics state that for a spontaneous event to take place, it must be accompanied by an increase in the entropy. (2 marks)
+
+In part b, the entropy change calculated is negative, indicating that the products have lower entropy values compared to the reactants. (1 mark)
+
+This suggests that the products are less disordered than the reactants. (1 mark)
+
+As a result, by the second law of thermodynamics, this reaction is not spontaneous under the given conditions, since it leads to a decrease in entropy. (1 mark)
+
+Calculate the entropy change for the chemical reaction at 600K. Write your workings clearly, omission of steps will result in a loss of marks (6 marks)
+
+Cp = a + bT + cT-2 J(mol.K)-1 at 1 atm
+
+Sr,600 = Sr,298 +
+
+= -11.08 + 
+
+= - 11.08 + 
+
+= - 11.08 + 4.3 ln - 0.00226[600 – 298]
+
+= - 11.08 + 3.00 – 0.68
+
+= - 8.76 J/ mol.K
+
+Explain the effect of irreversible work on the efficiency of real-world systems and its relation to lost work. (3 marks)
+The relationship relating reversible work and irreversible work can be modelled as: 
+
+This equation indicates that irreversible work leads to lost work, which reduces the efficiency of real-world systems. The increase in entropy associated with irreversible work represents energy that cannot be converted into useful work, thereby lowering the overall efficiency of the system.
+
+3.	Derive the following relations for an ideal gas undergoing an adiabatic process
+(i)  = constant
+(ii)
+(iii)
+(iv)							(20 marks)
+
+Solution:
+For an adiabatic system, . Applying this condition to the First Law equation,
+𝛿W = dU
+From the definition of CV (assuming mechanical work),
+𝛿W = -PdV  
+dU = nCVDt	
+-PdV = nCvdT   								(2 marks)
+Differentiate the ideal gas law, PV = nRT, to get,
+PdV + VdP = nRdT
+
+dT =   
+Substitute  into ,
+-PdV = nCv  							(2 marks)
+Rearranging,
+ =   
+Substitute CP - CV = R into 
+
+ = 
+Taking the reciprocal, 
+
+ = 
+-1 -  =  – 1
+
+-  = 
+Rearranging into a separable equation,
+ 								 (2 marks)Integrating both sides,
+
+ = constant [Ans.] 							(2 marks)
+
+ [Ans.]							(4 marks)
+Putting   , we get
+					
+
+ [Ans.] 							(4 marks)
+ = constant 
+
+ [Ans.]							(4 marks)
+
+PART II Multiple Choice Questions
+
+Answer all the TEN MCQ questions below. There is only ONE answer for each question. (4 marks each)
+
+" Helmholtz free energy is defined of a system doing work at _______.
+constant pressure and temperature
+constant pressure and volume
+constant temperature and volume
+constant entropy and volume
+constant entropy and temperature 
+Explanation: 
+From the definition, Holmholtz free energy is the useful work the system can perform on the surroundings at constant temperature and volume. Therefore, option C is correct.
+
+Consider a thermodynamic system characterized by the internal energy U. Which of the following Maxwell's relations is valid for this system?
+
+Explanation: 
+Recall the fundamental form of the First Law, , 
+Differentiating it ,
+Recall the Second Law and PV work function:  and ,
+Substituting into , we have 
+Consider the function 
+We have , thus  and 
+Finding the cross derivatives, , 
+and 
+For exact differentials, the cross derivatives are equal,
+Therefore,  option D is correct.
+
+Which of the following statements is true about a system in equilibrium?
+The particles in the system are in stationary state.
+The Helmholtz Free Energy (F) of the system is at a maximum.
+The entropy of the system is at a minimum.
+The internal energy of the system is at minimum.
+The Gibbs Free Energy (G) of the system is at a minimum.
+
+Explanation:
+	For a system at equilibrium, the free energy (Gor F) is minimized. This minimization reflects that the system has reached a state where it can no longer perform any net work on its surroundings, indicating true thermodynamic equilibrium. The macrostates of a system keep constant in equilibrium, but its microstates can still rapid change with time due to thermal energy, such as the motion of particles. The equilibrium state of a system depends on the overall free energy, and it is independent of specific entropy and internal energy. Therefore, option E is correct.
+
+In an irreversible compression process of an ideal gas, the lost work (W-Wrev) is
+Positive
+Negative
+Zero
+Always greater than 1 Joule
+None of the above
+
+Explanation: 
+For a compression process, the work required in a reversible process (Wrev) is always less than the work required in an irreversible process (W). This is because the irreversible process involves additional losses due to factors like friction or turbulence, which are not present in a reversible process.
+
+rectangular pieces of brick with different mass and temperature come into contact at one face. If the 2 bricks are completely isolated from the surrounding, which of the following is likely to be true at equilibrium?
+They have different temperature 
+Their combined entropy is maximum
+Their respective internal energy is constant 
+The combined enthalpy is maximum 
+Work done is PdV
+
+Explanation:
+Thermal Equilibrium:
+At equilibrium, the temperatures of the two bricks will become equal because heat will flow from the hotter brick to the colder one until thermal equilibrium is reached.
+Therefore, option A is incorrect because they will have the same temperature at equilibrium.
+Entropy in an Isolated System:
+In an isolated system, the second law of thermodynamics states that the total entropy of the system tends to increase and reaches a maximum when the system is in equilibrium.
+This means that the combined entropy of the system increases until it reaches a maximum at equilibrium.
+Internal Energy:
+The internal energy of each brick can change due to the heat exchange between them. Therefore, option C is incorrect because the internal energies of the individual bricks are not necessarily constant; only the total internal energy of the isolated system remains constant.
+Enthalpy:
+Enthalpy is not necessarily maximized in this process; it is not the relevant thermodynamic potential for determining equilibrium in an isolated system without volume work interactions. Option D is incorrect.
+Work Done:
+Since the bricks are not performing pressure-volume work (PdV), and the system is isolated with no external interactions, option E is incorrect.
+
+The idea that “in any natural (irreversible) process, the total entropy of an isolated system will increase, leading to a reduction in the potential to do work.” is synonymous to:
+First Law of Thermodynamics 
+Second Law of Thermodynamics 
+Third Law of Thermodynamics
+Zeroth Law of Thermodynamics 
+Gibbs Criteria for Equilibrium
+
+Explanation:
+Second Law of Thermodynamics:
+The Second Law deals with the direction of natural processes and introduces the concept of entropy. It states that the total entropy of an isolated system will never decrease; it can only stay the same (in a reversible process) or increase (in an irreversible process).
+This law explains why certain processes are irreversible and why there is a natural tendency toward increased disorder, which reduces the system's ability to perform useful work.
+Therefore, option B is correct.
+
+An ideal gas at 27 °C is heated at constant pressure till its volume becomes three times. What would be then the temperature of gas?
+81 0C
+627 0C
+900 0C
+327 0C
+27 0C
+
+Explanation:
+
+In a given process of an ideal gas, 𝛿W = 0 and 𝛿Q < 0
+The temperature will decrease
+The volume will increase
+The pressure will remain constant
+The temperature will increase
+None of the above
+
+Explanation:
+
+Two blocks which are at different states are brought together into contact with each other and allowed to reach the final state of thermal equilibrium. The final temperature is specified by 
+Zeroth law of thermodynamics 
+First law of thermodynamics 
+Second law of thermodynamics 
+Law of conservation of mass 
+None of the above
+
+Explanation:
+The final temperature of the two blocks reaching thermal equilibrium is specified by the Zeroth law of thermodynamics. This law states that if two systems are each in thermal equilibrium with a third system, then they are in thermal equilibrium with each other. This principle underpins the concept of temperature and allows us to determine the final temperature when two objects come into contact and reach equilibrium.
+So, the correct answer is A) Zeroth law of thermodynamics
+
+When the pressure of a system is increased adiabatically. Which of the following is correct?
+Temperature remains constant
+Temperature will decrease
+Temperature will increase
+Insufficient information to determine the path of temperature
+None of the above
+
+Explanation:
+In an adiabatic process, there is no heat exchange with the surroundings. For an ideal gas undergoing an adiabatic process, if the pressure of the system is increased, the temperature will also increase. This is because, in an adiabatic process, the work done on the system results in an increase in internal energy, which translates to an increase in temperature.
+So, the correct answer is C) Temperature will increase
+
+Element/Compound | Standard Entropy (J/mol·K)
+FeO | 53.97
+CO | 197.9
+CO2 | 213.63
+Fe | 27.16
+Material | a | b x 10-3 T
+Fe | 37.3 | 6.19
+CO2 | 44.3 | 9.07
+FeO | 49.0 | 8.4
+CO | 28.3 | 9.12
+
+========================================================================
+CA1 Sep 2024 (make-up)  (source: CA 1 Sep 2024 solutions (make_up).docx)
+========================================================================
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING
+
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2024-2025
+
+MS1016 – THERMODYNAMICS OF MATERIALS 
+
+(Answer Sheet)
+
+25 September 2024	Time Allowed: 1 hour	
+
+INSTRUCTIONS
+
+1.	This paper contains THREE (3) short questions and TEN (10) MCQ questions.
+
+2.	Answer ALL questions.
+
+3. 	Write all answers on the answer sheet provided and clearly write your name and matriculation number on it.
+
+4.	This is an open-notes test.
+
+5.	All questions have ONLY ONE correct answer for the MCQ questions. 
+
+6.	You may retain this question sheet. Only answers on the submitted answer sheet will be considered.
+
+PART I – SHORT QUESTIONS
+The linear coefficient of thermal expansion, , is one-third of the volumetric coefficient of thermal expansion, . The volumetric coefficient, , is defined by:
+
+	and 	
+
+Given that the linear thermal expansion of gold is , determine the change in specific entropy of gold when the pressure increases from 1 atm to 10 atm. Consider . The atomic weight of gold is 196.97 g/mol and its density is 19.28 g/cm³ 
+(20marks)
+1. Determine the Volumetric Coefficient of Thermal Expansion:
+		(3 marks)
+2. Calculate the Specific Volume:
+
+		(4 marks)
+3. Using the relation between entropy, volume, and temperature coefficients:
+			(1 mark)
+		(1 mark)
+		(1 mark)
+4. Finally, determine the entropy change for the pressure range:
+		(5 marks)
+For a condensed solid phase,  is constant. Therefore, the specific entropy change:
+	
+(4 marks)
+			(1 mark)
+
+a. Give a brief description of the terms, ‘reversible’ and ‘irreversible’ work in Thermodynamics in terms of entropy. Explain the effect of irreversible work on the efficiency of real-world systems and its relation to lost work. (8 marks)
+
+Reversible work is defined as work performed under equilibrium conditions, implying a quasi-static process where the system can be returned to its initial state without leaving any net change in the system or its surroundings. In a reversible process, there is no change in entropy				 (2 marks)
+For reversible work, dS = 0
+Irreversible work, on the other hand, occurs when the system cannot be returned to its initial state without external intervention. Irreversible processes always lead to an increase in entropy, as stated by the Second Law of Thermodynamics. These processes are spontaneous because they result in an increase in the system's entropy. 								(2 marks)
+For irreversible work, dS > 0
+The relationship relating reversible work and irreversible work can be modelled as: 
+
+This equation indicates that irreversible work leads to lost work, which reduces the efficiency of real-world systems. The increase in entropy associated with irreversible work represents energy that cannot be converted into useful work, thereby lowering the overall efficiency of the system.		(4 marks)
+
+b. Considering a Carnot engine having a thermal efficiency of 0.6 and its hot reservoir is at 600K. 
+
+What is the temperature of the cold reservoir? Also, what are some assumptions that must be made about the Carnot engine? (6 marks) 
+Assume reversible heat flow and work, steady state, and a closed system engine. 							(3 marks)
+The efficiency of a Carnot engine is given as: 
+
+Substituting thermal efficiency of 0.6 and its hot reservoir is at 600K, we can calculate TL:
+
+				(3 marks)
+
+What is the work output of the engine per cycle if 3000J of heat is rejected to the cold reservoir? (6 marks)
+
+Using QL = -3000 J (negative because this is the heat given by the system to the cold reservoir), we get:
+
+QH = 7500J				(3 marks)
+By the First Law, 
+Thus,  
+
+Therefore, the work done on the engine is:
+
+The net work done on the system is negative, which means that the engine performs 4500J work per cycle.		(3 marks)
+
+Steam enters a converging-diverging nozzle as shown in the Fig. below, operating at steady state with P1, = 40 bar, T1= 400°C and a velocity of 10 m/s. The steam flows through the nozzle with negligible heat transfer and no significant change in potential energy. At the outlet, P2= 15 bar and the velocity is 665 m/s. The mass flow rate is 2 kg/s. 
+Determine the specific enthalpy of the steam at outlet.
+Determine the outlet area of the nozzle, in m2. 
+(Note: Take specific enthalpy of superheated steam at 40 bar, 400°C as 3213.6 kJ/kg and the specific volume v, at outlet is 0.1627 m3 /kg)
+Hint:      Apply the steady state flow equation between 1 and 2:
+-  + 𝛿Q + 𝛿W = 0
+(20 marks)
+
+Solution:
+Given Inlet conditions
+P1= 40 bar, T1= 4000C
+C1= 10 m/s, h1= 3213.6 kJ/kg
+Given Outlet conditions
+P2=15 bar, 
+C2=665 m/s
+Applying steady state flow equation between 1 and 2 we get:
+-  + 𝛿Q + 𝛿W = 0    Eq. (1)
+Heat Transfer is negligible, 𝛿Q=0 
+There is no work done by the system, 𝛿W=0
+There is one inlet and one outlet and a single steam, m1=m2
+There is no change in potential energy also, 
+Simplifying the Eq. 1, we get:
+           Eq. 2 						(10 marks)
+Putting the values of C1= 10 m/s, h1= 3213.6 KJ/Kg, C2=665 m/s in Eq. 2 we get
+h2= 2992.5 kJ/kg
+The specific enthalpy of the steam at outlet is 2992.5 kJ/kg. [Ans]		(5 marks)
+From conservation of mass
+ṁ=
+ṁ = …Eq. 3
+The specific volume v, at outlet is 0.1627 m3 /kg, m3/kg
+We know ṁ= 2 Kg/s, C2= 665 m/s
+Putting all the values in Eq. 3, we get
+A2= 4.89 X 10-4 m2
+The exit area of the nozzle is 4.89 X 10-4 m2 [Ans.] 				(5 marks)
+
+PART II Multiple Choice Questions
+
+Answer all the TEN MCQ questions below. There is only ONE answer for each question. (4 marks each)
+
+Which of the following statements best describes the Helmholtz free energy (F)?
+It defines the free energy of a system at constant pressure and temperature.
+it is used to determine spontaneity under conditions of constant temperature and volume.
+it remains constant during phase transitions at constant pressure.
+it increases as the entropy of a system increases.
+the rate of it with temperature at constant volume equals to the enthalpy of the system.
+
+Explanation:
+This statement is incorrect. Helmholtz free energy (F) is defined as . It is used to describe the free energy of a system at constant temperature and volume.
+This statement is correct. Helmholtz free energy is particularly useful for determining the spontaneity of processes occurring at constant temperature and volume. A negative change in Helmholtz free energy () indicates that the process is spontaneous under these conditions.
+This statement is incorrect. Helmholtz free energy (F) does not necessarily remain constant during phase transitions, even at constant pressure, because it is defined for constant temperature and volume conditions. Moreover, phase transitions typically involve changes in both entropy and volume, thus affecting F.
+This statement is incorrect. Helmholtz free energy (F) is given by . If entropy (S) increases while temperature (T) and internal energy (U) are constant, F will decrease.
+This statement is incorrect. According to the definition of Helmholtz free energy , thus . The rate of change in F with respect to T at constant volume is actually related to entropy (S), not enthalpy (H).
+
+For an ideal gas, what is entropy change when its pressure changes from 2 atm to 20 atm? Given that the ideal gas constant is 8.314 J/(mol∙K).
+5.76 J/(mol∙K)
+19.14 J/(mol∙K)
+24.03 J/(mol∙K)
+24.91 J/(mol∙K)
+25.70 J/(mol∙K)
+
+Explanation:
+For an idea gas, , hence 
+According to the Maxwell Relations of G, ,
+Or 
+For a change in pressure from 2 atm to 20 atm,
+
+Which of the following statements is not correct?
+For the same mass of water and ice under identical conditions, the entropy of water is larger compared to ice.
+A spontaneous chemical reaction is not always rapid.
+For reaction CaCO3 (solid) → CaO (solid) + CO2 (gas), whether it can proceed spontaneously depends on the temperature.
+At room temperature, the reaction C (solid) + CO2 (gas) → 2CO (gas) cannot proceed spontaneously, which indicates that the enthalpy change of this reaction is negative.
+Considering an isentropic process, the entropy remains constant, and no heat is transferred across the system.
+
+Explanation:
+This statement is correct. Entropy is a measure of disorder or randomness in a system. Liquid water is more disordered compared to solid ice, which has a structured and crystalline arrangement. Thus, the entropy of water is higher compared to ice at the same pressure and temperature.
+This statement is correct. Spontaneity refers to the thermodynamic favorability of a reaction, indicated by a negative Gibbs free energy change. It does not provide information about the reaction rate. Some spontaneous reactions can be extremely low due to high activation energy barrier, such as the conversion of diamond to graphite.
+This statement is correct. The spontaneity of this decomposition reaction depends on the temperature because it involves a significant change in entropy due to the production of a gas (CO2). At higher temperatures, the entropy contribution () becomes significant, potentially making the reaction spontaneous even if enthalpy change () is positive.
+This statement is not correct. The non-spontaneity of this reaction at room temperature indicates that the Gibbs free energy () is positive. Meanwhile, since there is more gas produced in the reaction, the entropy contribution  is positive. To ensure  is positive, the enthalpy contribution  should be positive. 
+This statement is correct. An isentropic process is characterized by constant entropy, which implies that it is both adiabatic (no heat transfer) and reversible. Thus, in an isentropic process, entropy does not change, and no heat is exchanged with the surroundings.
+
+For an irreversible process, comparing the actual work done on a gas with the reversible work done, which relation below is most likely to be correct?
+W>Wrev
+W<Wrev
+|W|>|Wrev|
+|W|<|Wrev| 
+None of the above
+
+Explanation: 
+For a compression process, the work required in a reversible process (Wrev) is always less than the work required in an irreversible process (W). This is because the irreversible process involves additional losses due to factors like friction or turbulence, which are not present in a reversible process.
+
+Which of the following is true?
+It is impossible to transfer heat from a cooler to a hotter body under ANY conditions
+It is impossible to perform a process whose sole purpose is the conversion of heat into an equivalent amount of work
+ In an irreversible compression process of an ideal gas, the lost work (W-Wrev) is always negative
+The 2nd law of thermodynamics is a consequence of the 1st law of thermodynamics
+All of the above statements are false
+
+Explanation: 
+A) It is impossible to transfer heat from a cooler to a hotter body under ANY conditions.
+False. It is indeed possible to transfer heat from a cooler body to a hotter one, but not spontaneously. According to the second law of thermodynamics, this process requires external work. 
+B) It is impossible to perform a process whose sole purpose is the conversion of heat into an equivalent amount of work.
+True. This statement reflects the second law of thermodynamics, which states that no heat engine operating in a cycle can convert all the heat absorbed into work. There will always be some heat rejected to a cooler reservoir. 
+C) In an irreversible expansion process of an ideal gas, the lost work (W - Wrev) is always negative.
+False. For a compression process, the work required in a reversible process (Wrev) is always less than the work required in an irreversible process (W). This is because the irreversible process involves additional losses due to factors like friction or turbulence, which are not present in a reversible process.
+D) The 2nd law of thermodynamics is a consequence of the 1st law of thermodynamics.
+False. The second law of thermodynamics introduces the concept of entropy and dictates the direction of thermodynamic processes, while the first law is about energy conservation. The second law is not a consequence of the first; rather, it adds supplements our understanding of thermodynamic processes.
+
+During lecture, we learnt that the reaction Ag + ½ Cl2 = AgCl yields an entropy change of -57.7 J(mol.K)-1. What does this tell us?
+The reaction is non-spontaneous at all temperatures.
+The disorder of the system decreases during the reaction.
+The reaction absorbs heat from the surroundings.
+The reaction must be accompanied by a positive enthalpy change.
+All of the above statements are true.
+
+Explanation:
+As per the second law of thermodynamics, A negative entropy change means that the disorder or randomness of the system decreases. In this reaction, as a solid (Ag) and a gas (Cl₂) form a solid salt (AgCl), the system becomes more ordered.
+
+A small container has gas at high pressure. It is placed in an evacuated space. If the container is punctured, work done by the gas is
+Positive 
+Cannot be determined 
+Infinity
+Zero
+None of the above
+
+Explanation:
+When the container is punctured, the gas expands into the evacuated space. Since the external pressure in the evacuated space is effectively zero, the work done by the gas during this expansion can be calculated using the formula:
+W=-∫Pext dV
+where Pext​ is the external pressure. In this case, since Pext is zero, the work done by the gas will also be zero. It is an example of Free expansion.
+Therefore, the correct answer is D) Zero
+
+A cylinder contains 5 m3 of an ideal gas at a pressure of 1 bar. This gas is compressed in a reversible isothermal process till its pressure increases to 5 bar. The work in kJ required for this process
+804.7
+953.2
+981.7
+1012.2
+563.1
+
+Explanation:
+P1=1 bar, P2=5 bar, V1= 5 m3
+
+Isothermal Process
+PV=C (Where C is a constant) ; P1V1=P2V2=C= 105 X 5 Pa.m3
+V2=1 m3
+
+W= -105 X 5 X 
+W=-105 X 5 X (-1.6094) J
+W=-102 X 5 X (-1.6094) KJ
+W= 804.718 KJ [Option A]
+
+A system is partitioned into two equal parts. An intensive property of each part will 
+Become half 
+Remains unchanged 
+double
+Depend on the nature of the intensive property
+None of the above
+
+Explanation:
+An intensive property is one that does not depend on the amount of matter or the size of the system. Examples include temperature, pressure, and density. Since these properties are independent of the size or volume of the system, partitioning the system into two equal parts does not change the value of these properties for each part.
+Therefore, the correct answer is: B) Remains unchanged
+
+A perfect gas, undergoes isentropic process then which of the following is correct?
+
+All of the options in A), B), C)
+None of the above
+
+Explanation:
+For an ideal gas undergoing an adiabatic process
+ = constant
+
+ = constant
+
+========================================================================
+CA1 Sep 2025  (source: CA 1 Sep 2025 solutions.docx)
+========================================================================
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING
+
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2025-2026
+
+MS1016 – THERMODYNAMICS OF MATERIALS 
+
+(Answer Sheet)
+
+17 September 2025	Time Allowed: 1 hour	
+
+INSTRUCTIONS
+
+1.	This paper contains FOUR (4) short answer questions 
+
+2.	Answer ALL questions.
+
+3. 	Write all answers on the answer sheet provided and clearly write your name and matriculation number on it.
+
+4.	This is an open-notes test.
+
+5.	You may retain this question sheet. Only answers on the submitted answer sheet will be considered.
+
+After completing his National Service, Alex enrols at NTU to study Materials Engineering. In Prof. Leonardo’s thermodynamics class, Alex becomes fascinated by how energy and matter interact at the microscopic level. Inspired by this, he decides to develop a new computational tool—GibbsEngine—designed to manipulate Gibbs free energy for analysing advanced energy materials, such as high-performance batteries and solar cells. However, before Alex can fully implement his tool, he must first derive a key thermodynamic relationship using the Gibbs free energy equation.
+Help Alex build the foundation for his tool GibbsEngine by deriving the relationship:
+
+and prove one of the thermodynamic Maxwell relations that Prof. Leonardo would be proud of. Through this derivation, Alex will gain the necessary insight to fully control the Gibbs free energy framework in his research.									                                                               (10 Marks)
+
+ Now that Alex has mastered the Maxwell relation, he applies GibbsEngine to a simple task in the lab: heating 600 mL of water to prepare his favourite instant noodles after a long day of research. To do this, he needs to heat the water from 20°C to 90°C at constant pressure (1 atm).
+To help Alex, derive the change in entropy ΔS from the relation of heat δ, given Cp​ for water 4.18 J/g·°C, and use it to calculate the change in entropy during the heating process from 20°C to 90°C.
+
+[Hint: You do not need to use your previously derived Maxwell relation in (a).]
+
+(10 marks)
+Given					 
+		 (1 marks)
+From Enthalpy (H) equation,		  	(1 marks)
+From the first law,  and the second law  		(2 marks)
+Substituting,  		(1 marks)
+Therefore, 
+ 				(0.5 mark)
+Representing the G in terms of P and T:
+
+ 			(1 marks)
+Therefore,			 ; and  			(0.5 mark)
+Find the cross derivatives,
+ , and  	(2 marks)
+For exact differentials, the cross derivatives are equal,
+				(0.5 mark)
+
+Hence, 							(0.5 mark)
+
+Given:
+Mass of water: 600 g (0.6 kg)
+Initial temperature, Ti : 25°C = 298.15 K
+Final temperature, Tf : 90°C = 363.15 K
+Cp for water = 4.18 J/g·°C = 4180 J/kg·K
+
+Derive and use the formula:
+
+Now, to calculate the change in entropy as Harry heats the water, we start with the specific heat capacity at constant pressure:
+
+The change in entropy is defined as:
+
+										(1 mark)
+Substituting into  we get:
+
+										(2 marks)
+To find the total change in entropy over the temperature range from  to  we integrate:
+
+										(2 marks)
+Since the mass m and specific heat capacity​ are constants, they can be factored out:
+
+										(1 mark)
+This integral gives:
+
+Now, substitute the known values:
+
+										(4 marks)
+
+Now Alex is modelling a small-scale calcination experiment in Prof. Leonardo’s thermodynamics class. A sample of powdered calcium carbonate will be heated in a tube furnace. Alex must predict whether decomposition to calcium oxide and carbon dioxide is thermodynamically favored at the planned temperature of 1000 K (assuming standard pressure). Use the provided formation enthalpies and Cp(T) functions to calculate the Gibbs free energy at the planned temperature and predict whether the decomposition process is spontaneous.
+(10 Marks)
+[Hint: You need to compute ​=​−1000​and predict whether the reaction is spontaneous based on the sign of ΔGr_1000∘​]
+
+Determine the enthalpy
+
+​ = dTdTdT
+
+(2 mark)
+
+= [(-635.1)+(-393.5)-(-1206.9) ] x 103 + +          (J/mol)
+
+=178300 + (43+37.1-92)(1000-298)+      (J/mol)
+
+=178300 + (-11.9) x 702 + 0.004 x 911196
+
+=173590.98 J/mol =173.6 kJ/mol
+(2 marks)
+
+Determine the entropy
+
+​ = dT
+(2 marks)
+
+= (39.75+213.74-92.9) + (43+37.1-92)/T+(1+8.5-1.5) x 10-3]dT
+
+=160.59 +  dT
+
+=160.59 -11.9 ln0.008(1000-298)
+
+=151.80 J/molK
+(2 marks)
+Gibbs Free Energy at 1000 K
+​
+=​−1000​
+
+= 173.6 kJ/mol – 1000K *151.80 J/molK
+
+= 21.8 kJ/mol
+(1 mark)
+
+At 1000 K, ΔG>0. Decomposition is not spontaneous at standard conditions.
+means calcination of CaCO₃ is thermodynamically unfavorable at 1000 K under standard CO₂ pressure (1 atm)
+(1 mark)
+
+A gold block at 300 K is dropped from a height onto a perfectly rigid surface. Assume that all the block’s potential energy on falling is converted into kinetic energy (no rebound, no energy loss to the surface, and negligible heating of the surface). The block’s melting point is 1356 K, and its molar heat of fusion is 13 kJ/mol. The molar heat capacity of copper can be approximated as Cp=22.7+5.3×10−3T. Atomic weight of Au = 196.97.
+Find the minimum height from which the block must fall to just begin melting upon impact. Explain why also, this is a highly unlikely scenario.
+
+(12 Marks)
+
+Consider the bullet as a system:
+The appropriate First Law equation:
+dQ + dW = dU + d(PE) + d(KE)
+(2 marks)
+
+No energy loss to the surface, and negligible heating of the surface, potential energy all transfers to kinetic energy:
+d(KE) = mgh
+(1 mark)
+
+No heat flow in or out of the system, dQ=0. No work done on or by the copper, i.e. dW = 0. The copper melted so there is change in internal energy.
+U + mgh = 0 or U = -mgh
+(2 marks)
+
+Also     U = H (J/kg) *m (kg) (at constant pressure)
+
+ΔH_total = ΔH_sensible + ΔH_fusion
+(1 mark)
+
+To calculate the sensible heating:
+
+ΔH_sensible = 28605.35 J/mol
+(2 marks)
+
+thus   ΔH_total = 28605.35 + 13000 = 41605.35 J/mol
+(1 mark)
+
+Total energy required for internal energy change:
+U = ΔH_total *n = ΔH_total *m/M
+mgh = ΔH_total *m/M
+(2 marks)
+
+thus h= ΔH_total/(M*g) =41605.35 J/mol/(196.97 g/mol*9.81*10^-3 N/g) = 21532 m
+(0.5 mark)
+
+This is highly unlikely because 21.5km above sea level is far too high for a gold block to be dropped from to melt (0.5 mark)
+
+An aircraft jet engine operates as a heat engine, converting fuel combustion heat into useful work to generate thrust.
+(a) Write down the expression for the maximum possible efficiency of a heat engine (Carnot efficiency) in terms of the high-temperature reservoir and low-temperature reservoir  
+(1 marks)
+Explain how the efficiency of a jet engine can be increased. In your explanation, consider both thermodynamic factors (e.g., ) and engineering improvements (e.g., compression ratio, turbine design, material selection). Additionally, explain the possible constraints you might face. 
+(5 marks)
+Discuss the major practical limitation that prevents a jet engine from ever reaching 100% efficiency.
+ (2 marks)
+
+Start from definition of thermal efficiency:
+
+For a reversible Carnot cycle:
+
+Hence:
+
+Also   is correct
+(1 mark)
+Thermodynamic factors:
+Increase ​: raise combustion temperature (within material limits). (1 mark)
+Decrease  ​: reduce exhaust temperature (limited by ambient air). (1 mark)
+ Engineering design factors:
+Higher compression ratio → higher ​ relative to ​. (1 mark)
+Advanced turbine & compressor designs reduce irreversibilities /frictional losses. (1 mark)
+Use of high-temperature-resistant materials & cooling methods allows higher combustion temperatures. (1 mark)
+
+Major practical limitation (2 marks)
+To achieve 100% efficiency:
+​​ →1 requires ​=0 K
+Absolute zero is unattainable (3rd law of thermodynamics). (1 mark)
+Additionally, increasing ​ is constrained by material melting points, thermal stresses, and cooling limits. (1 mark)
+
+Element/Compound | Standard Enthalpy (kJ/mol)
+CaCO3 | -1206.9
+CaO | -635.1
+CO2 | -393.5
+Element/Compound | Standard Entropy (J/mol·K)
+CaCO3 | 92.9
+CaO | 39.75
+CO2 | 213.74
+Material | a | b x 10-3 T
+CaCO3 | 92 | 1.5
+CaO | 43 | 1
+CO2 | 37.1 | 8.5
+
+========================================================================
+CA1 Oct 2023 (make-up)  (source: CA1_Oct(Makeup)_2023.docx)
+========================================================================
+NAME:____________________________   MATRIC NUMBER:_________________   
+
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING
+
+MAKE UP CONTINUOUS ASSESSMENT 1 SEMESTER 1 2023-2024
+
+MS1016 – THERMODYNAMICS OF MATERIALS 
+
+13 October 2023	Time Allowed: 1 hour	
+
+INSTRUCTIONS
+
+1.	This paper contains FIVE (5) short questions.
+
+2.	Answer ALL questions on answer sheet provided. 
+
+3.	This is an open-notes test.
+
+Question 1
+Show that 
+(20 marks)
+
+Question 2
+Loki, the Trickster God, has temporarily renounced his mischievous ways to join Thor at NTU, studying thermodynamics under Prof. Leonardo. Deeply fascinated by the class, Loki realizes that the principles of thermodynamics might apply to his scepter, a powerful artifact of unknown origin. The scepter's core is a closed thermodynamic system, described by the Gibbs free energy G(T,P). From Prof. Leonardo's lessons, Loki realizes that his illusion abilities affect the enthalpy within his scepter.
+
+Define the Gibbs free energy in the context of Loki's scepter. Derive its differential form and discuss its relationship to the First Law of Thermodynamics. (5 marks)
+
+Starting from the Gibbs free energy of Loki's scepter, derive a different Maxwell's equation. Discuss how this equation might provide Loki insights into how his illusion powers manipulate the enthalpy within the scepter. (10 marks)
+
+Discuss the implications of a positive and a negative ΔG within Loki's scepter on his magical prowess. (5 marks)
+
+Question 3
+Marooned on a remote island after a boat mishap, you, along with a few other survivors, find yourselves in a dire situation. Conventional food preparation techniques are untenable, given the scarcity of resources. While scavenging, you stumble upon a fish, offering a glimmer of sustenance. An esoteric lecture by Prof. Leonardo on thermodynamics springs to mind, where you learned about the transference of Kinetic Energy to heat. This prompts a whimsical thought: Could you potentially cook the fish by applying force, specifically through stomping?
+
+For this culinary experiment, consider the following assumptions:
+
+Average human foot mass: 0.7 kg.
+Stomping velocity at impact: 4 m/s.
+Energy transfer efficiency: 15% (accounting for the fish's soft texture).
+Fish specifications: Weight = 2 kg, specific heat = 3.6 J/g°C, desired temperature shift from 15°C to 70°C.
+
+Determine the number of stomps necessary to adequately cook the fish. Additionally, elucidate any potential drawbacks or challenges associated with this method. (20 marks)
+
+Question 4
+The linear coefficient of thermal expansion, ​, is one-third of the volumetric coefficient of thermal expansion, ​. The volumetric coefficient, ​, is defined by:
+
+         and       
+
+Given that the linear thermal expansion of iron is , determine the change in specific entropy of iron when the pressure increases from 1 atm to 10 atm. Consider . The atomic weight of iron is 55.85 g/mol and its density is 7.87 g/cm³ (20 Marks).
+
+Question 5
+Ash's Charizard is known for its powerful Flamethrower attack. Imagine a scenario where Charizard's Flamethrower heats a 2.0 kg block of steel from an initial temperature of 25°C to a final temperature of 250°C. The specific heat capacity of steel is . 
+
+Charizard's Flamethrower is found to be an isobaric process. Using the first law of thermodynamics and assuming no other work is done apart from heating, find:
+
+a) The heat (Q) Charizard transferred to the steel block (5 Marks).
+
+Question continues next page…
+b) If the process is reversible, and given that the change in entropy  for the steel block can be described by:
+
+Calculate the change in entropy for the steel block (5 Marks).
+
+c) Pikachu watches in amazement and decides to cool down the steel block with its Electric attack, resulting in the release of 1500 J of energy. What would be the final temperature of the steel block after Pikachu's intervention? (10 Marks)
+
+========================================================================
+CA1 Sep 2023  (source: CA1_Sept_2023.docx)
+========================================================================
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING
+
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2023-2024
+
+MS1016 – THERMODYNAMICS OF MATERIALS 
+
+(Question Sheet)
+
+26 September 2023	Time Allowed: 1 hour	
+
+INSTRUCTIONS
+
+1.	This paper contains THREE (3) short questions and TEN (10) MCQ questions.
+
+2.	Answer ALL questions.
+
+3. 	Write all answers on the answer sheet provided and clearly write your name and matriculation number on it.
+
+4.	This is an open-notes test.
+
+5.	All questions have ONLY ONE correct answer for the MCQ questions. 
+
+6.	You may retain this question sheet. Only answers on the submitted answer sheet will be considered.
+
+PART I – SHORT QUESTIONS
+
+Show that  for a system that does work reversibly.
+(20 marks)
+	
+
+2.	Thor, the God of Thunder, has taken a brief sabbatical from Asgardian duties to study thermodynamics at NTU as your classmate in Prof. Leonardo’s class. Intrigued by the lessons, Thor wonders if the principles of thermodynamics could be applied to Mjölnir, his legendary hammer. The core of Mjölnir is a closed thermodynamic system that can be described by the Helmholtz free energy F(T,V). Subsequently, he has discovered through Prof. Leonardo’s lessons that his ability as a god to manipulate thunder actually changes the entropy within Mjölnir.
+
+Define the Helmholtz free energy as it pertains to Mjölnir. Derive its differential form and how it relates to the First law of thermodynamics. (5 marks)
+
+Starting from the Helmholtz free energy of Mjölnir, derive one of Maxwell's equations. Break down how this equation might allow Thor to understand the manipulation of entropy within Mjölnir when he uses his thunder powers. (10 marks)
+
+Relate the implications of a positive and a negative ΔF within Mjölnir on Thor's combat effectiveness. (5 marks)
+
+3.	You are a resourceful scientist who has survived a shipwreck and along with a few others. Stranded on a deserted island with limited supplies, you realise that conventional cooking methods are not feasible. Amidst the wreckage, you find a chicken and ponder how to cook it. Having taken Prof. Leonardo’s Introduction to Thermodynamics class, you remember a theoretical discussion about how Kinetic Energy can transfer heat and that you could potentially cook a chicken through slaps and decide to explore this unconventional method as a last resort. You make a series of assumptions: an average human hand mass of 0.4 kg, a slap velocity of 5 m/s at the point of impact, and an energy transfer efficiency of only 10%. The chicken weighs 1.5 kg, has a specific heat of 2.8 J/g°C, and needs to go from an initial temperature of 10°C to a safe-to-eat temperature of 75°C. 
+
+How many slaps do you need to cook the chicken? 
+
+Make sure you discuss possible limitations to your method. 			(20 marks)
+
+PART II Multiple Choice Questions
+
+Answer all the TEN MCQ questions below. There is only ONE answer for each question. (4 marks each)
+
+"In a closed system where no energy is added or removed, the entropy of the system will not decrease." This statement is best described by:
+
+A) First Law of Thermodynamics
+B) Conservation of Mass
+C) Third Law of Thermodynamics
+D) Zeroth Law of Thermodynamics
+E) Second Law of Thermodynamics
+
+ The efficiency of a heat engine can be best improved by:
+
+A) Lowering the temperature at which energy is received
+B) Balancing the temperature between input and output energies, so ΔT = 0
+C) Raising the temperature at which energy is received
+D) Lowering the operating temperature of the heat engine
+E) Keeping the temperature of the heat engine constant
+
+A monoatomic ideal gas is contained in a cylinder that is in adiabatic conditions. The pressure of the gas drops from 30 atm to 10 atm, and the initial temperature is 400 K. What is the final temperature of the gas?
+
+A) 205 K  
+B) 220 K  
+C) 226 K  
+D) 245 K  
+E) 260 K
+
+Which of the following process may be described as the Joule-Thompson effect?
+
+A) Isentropic
+B) Isenthalpic
+C) Isothermal
+D) Isochoric
+E) Isobaric
+
+Consider the following processes for an ideal gas in a thermodynamic system:
+(a) Process where both temperature and volume remain constant.
+(b) Process that is reversible and adiabatic.
+(c) Process at constant pressure.
+(d) Process at constant volume.
+(e) Process at constant temperature.
+	Match each process with its appropriate descriptor:
+
+Descriptors:
+(A) Isothermal
+(B) Isochoric
+(C) Isentropic
+(D) Isobaric
+(E) Adiabatic
+
+	Choose the lettered option that best matches the sequence (a,b,c,d,e):
+
+A) B, C, D, A, E
+B) B, C, D, E, A
+C) C, A, B, D, E
+D) D, A, B, C, E
+E) B, C, D, B, A
+
+ Consider a thermodynamic system characterized by the enthalpy H. Which of the following Maxwell's relations is valid for this system?
+
+Consider an ideal gas defined by its enthalpy (  ). For this system, the molar isothermal compressibility at constant temperature () is given as  and the molar coefficient of thermal expansion at constant pressure () is . Calculate the change in molar volume when the temperature of the system changes by 25 K during an isobaric (constant pressure) process. (Hint: Use the relations from the previous question)
+
+ A cylinder contains a monoatomic ideal gas at an initial temperature of 300 K and an initial pressure of 2 atm. The gas undergoes adiabatic compression, and the final pressure is 8 atm. Considering Cp​=R, what is the final temperature of the gas?
+1200 K
+689 K
+700 K
+1010 K
+900 K
+
+Which of the following is NOT a property of an ideal gas?
+
+The internal energy is not a function of the volume
+The enthalpy is not a function of the pressure
+PV = nRT
+
+No intermolecular forces
+
+Which of the following statements best describes the concept of the "heat death" of the universe according to thermodynamic principles?
+
+The universe will eventually reach a state of minimum entropy.
+The universe will eventually contract into a singularity, releasing an enormous amount of heat.
+The universe will eventually reach a state of maximum entropy where all matter is evenly distributed.
+The universe will eventually reach thermal equilibrium but with decreasing entropy.
+The universe will eventually collapse, leading to a decrease in overall entropy and increase in free energy.
+
+========================================================================
+CA1 Oct 2023 (make-up)  (source: CA1_Solution_Oct(Makeup)_2023.docx)
+========================================================================
+NAME:____________________________   MATRIC NUMBER:_________________   
+
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING
+
+CONTINUOUS ASSESSMENT 2 SEMESTER 1 2023-2024
+
+MS1016 – THERMODYNAMICS OF MATERIALS 
+
+13 October 2023	Time Allowed: 1 hour	
+
+INSTRUCTIONS
+
+1.	This paper contains FIVE (5) short questions.
+
+2.	Answer ALL questions.
+
+3.	This is an open-notes test.
+
+Question 1
+Show that 
+(20 marks)
+	
+Solution:
+
+Given					H = U + PV
+
+				dH = dU + PdV + VdP
+
+	From First Law of Thermodynamics,
+
+dU =Q – PdV
+
+	And for a reversible process, the Second Law of Thermodynamics is
+ 
+dS = Q/T
+
+ dH = Q – PdV + PdV + VdP
+
+dH = TdS + vdP
+
+Question 2
+Loki, the Trickster God, has temporarily renounced his mischievous ways to join Thor at NTU, studying thermodynamics under Prof. Leonardo. Deeply fascinated by the class, Loki realizes that the principles of thermodynamics might apply to his scepter, a powerful artifact of unknown origin. The scepter's core is a closed thermodynamic system, described by the Gibbs free energy G(T,P). From Prof. Leonardo's lessons, Loki realizes that his illusion abilities affect the enthalpy within his scepter.
+
+Define the Gibbs free energy in the context of Loki's scepter. Derive its differential form and discuss its relationship to the First Law of Thermodynamics. (5 marks)
+
+Starting from the Gibbs free energy of Loki's scepter, derive a different Maxwell's equation. Discuss how this equation might provide Loki insights into how his illusion powers manipulate the enthalpy within the scepter. (10 marks)
+
+Discuss the implications of a positive and a negative ΔG within Loki's scepter on his magical prowess. (5 marks)
+
+Solutions:
+
+ (a) Definition of Gibbs Free Energy and its Relevance to Loki (5 marks):
+The Gibbs Free Energy ( G) is defined as:
+
+Where:
+U stands for the internal energy.
+P denotes the pressure.
+V signifies the volume.
+T is the temperature.
+S is the entropy of the scepter.
+
+Substituting (  ) from the First Law of Thermodynamics, we get:
+
+Relevance to Loki: This mathematical representation can help Loki grasp how his illusion spells, affecting the scepter's temperature and volume, can in turn alter its internal energy and entropy. These changes might impact the strength and duration of his magical effects.
+
+(b) Derivation of Maxwell's Equation and Its Relevance to Loki (10 marks):
+
+Starting from the differential form of ( G ):
+
+Solution should identify the partial derivatives of G(T,P):
+
+Applying the mixed partial derivative theorem, we get:
+
+Substituting the partial derivatives of (  ):
+
+Implications of Changes in (  ) for Loki (5 marks):
+
+Positive ΔG:
+This signifies that when Loki casts his magic, it might not be spontaneous under the present conditions. More energy or external influences might be needed to attain the desired magical output.
+
+Negative ΔG:
+Indicates that his magical acts are inherently spontaneous. The spells and illusions cast by Loki will manifest with ease, amplifying his dominance in arcane confrontations.
+
+Question 3
+Marooned on a remote island after a boat mishap, you, along with a few other survivors, find yourselves in a dire situation. Conventional food preparation techniques are untenable, given the scarcity of resources. While scavenging, you stumble upon a fish, offering a glimmer of sustenance. An esoteric lecture by Prof. Leonardo on thermodynamics springs to mind, where you learned about the transference of Kinetic Energy to heat. This prompts a whimsical thought: Could you potentially cook the fish by applying force, specifically through stomping?
+
+For this culinary experiment, consider the following assumptions:
+
+Average human foot mass: 0.7 kg.
+Stomping velocity at impact: 4 m/s.
+Energy transfer efficiency: 15% (accounting for the fish's soft texture).
+Fish specifications: Weight = 2 kg, specific heat = 3.6 J/g°C, desired temperature shift from 15°C to 70°C.
+
+Determine the number of stomps necessary to adequately cook the fish. Additionally, elucidate any potential drawbacks or challenges associated with this method. (20 marks)
+
+First, compute the kinetic energy from a single stomp: (4 marks) 
+
+Determine the effective energy transferred to the fish from each slap considering the 15% efficiency. (4 marks)
+
+ (4 marks)
+
+Compute the total energy required to raise the fish’s temperature to 75°C. Provide the formula before giving your numerical answer. (4 marks)
+
+Divide the required energy by the effective energy per stomp:
+
+Limitations:
+Not all energy from the stomp will uniformly transfer into the fish, leading to uneven cooking.
+Continual stomping might damage the fish, reducing its edible parts.
+Real-life energy transfer might be less efficient than our assumed 15%.
+The fish could decompose if the stomping process takes too long.
+
+Question 4
+The linear coefficient of thermal expansion, ​, is one-third of the volumetric coefficient of thermal expansion, ​. The volumetric coefficient, ​, is defined by:
+
+         and       
+
+Given that the linear thermal expansion of iron is , determine the change in specific entropy of iron when the pressure increases from 1 atm to 10 atm. Consider . The atomic weight of iron is 55.85 g/mol and its density is 7.87 g/cm³ (20 Marks).
+
+1. Determine the Volumetric Coefficient of Thermal Expansion:
+
+2. Calculate the Specific Volume:
+
+3. Using the relation between entropy, volume, and temperature coefficients:
+
+4. Finally, determine the entropy change for the pressure range:
+
+Given the relationship between atm and N/m²:
+
+Question 5
+Ash's Charizard is known for its powerful Flamethrower attack. Imagine a scenario where Charizard's Flamethrower heats a 2.0 kg block of steel from an initial temperature of 25°C to a final temperature of 250°C. The specific heat capacity of steel is . 
+
+Charizard's Flamethrower is found to be an isobaric process. Using the first law of thermodynamics and assuming no other work is done apart from heating, find:
+
+a) The heat (Q) Charizard transferred to the steel block (5 Marks).
+
+b) If the process is reversible, and given that the change in entropy  for the steel block can be described by:
+
+Calculate the change in entropy for the steel block (5 Marks).
+
+c) Pikachu watches in amazement and decides to cool down the steel block with its Electric attack, resulting in the release of 1500 J of energy. What would be the final temperature of the steel block after Pikachu's intervention? (10 Marks)
+
+Given, 
+
+b) Using the given formula:
+
+The antiderivative of ​ is ln(T).
+
+Considering the block is 2,000g
+
+c) Given the heat released by Pikachu's attack:
+
+Using the formula for heat transfer 
+
+Using given values
+
+Using
+
+========================================================================
+CA1 Sep 2023  (source: CA1_Solution_Sept_2023.pdf)
+========================================================================
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING 
+ 
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2023-2024 
+ 
+MS1016 – THERMODYNAMICS OF MATERIALS  
+ 
+(Question Sheet) 
+ 
+ 
+26 September 2023 
+Time Allowed: 1 hour  
+ 
+INSTRUCTIONS 
+ 
+1. 
+This paper contains THREE (3) short questions and TEN (10) MCQ questions. 
+ 
+2. 
+Answer ALL questions. 
+ 
+3.  
+Write all answers on the answer sheet provided and clearly write your name and 
+matriculation number on it. 
+ 
+4. 
+This is an open-notes test. 
+ 
+5. 
+All questions have ONLY ONE correct answer for the MCQ questions.  
+ 
+6. 
+You may retain this question sheet. Only answers on the submitted answer sheet 
+will be considered. 
+ 
+ 
+PART I – SHORT QUESTIONS 
+ 
+(1) 
+Show that 𝑑𝐻 = 𝑇𝑑𝑆 + 𝑉𝑑𝑃 for a system that does work reversibly. 
+(20 marks) 
+ 
+ 
+Solution: 
+ 
+Given 
+ 
+ 
+ 
+ 
+H = U + PV 
+ 
+ 
+ 
+ 
+ 
+dH = dU + PdV + VdP 
+ 
+ 
+From First Law of Thermodynamics, 
+ 
+dU =dQ – PdV 
+ 
+ 
+And for a reversible process, the Second Law of Thermodynamics is 
+ 
+dS = dQ/T 
+ 
+\ dH = dQ – PdV + PdV + VdP 
+ 
+dH = TdS + vdP 
+
+ 
+  
+2. Thor, the God of Thunder, has taken a brief sabbatical from Asgardian duties to study 
+thermodynamics at NTU as your classmate in Prof. Leonardo’s class. Intrigued by the 
+lessons, Thor wonders if the principles of thermodynamics could be applied to Mjölnir, 
+his legendary hammer. The core of Mjölnir is a closed thermodynamic system that can 
+be described by the Helmholtz free energy F(T,V). Subsequently, he has discovered 
+through Prof. Leonardo’s lessons that his ability as a god to manipulate thunder actually 
+changes the entropy within Mjölnir. 
+ 
+a. Define the Helmholtz free energy as it pertains to Mjölnir. Derive its differential 
+form and how it relates to the First law of thermodynamics. (5 marks) 
+ 
+b. Starting from the Helmholtz free energy of Mjölnir, derive one of Maxwell's 
+equations. Break down how this equation might allow Thor to understand the 
+manipulation of entropy within Mjölnir when he uses his thunder powers. (10 
+marks) 
+ 
+c. Relate the implications of a positive and a negative ΔF within Mjölnir on Thor's 
+combat effectiveness. (5 marks) 
+ 
+Solutions: 
+ 
+ (a) Definition of Helmholtz Free Energy and its Relevance to Thor (5 marks): 
+The Helmholtz Free Energy ( 𝐹 ) is defined as: 
+ 
+𝐹 = 𝑈 − 𝑇𝑆 
+ 
+where ( 𝑈 ) is the internal energy, ( 𝑇 ) is the temperature, and ( 𝑆\) is the entropy of Mjölnir. 
+Taking its differential, we have: 
+ 
+𝑑𝐹 = 𝑑𝑈 − 𝑇𝑑𝑆 − 𝑆𝑑𝑇 
+ 
+Substituting ( 𝑑𝑈 = 𝑇𝑑𝑆 − 𝑃𝑑𝑉 ) from the First Law of Thermodynamics, we get: 
+ 
+ 
+𝑑𝐹 = −𝑆𝑑𝑇 − 𝑃𝑑𝑉 
+ 
+ 
+Relevance to Thor: Thor can use this understanding to gauge how using thunder might 
+change the internal energy and entropy within Mjölnir, affecting its battle capabilities. 
+ 
+(b) Derivation of Maxwell's Equation and Its Relevance to Thor (10 marks): 
+ 
+Starting from the differential form of ( 𝐹 ): 
+ 
+𝑑𝐹 = −𝑆𝑑𝑇 − 𝑃𝑑𝑉 
+ 
+Solution should identify the partial derivatives of F(T,V): 
+ 
+
+-∂𝐹
+∂𝑇/
+!
+= −𝑆, 
+-∂𝐹
+∂𝑉/
+"
+= −𝑃 
+ 
+ 
+Applying the mixed partial derivative theorem, we get: 
+ 
+∂#𝐹
+∂𝑇∂𝑉= ∂#𝐹
+∂𝑉∂𝑇 
+ 
+ 
+Substituting the partial derivatives of ( 𝐹 ): 
+ 
+−-∂𝑆
+∂𝑉/
+"
+= −-∂𝑃
+∂𝑇/
+!
+ 
+ 
+ 
+Relevance to Thor: This equation shows that Thor's ability to manipulate thunder can 
+influence the entropy and pressure within Mjölnir. For example, if Thor can control the 
+temperature change via his thunder powers, he can also affect the pressure and entropy 
+within the hammer, allowing for strategically stronger or more efficient attacks. 
+ 
+c)  Implications of Changes in ( Δ𝐹 ) for Thor (5 marks): 
+ 
+A negative (Δ𝐹) implies that Mjölnir has moved to a state where it has more "free energy" 
+to do work, enabling Thor to unleash more potent attacks. Conversely, a positive (Δ𝐹) 
+suggests Mjölnir is losing its capability to perform useful work, potentially weakening 
+Thor's strikes. 
+ 
+ 
+3. You are a resourceful scientist who has survived a shipwreck and along with a few 
+others. Stranded on a deserted island with limited supplies, you realise that 
+conventional cooking methods are not feasible. Amidst the wreckage, you find a 
+chicken and ponder how to cook it. Having taken Prof. Leonardo’s Introduction to 
+Thermodynamics class, you remember a theoretical discussion about how Kinetic 
+Energy can transfer heat and that you could potentially cook a chicken through slaps 
+and decide to explore this unconventional method as a last resort. You make a series of 
+assumptions: an average human hand mass of 0.4 kg, a slap velocity of 5 m/s at the 
+point of impact, and an energy transfer efficiency of only 10%. The chicken weighs 1.5 
+kg, has a specific heat of 2.8 J/g°C, and needs to go from an initial temperature of 10°C 
+to a safe-to-eat temperature of 75°C.  
+ 
+How many slaps do you need to cook the chicken?  
+ 
+Make sure you discuss possible limitations to your method.  
+ 
+(20 marks) 
+ 
+Part 1: Calculate the kinetic energy imparted by a single slap based on the given 
+assumptions. Provide the formula before giving your numerical answer. (4 marks)  
+𝐾𝐸= 1
+2 × mass × velocity# 
+
+𝐾𝐸= 1
+2 × 0.4 kg × (5 m/s)# = 5 J  
+ 
+Part 2: Determine the effective energy transferred to the chicken from each slap 
+considering the 10% efficiency. (4 marks) 
+ 
+Effective Energy = 0.10 × 5 J = 0.5 J (4 marks) 
+ 
+Part 3: Compute the total energy required to raise the chicken's temperature to 75°C. 
+Provide the formula before giving your numerical answer. (4 marks) 
+ 
+Δ𝑄= mass × Cp × dT 
+ 
+Δ𝑄= 1500 g × 2.8 J/g°C × 65 °C = 273,000 J 
+ 
+Part 4: How many slaps will it take to cook the chicken to the desired temperature? 
+Provide the formula before giving your numerical answer. (4 marks) 
+ 
+Number of slaps =
+Total Energy required
+Effective Energy per slap 
+ 
+Number of slaps = 273,000 J
+0.5 J/slap = 546,000 slaps 
+ 
+Part 5: Briefly discuss the limitations and assumptions of this unconventional cooking 
+method. (4 marks) 
+ 
+1. The energy transfer efficiency is assumed to be 10%, which might not be 
+accurate. 
+2. Uniform energy distribution throughout the chicken is assumed, which is 
+unlikely. 
+3. The chicken is assumed to absorb all the effective energy, ignoring losses 
+to the environment.  
+4. The slapper or the chicken may not survive so many slaps.  
+ 
+ 
+PART II MCQ QUESTIONS 
+ 
+Answer all the TEN MCQ questions below. There is only ONE answer for each question. 
+(4 marks each) 
+ 
+1. "In a closed system where no energy is added or removed, the entropy of the system 
+will not decrease." This statement is best described by: 
+ 
+A) First Law of Thermodynamics 
+B) Conservation of Mass 
+C) Third Law of Thermodynamics 
+D) Zeroth Law of Thermodynamics 
+E) Second Law of Thermodynamics 
+ 
+
+Explanation: 
+ 
+A) First Law of Thermodynamics - This law deals with the conservation of energy, 
+not the directionality of processes. 
+ 
+B) Conservation of Mass - This principle is about the constancy of mass in a closed 
+system and has nothing to do with entropy. 
+ 
+C) Third Law of Thermodynamics - This law states that the entropy of a perfect 
+crystal is exactly zero when the temperature of the crystal is exactly zero. It 
+doesn't deal with the change in entropy in a closed system. 
+ 
+D) Zeroth Law of Thermodynamics - This law provides the foundation for the 
+concept of temperature, saying if two systems are each in thermal equilibrium 
+with a third, they are in thermal equilibrium with each other. 
+ 
+E) Second Law of Thermodynamics - This law states that the entropy of an isolated 
+system will tend to increase over time, approaching a maximum value at 
+equilibrium. The statement given in the question is directly related to this 
+principle, making E the correct answer. 
+ 
+2.  The efficiency of a heat engine can be best improved by: 
+ 
+A) Lowering the temperature at which energy is received 
+B) Balancing the temperature between input and output energies, so ΔT = 0 
+C) Raising the temperature at which energy is received 
+D) Lowering the operating temperature of the heat engine 
+E) Keeping the temperature of the heat engine constant 
+ 
+Explanation: 
+ 
+A) Lowering the temperature at which energy is received would generally reduce 
+efficiency, as less thermal energy would be available to convert into work. 
+ 
+B) Balancing the temperature between input and output energies, so ΔT = 0, would 
+mean no work could be done, making the engine entirely inefficient. 
+ 
+C) Raising the temperature at which energy is received would generally improve 
+efficiency, as higher thermal gradients allow for better energy conversion to 
+work, making this the correct answer. 
+ 
+D) Lowering the operating temperature of the heat engine would not necessarily 
+improve its efficiency and could potentially make it less efficient. 
+ 
+E) Keeping the temperature of the heat engine constant does not inherently improve 
+efficiency. 
+ 
+ 
+
+3. A monoatomic ideal gas is contained in a cylinder that is in adiabatic conditions. The 
+pressure of the gas drops from 30 atm to 10 atm, and the initial temperature is 400 
+K. What is the final temperature of the gas? 
+ 
+A) 205 K   
+B) 220 K   
+C) 226 K   
+D) 245 K   
+E) 260 K 
+ 
+Solution: 
+ 
+The formula  
+"!
+"" = _
+$!
+$"`
+%/'# is given for this adiabatic process. For a monoatomic ideal gas, 
+𝐶( =
+)
+# 𝑅. 
+ 
+ 
+We have: 
+ 
+𝑃* = 30 atm 
+ 
+𝑃# = 10 atm 
+𝑇* = 400 K 
+ 
+ 
+Substituting these into the formula: 
+ 
+𝑇#
+400 K = -10 atm
+30 atm/
+%/)
+#%
+ 
+ 
+ 
+The ( 𝑅 ) terms cancel out, leaving: 
+𝑇#
+400 K = -1
+3/
+#/)
+ 
+ 
+𝑇#
+400 K = 0.33+.- 
+ 
+𝑇#
+400 K ≈0.6418 (approximately) 
+ 
+𝑇# ≈256.72 K 
+ 
+Rounded to the nearest whole number, ( 𝑇#) is approximately 260 K. 
+ 
+ 
+4. Which of the following process may be described as the Joule-Thompson effect? 
+ 
+A)Isentropic 
+
+B)Isenthalpic 
+C)Isothermal 
+D)Isochoric 
+E) Isobaric 
+ 
+ 
+ 
+5. Consider the following processes for an ideal gas in a thermodynamic system: 
+(a) Process where both temperature and volume remain constant. 
+(b) Process that is reversible and adiabatic. 
+(c) Process at constant pressure. 
+(d) Process at constant volume. 
+(e) Process at constant temperature. 
+ 
+ 
+Match each process with its appropriate descriptor: 
+ 
+Descriptors: 
+A) Isothermal 
+B) Isochoric 
+C) Isentropic 
+D) Isobaric 
+E) Adiabatic 
+ 
+ 
+Choose the lettered option that best matches the sequence (a,b,c,d,e): 
+ 
+A) B, C, D, A, E 
+B) B, C, D, E, A 
+C) C, A, B, D, E 
+D) D, A, B, C, E 
+E) B, C, D, B, A 
+ 
+Solution: 
+ 
+(a) Process where both temperature and volume remain constant: In this case, volume is 
+constant, making it an isochoric process. 
+Answer for (a): B) Isochoric 
+(b) Process that is reversible and adiabatic: A reversible and adiabatic process is also called 
+isentropic. 
+Answer for (b): C) Isentropic 
+(c) Process at constant pressure: A process at constant pressure is called an isobaric process. 
+Answer for (c): D) Isobaric 
+(d) Process at constant volume: A process at constant volume is isochoric. 
+Answer for (d): B) Isochoric 
+(e) Process at constant temperature: A process at constant temperature is isothermal. 
+Answer for (e): A) Isothermal 
+ 
+So the answers in sequence are: 
+(a) B 
+(b) C 
+(c) D 
+
+(d) B 
+(e) A 
+The correct option matching this sequence is E) B, C, D, B, A. 
+ 
+ 
+6.  Consider a thermodynamic system characterized by the enthalpy H. Which of the 
+following Maxwell's relations is valid for this system? 
+A) _
+.$
+./ `
+" = −_
+."
+.! `
+$ 
+B) _
+0!
+0/`
+" = _
+0"
+0$ `
+! 
+C) _
+0!
+0" `
+/ = _
+0/
+0$ `
+! 
+D) _
+.$
+." `
+/ = −_
+./
+.! `
+$ 
+E) _
+𝝏𝑺
+𝝏𝑷`
+𝑻= _
+𝝏𝑽
+𝝏𝑻`
+𝑷  (Erratum: Should be _
+."
+.$`
+6 = _
+.!
+./ `
+$ , entire class has been 
+awarded marks for this question) 
+ 
+ 
+7. Consider an ideal gas defined by its enthalpy ( 𝐻 ). For this system, the molar 
+isothermal compressibility at constant temperature (𝑇) is given as _
+./
+.$`
+" =
+0.4 J/(mol·K·Pa) and the molar coefficient of thermal expansion at constant 
+pressure (𝑃) is _
+.!
+."`
+$ = 1.2 × 1078 m9/mol·K. Calculate the change in molar 
+volume when the temperature of the system changes by 25 K during an isobaric 
+(constant pressure) process. (Hint: Use the relations from the previous question) 
+ 
+ 
+A) 2.5 × 107:   𝑚9/𝑚𝑜𝑙 
+B) 𝟑. 𝟎 × 𝟏𝟎7𝟕   𝒎𝟑/𝒎𝒐𝒍  (Erratum: Should be 3×10−5 m3/mol, entire class has 
+been awarded marks for this question) 
+C) 6.0 × 107:   𝑚9/𝑚𝑜𝑙   
+D) 1.2 × 1078    𝑚9/𝑚𝑜𝑙   
+E) 2.4 × 1078   𝑚9/𝑚𝑜𝑙 
+ 
+ 
+To solve this problem, we'll use the molar coefficient of thermal expansion  _
+0=
+0"`
+$, which 
+is derived from the Maxwell relation for enthalpy (𝐻). 
+The change in molar volume  𝑑𝑉 due to a temperature change 𝑑T at constant pressure can 
+be calculated using: 
+ 
+ 
+d𝑉= -∂𝑉
+∂𝑇/
+$
+d𝑇 
+ 
+ 
+Given: 
+ 
+
+-∂V
+∂𝑇/
+$
+= 1.2 × 1078 m9/mol·K 
+ 
+d𝑇= 25 K 
+ 
+ 
+We find: 
+ 
+dV = 1.2 × 1078 m9/mol·K × 25 K = 3.0 × 107) m9/mol 
+The molar isothermal compressibility at constant temperature (𝑇) is a red herring. 
+ 
+ 
+8.  A cylinder contains a monoatomic ideal gas at an initial temperature of 300 K and 
+an initial pressure of 2 atm. The gas undergoes adiabatic compression, and the final 
+pressure is 8 atm. Considering Cp=
+)
+#R, what is the final temperature of the gas? 
+A) 1200 K 
+B) 689 K 
+C) 700 K 
+D) 1010 K 
+E) 900 K 
+ 
+Solution: 
+Given that 𝑇*=300K, 𝑃* =2atm, 𝑃#=8atm, and Cp=
+)
+#R, we can rewrite the equation as: 
+𝑇#
+300K = (8 𝑎𝑡𝑚
+2 𝑎𝑡𝑚)
+%
+)
+#% 
+ 
+ 
+𝑇2 ≈522.33𝐾 
+ 
+(Erratum: None of the solutions in the question are valid. Entire class has been awarded 
+marks for this question.) 
+ 
+ 
+9. Which of the following is NOT a property of an ideal gas? 
+ 
+A) The internal energy is not a function of the volume 
+ 
+B) The enthalpy is not a function of the pressure 
+ 
+C) PV = nRT 
+ 
+D) 𝑪𝑽– 𝑪𝑷= 𝑹 
+ 
+E) No intermolecular forces 
+ 
+10. Which of the following statements best describes the concept of the "heat death" 
+of the universe according to thermodynamic principles? 
+ 
+
+A) The universe will eventually reach a state of minimum entropy. 
+ 
+B) The universe will eventually contract into a singularity, releasing an 
+enormous amount of heat. 
+ 
+C) The universe will eventually reach a state of maximum entropy where all 
+matter is evenly distributed. 
+ 
+D) The universe will eventually reach thermal equilibrium but with decreasing 
+entropy. 
+ 
+E) The universe will eventually collapse, leading to a decrease in overall entropy 
+and increase in free energy. 
+ 
+The correct answer is C) The universe will eventually reach a state of maximum entropy 
+where all matter is evenly distributed. This is consistent with the second law of 
+thermodynamics, which states that the entropy of an isolated system tends to increase 
+over time, leading to a state of maximum entropy. The "heat death" hypothesis suggests 
+that the universe will reach a state where it is so spread out that it is essentially in thermal 
+equilibrium, with no more room for work to be done.
+
+========================================================================
+CA2 Oct 2021  (source: 2_CA2_solution_oct 2021.pdf)
+========================================================================
+NAME:_______________________________      MATRIC NUMBER:_________________    
+ 
+ 
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING 
+ 
+CONTINUOUS ASSESSMENT 2 SEMESTER 1 2021-2022 
+ 
+MS1016 – THERMODYNAMICS OF MATERIAL  
+ 
+ 
+25 October 2021 
+Time Allowed: 1 hour  
+ 
+INSTRUCTIONS 
+ 
+1. 
+This paper contains THREE (3) short questions and TEN (10) MCQ questions. 
+ 
+2. 
+Answer ALL questions. 
+ 
+3. 
+This is an open book test. 
+ 
+4. 
+All questions have ONLY ONE correct answer for the MCQ questions.  
+ 
+ 
+PART I – SHORT QUESTIONS 
+ 
+(1) 
+Explain the difference between the ‘molar Gibbs free energy and the ‘partial molar Gibbs 
+free energy’.  
+(20 marks)  
+ 
+ 
+Molar Gibbs free energy is the Gibbs free energy per unit volume of the material. It 
+is calculated by dividing the total Gibbs free energy of a system by the number of 
+mol. Hence the unit for the molar Gibbs free energy is Joules/mol. 
+ 
+Partial molar Gibbs free energy is the partial derivative of the Gibbs free energy of a 
+component in a mixture by the number of mole, keeping temperature and Pressure 
+constant, and the other components in the mixture constant. It is thus defined as: 
+ 
+൬𝜕𝐺
+𝜕𝑛௜
+൰்
+,௉,௡భ,௡మ…….௡ೕಯ೔
+ 
+ 
+The partial molar Gibbs free energy is also called the chemical potential of a 
+component in a mixture. Partial molar Gibbs free energy has the same units of 
+Joules/mole and represents the Gibbs free energy of the component in the mixture, 
+taking into consideration the interaction with the other components. 
+ 
+ 
+ 
+ 
+ 
+
+2. FeCo is an important magnetic material used in electrical machine. Fe and Co is known to 
+be totally miscible to each other and at lower temperature, forms an ordered structure. 
+Sketch a likely representative of an equilibrium phase diagram to represent the Fe-Co 
+system. 
+(20 marks) 
+ 
+ 
+ 
+In a binary mixture where the bond energy between the unlike bonds is stronger than 
+the bonds between the same atoms/molecules, a homogeneous disordered solid phase, 
+ is normally formed because the atoms are likely to be totally miscible to each other. 
+The melting point of the mixture (alloy) tends to be higher than the respective pure 
+components because of the more stable bonds. 
+ 
+At low temperature, an ordered phase ’ is formed as indicated in the phase diagram. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+3. The Gibbs free energy for the formation of MgO at 1000 K is – 520,000 J/mol. Calculate 
+the equilibrium O2 pressure for the oxidation of Mg at 1000 K. The oxidation reaction of 
+Al is 
+ 
+2Mg + O2 = 2MgO 
+(20 marks) 
+ 
+Given, the standard free energy for the formation of Mg is – 520,000 J/mol 
+ 
+2Mg + O2 = 2MgO 
+The equilibrium constant is 
+      J ൌ
+a୑୥୓
+ଶ
+a୑୥
+ଶa୓ଶ
+ 
+ 
+When the O2 is at equilibrium with Mg, J = 
+ଵ
+ୟోమ, ∴∆G଴ൌRTlnP୓మ 
+ 
+G(400 K) = -520,000 = 8.314  1000 ln PO2 
+ 
+ ln PO2 = -62,5 atm  
+ 
+PO2 = 6.9  10-28 atm 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+PART II MCQ QUESTIONS 
+ 
+(4) 
+Answer all the TEN MCQ questions below. There is only ONE answer for each 
+question. 
+(40 marks) 
+ 
+(i) 
+What is the condition for equilibrium of two phases in a single component system? 
+ 
+ 
+A 
+the chemical potential of the phases must be equal 
+ 
+ 
+B 
+the molar Gibbs free energy of the phases must be equal 
+ 
+ 
+C 
+the total Gibbs free energy of the two systems must be constant 
+ 
+ 
+D 
+the mass of the two phases must be equal 
+ 
+ 
+E 
+the entropy of the two phases must be equal 
+ 
+ 
+ 
+(ii) 
+The Clausius-Clapeyron equation is given as: 
+ 
+൬dP
+dT൰
+eq
+ൌSβ െSα
+Vβ െVα ൌΔS
+ΔV 
+ 
+ 
+The melting point of a certain solid was found to increase when the external pressure is 
+increased. Which of the following deduction is probably correct?  
+ 
+ 
+A 
+dP/dT is positive 
+ 
+ 
+B 
+the material will melt easier under pressure 
+ 
+ 
+C 
+the volume of the material contracts upon melting 
+ 
+ 
+D 
+dP/dT is negative 
+ 
+ 
+E 
+None of the above 
+ 
+ 
+(iii) Grain growth during heat treatment is the likely result of: 
+ 
+ 
+A 
+high entropy of the grains 
+  
+ 
+B 
+high equilibrium vapour pressure of the grains 
+ 
+ 
+C 
+high atmospheric pressure of the grains 
+ 
+ 
+D 
+high vapour pressure of the grains 
+ 
+ 
+E 
+high surface energy of the grains 
+ANS: A 
+ANS: B 
+ANS: D 
+
+ 
+ 
+(iv) Which of the following elements cannot be oxidized in steel (Fe) making process (refer 
+to Ellingham diagram)? 
+ 
+ 
+A 
+Si 
+ 
+ 
+B 
+Cr 
+ 
+ 
+C 
+Ti 
+ 
+ 
+D 
+Mn 
+ 
+ 
+E 
+Cu 
+ 
+ 
+(v) 
+The chemical potential of a component in a mixture is also called: 
+ 
+ 
+A 
+partial molar Gibbs free energy 
+ 
+ 
+B 
+partial molar volume 
+ 
+ 
+C 
+partial molar enthalpy 
+ 
+ 
+D 
+partial molar entropy 
+ 
+ 
+E 
+partial molar heat capacity 
+ 
+ 
+(vi) In the extraction of Si from SiO2, from metal oxide, low equilibrium pressure of O2 can 
+be overcome by the following methods, EXCEPT: 
+ 
+ 
+A 
+introducing a vacuum environment 
+ 
+ 
+B 
+introducing hydrogen 
+ 
+ 
+C 
+increasing oxygen pressure 
+ 
+ 
+D 
+introducing CO 
+ 
+ 
+E  
+introducing Al 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: A 
+ANS: C 
+ANS: E 
+
+(vii) What is an intermetallic? 
+ 
+ 
+A 
+A compound of a metal and oxygen 
+ 
+ 
+B 
+a crystal consisting of 2 metallic atoms randomly arranged 
+ 
+ 
+C 
+a mixture consisting of 2 metallic atoms 
+ 
+ 
+D 
+metal dissolved in another metals 
+ 
+ 
+E 
+a crystal consisting of 2 metallic atoms whose crystallographic positions are fixed 
+ 
+ 
+(viii) Refer to the Ellingham diagram. Ti and Si are possible candidates to be used to remove 
+oxygen from molten Fe at 1500C. Which element is more efficient __(i)____? Explain 
+Why________(ii)______________ . 
+ 
+ 
+ 
+A 
+(i) Ti  
+(ii) 
+higher equilibrium O2 pressure 
+ 
+ 
+B 
+(i) Ti  
+(ii) 
+lower equilibrium O2 pressure  
+ 
+ 
+C 
+(i) Si  
+(ii) 
+higher equilibrium O2 pressure 
+ 
+ 
+D 
+(i) Si  
+(ii) 
+lower equilibrium O2 pressure 
+ 
+ 
+E 
+(i) both Si an Ti are equally effective 
+(ii) 
+similar equilibrium O2 pressure 
+ 
+ 
+(ix) Which of the following equilibrium is not possible? 
+ 
+ 
+A 
+4 phases in equilibrium in a binary alloy 
+ 
+ 
+B 
+3 phases in equilibrium in a binary alloy 
+ 
+ 
+C 
+2 phases in equilibrium in a binary alloy 
+ 
+ 
+D 
+2 phases in equilibrium in a single component 
+ 
+ 
+E 
+3 phases in equilibrium in a single component 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: B 
+ANS: A 
+ANS: E 
+
+(x) 
+Figure (X) below is a binary phase diagram. The solubility limit of B in A labelled in the 
+phase diagram is represented by the letter: 
+ 
+ 
+Figure X 
+ 
+ 
+A 
+C 
+B 
+D 
+E 
+ANS: B
+
+========================================================================
+CA2 Nov 2022  (source: 6_CA2_solution_nov 2022.pdf)
+========================================================================
+NAME:_______________________________      MATRIC NUMBER:_________________    
+ 
+ 
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING 
+ 
+CONTINUOUS ASSESSMENT 2 SEMESTER 1 2022-2023 
+ 
+MS1016 – THERMODYNAMICS OF MATERIAL  
+ 
+ 
+8 November 2022 
+Time Allowed: 1 hour  
+ 
+INSTRUCTIONS 
+ 
+1. 
+This paper contains THREE (3) short questions and TEN (10) MCQ questions. 
+ 
+2. 
+Answer ALL questions. 
+ 
+3. 
+This is an open book test. 
+ 
+4. 
+All questions have ONLY ONE correct answer for the MCQ questions.  
+ 
+ 
+PART I – SHORT QUESTIONS 
+ 
+(1) 
+Explain the Gibbs Phase rule. Also determine if 4 phases can exist in equilibrium in 
+a binary system?  
+(20 marks) 
+ 
+ 
+ 
+ 
+Gibbs Phase Rule : 
+ 
+f = 2 – P + C 
+ 
+where C is the number of components and P, the number of phases. f is the degree of 
+freedom (number of parameters that can be fixed) to solve the chemical potential 
+equilibrium equations and determine the composition of the phases in equilibrium. 
+ 
+Eg. For 2 components and 2 phases, f = 2. By fixing the temperature and pressure, 
+the chemical compositions of the 2 phases can be determined. 
+ 
+For a binary system with 2 components, and 4 phases, f = 0. This means that no 
+parameter can be fixed. Hence 4 phases cannot exist together in equilibrium. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+2. Described the significance of the Raoult’s and Henry’s Law and explain how these laws 
+are used for in solid solution.  
+(20 marks) 
+ 
+The activity coefficient, γ is defined as the ration of the activity over mole fraction, 
+ 
+𝛾= 𝑎
+𝑋 
+ 
+where a is the activity and X, the mole fraction. The significance of Raoults and 
+Henry’s law is that calculation of the chemical potential of a component in a dilute 
+solid solution can be simplified to the involvement of only the mole fraction. Given the 
+chemical potential of a component, μ is 
+ 
+𝜇= 𝐺+ 𝑅𝑇ln 𝑎 
+ 
+Raoult’s law states that the activity of the major component in a dilute solution is 
+approximately ideal and may be approximated to the mole fraction. Hence the chemical 
+potential may be written as: 
+ 
+𝜇= 𝐺+ 𝑅𝑇ln 𝑋 
+ 
+For the minor component in the dilute solution, the activity equals to γX. Henry’s law 
+states that γ may be approximated to be a constant because the composition is X is low. 
+Hence 
+ 
+𝜇= 𝐺+ 𝑅𝑇ln 𝛾𝑋 
+ 
+Therefore. Using Raoult’s law and Henry’s law, the chemical potentials of the 
+components in a dilute solution may be calculated without using the activity. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+3. The element manganese, Mn can be extracted from its oxide, MnO. Suggest a suitable 
+material to reduce MnO to Mn. Determine the appropriate temperature and equilibrium 
+partial pressure of oxygen for this process. 
+ 
+(20 marks) 
+ 
+ 
+At any temperature, the oxide with the lower standard Gibbs free energy of oxidation is 
+more stable. Therefore by inspecting the Ellingham diagram, any of the oxides with the 
+standard Gibbs free energy lower than MnO can be used to extract Mn of MnO. 
+ 
+Carbon in the form of CO is most suitable and as a gas, it can interacts readily with MnO 
+during the reduction process. Inspecting the Ellingham diagram, the minimum 
+temperature for the reduction of MnO is 1400°C.  
+ 
+From the Ellingham diagram, the equilibrium pressure for the oxidation of MnO, 
+ 
+Mn + O  = MnO 
+ 
+is approximately 10-16 atmosphere. 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+PART II MCQ QUESTIONS 
+ 
+(4) 
+Answer all the TEN MCQ questions below. There is only ONE answer for each 
+question. 
+(40 marks) 
+(a) 
+Henry’s Law states that 
+ 
+ 
+A 
+the activity coefficient of the solvent in a dilute solution is a constant 
+ 
+ 
+B 
+the activity coefficient of the solute in a dilute solution is a constant 
+ 
+ 
+C 
+the activity coefficient of a component in a concentrated solution is a constant 
+ 
+ 
+D 
+the activity of the solute in a dilute solution equal to the mass fraction 
+ 
+ 
+E 
+the activity of the solute in a dilute solution equal to unity 
+ 
+ 
+ 
+(b) 
+The Clausius-Clapeyron equation is given as: 
+ 
+൬dP
+dT൰
+eq
+= Sβ −Sα
+Vβ −Vα = ΔS
+ΔV 
+ 
+ 
+The melting point of a certain solid was found to decrease when the external pressure is 
+increased. Which of the following deduction is probably correct?  
+ 
+ 
+A 
+dP/dT is negative 
+ 
+ 
+B 
+it is more difficult to melt the material under pressure 
+ 
+ 
+C 
+the volume of the material expands upon melting 
+ 
+ 
+D 
+dP/dT is positive 
+ 
+ 
+E 
+None of the above 
+ 
+(c) 
+In a reaction, the ratio of the activities of the products over the reactants at equilibrium is 
+called the: 
+ 
+ 
+A 
+standard molar Gibbs free energy 
+  
+ 
+B 
+equilibrium partial pressure  
+ 
+ 
+C 
+equilibrium constant 
+ 
+ 
+D 
+Gibbs free energy of mixing 
+ 
+ 
+E 
+activity coefficient 
+ANS: A 
+ANS: B 
+ANS: C 
+
+(d) 
+The driving force for dilute solutions to be formed in a binary alloy where Hmix > 0  is 
+to increase the 
+ 
+ 
+A 
+Gibbs free energy 
+ 
+ 
+B 
+constant pressure heat capacity 
+ 
+ 
+C 
+internal energy 
+ 
+ 
+D 
+entropy 
+ 
+ 
+E 
+enthalpy 
+ 
+ 
+(e) 
+Which of the following is NOT a single component system? 
+ 
+ 
+A 
+water and ice 
+ 
+ 
+B 
+white and gray tin 
+ 
+ 
+C 
+graphite and diamond 
+ 
+ 
+D 
+amorphous Si glass and crystalline Si glass 
+ 
+ 
+E 
+Carbon monoxide (CO) and Carbon Dioxide (CO2) 
+ 
+ 
+(f) 
+The activity of a component replaces the mole fraction in a binary solid solution because 
+of the ____________  solution.  
+ 
+ 
+A 
+High Temperature and Low Pressure 
+ 
+ 
+B 
+High Temperature and High Pressure 
+ 
+ 
+C 
+Low Temperature and High Pressure 
+ 
+ 
+D 
+Low Temperature and Low Pressure 
+ 
+ 
+E  
+none of the above 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: E 
+ANS:C 
+ANS: D 
+
+(g) 
+From the Ellingham diagram, which of the following reduction reaction is likely used for 
+the extraction of Si from SiO2? 
+ 
+ 
+A 
+SiO2 + 2C → Si + 2CO 
+ 
+ 
+B 
+SiO2 + C → Si + 2CO2 
+ 
+ 
+C 
+SiO2 + Ti → Si + TiO2 
+ 
+ 
+D 
+SiO2 + 2H2 → Si + 2H2O 
+ 
+ 
+E 
+SiO2 + 2CO → Si + 2CO2 
+ 
+ 
+(h) 
+Refer to the Ellingham diagram. Estimate the O2 pressure for the oxidation of Mn at 
+1000°C? 
+ 
+ 
+A 
+10-21 atmospheric pressure 
+ 
+ 
+B 
+10-22 atmospheric pressure 
+ 
+ 
+C 
+10-23 atmospheric pressure 
+ 
+ 
+D 
+10-24 atmospheric pressure 
+ 
+ 
+E 
+10-25 atmospheric pressure 
+ 
+ 
+(i) 
+Figure below is the binary equilibrium phase diagram consisting of elements A and B. 
+List the points where 3 phases are in equilibrium. 
+ 
+ 
+A 
+A, C, H, and I only 
+ 
+ 
+B 
+F, D and G only 
+ 
+ 
+C 
+B and E only 
+ 
+ 
+D 
+A, C, F and G only 
+ 
+ 
+E 
+A, C, F, D and G only 
+ANS: D 
+ANS: B 
+ANS: E 
+
+(j) 
+Figure below is a binary phase diagram of components A and B. The solubility limit of 
+A in B labelled in the phase diagram is represented by the letter: 
+ 
+ 
+Ellingham Diagram 
+ 
+ 
+ 
+A 
+C 
+B 
+D 
+E 
+ANS: E 
+F
+G 
+H 
+I 
+B
+
+========================================================================
+CA2 Apr 2023  (source: 8_CA2_solution_Apr 2023.pdf)
+========================================================================
+NAME:_______________________________      MATRIC 
+NUMBER:_________________    
+ 
+ 
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING 
+ 
+CONTINUOUS ASSESSMENT 2 SEMESTER 2 2023-2024 
+ 
+MS1016 – THERMODYNAMICS OF MATERIAL  
+ 
+ 
+11 April 2023 
+Time Allowed: 1 hour  
+ 
+INSTRUCTIONS 
+ 
+1. 
+This paper contains THREE (3) short questions and TEN (10) MCQ questions. 
+ 
+2. 
+Answer ALL questions. 
+ 
+3. 
+This is an open book test. 
+ 
+4. 
+All questions have ONLY ONE correct answer for the MCQ questions.  
+ 
+ 
+PART I – SHORT QUESTIONS 
+ 
+(1) 
+Derive the Clausius-Clapeyron equation for the solid and vapour phase in 
+equilibrium?  
+(20 marks) 
+ 
+ 
+Clapeyron Equation – for single component system 
+ 
+൬𝑑𝑃
+𝑑𝑇൰
+௘௤
+= ∆𝐻
+𝑇∆𝑉 
+ 
+For a solid transforming into vapour, the volume of the material increases many 
+times as Vvapour >> Vsolid. V is approximately Vvapour. Clapeyron approximates, 
+൬𝑑𝑃
+𝑑𝑇൰
+௘௤
+= ∆𝐻
+𝑇𝑉 
+Assuming the vapour approximates an ideal gas and given PV = RT, V = RT/P 
+ 
+൬𝑑𝑃
+𝑑𝑇൰
+௘௤
+= 𝑃∆𝐻
+𝑅𝑇ଶ         𝑜𝑟       ൬𝑑𝑃
+𝑃൰
+௘௤
+= ൬∆𝐻
+𝑅൰  𝑑𝑇
+𝑇ଶ 
+ 
+Integrating  ln[𝑃]௉ଵ
+௉ଶ= −൬∆𝐻
+𝑅൰  ൤1
+𝑇ଶ
+−1
+𝑇ଵ
+൨ 
+ 
+𝑃ଶ
+𝑃ଵ
+= ൬∆𝐻
+𝑅൰൤𝑇ଶ−𝑇ଵ
+𝑇ଵ𝑇ଶ
+൨ 
+
+=  
+2. Described the use and difference between the Raoult’s Law, Henry’s Law and the 
+Gibbs-Duhem equation in solid solution.  
+(20 marks) 
+ 
+The activity coefficient, γ is defined as the ration of the activity over mole 
+fraction, 
+ 
+𝛾= 𝑎
+𝑋 
+ 
+where a is the activity and X, the mole fraction. The significance of Raoults and 
+Henry’s law is that calculation of the chemical potential of a component in a dilute 
+solid solution can be simplified to the involvement of only the mole fraction. Given 
+the chemical potential of a component, μ is 
+ 
+𝜇= 𝐺+ 𝑅𝑇ln 𝑎 
+ 
+Raoult’s law states that the activity of the major component in a dilute solution is 
+approximately ideal and may be approximated to the mole fraction. Hence the 
+chemical potential may be written as: 
+ 
+𝜇= 𝐺+ 𝑅𝑇ln 𝑋 
+ 
+For the minor component in the dilute solution, the activity equals to γX. Henry’s 
+law states that γ may be approximated to be a constant because the composition is 
+X is low. Hence 
+ 
+𝜇= 𝐺+ 𝑅𝑇ln 𝛾𝑋 
+ 
+Therefore. Using Raoult’s law and Henry’s law, the chemical potentials of the 
+components in a dilute solution may be calculated without using the activity. 
+ 
+The Gibbs-Duhem equation is use for calculation of the activities of the 
+components in non-dilute solution. 
+ 
+𝑑(ln 𝑎஺) = −𝑋஻
+𝑋஺
+𝑑(𝑙𝑛𝑎஻) 
+ 
+For a binary solution, if the activity of one component is known, the other can be 
+calculated using the Gibbs-Duhem equation. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+3. Consider the Ellingham diagram. The slope is positive for the majority of metal 
+oxidation in the Ellingham diagram. Explain why and what will happen to these 
+oxides when they are heated up to very high temperatures? 
+(20 marks) 
+ 
+The positive slope for most metals means that that the standard Gibbs free energy, 
+G0 , of the oxidation of these metals increases with temperature.  
+ 
+G = H – TS  
+ 
+Consider the oxidation of a metal, M, oxidized by oxygen, O2, 
+ 
+2M (solid) + O2 (gas) → 2MO (solid) 
+ 
+ 
+ The formation of metal oxides consumes oxygen gas, resulting in a decrease in 
+entropy, meaning, ΔS becomes negative, and the term TΔS in the straight-line 
+equation becomes positive. 
+ 
+ Carbon monoxide formation is shown by a straight line with a negative slope. In 
+this scenario, ΔS is positive because the consumption of one mole of oxygen gas 
+results in two moles of CO gas. It implies that CO becomes more stable at higher 
+temperatures. 
+ 
+ 2C (solid) + O2 (gas) → 2CO (gas) 
+ 
+ 
+ As the temperature rises, the ΔG value for the formation of metal oxide becomes 
+less negative until it reaches zero at a certain point. Below this temperature, ΔG 
+is negative and the oxide is stable; above this temperature, ΔG is positive and the 
+oxide is unstable. This overall pattern shows that as temperatures rise, metal 
+oxides become less stable and decompose more easily. 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+PART II MCQ QUESTIONS 
+ 
+(4) 
+Answer all the TEN MCQ questions below. There is only ONE answer for each 
+question. 
+(40 marks) 
+ 
+(a) 
+Estimate the maximum temperature in which Mg can be used to reduce Al2O3? 
+ 
+ 
+A 
+1600°C 
+ 
+ 
+B 
+1500°C 
+ 
+ 
+C 
+1400°C 
+ 
+ 
+D 
+1300°C 
+ 
+ 
+E 
+1200°C 
+ 
+ 
+ 
+(b) 
+Which of the following thermodynamics will not directly affects the equilibrium 
+condition in a single component system? 
+ 
+ 
+A 
+molar change in volume 
+ 
+ 
+B 
+molar enthalpy of transformation 
+ 
+ 
+C 
+pressure 
+ 
+ 
+D 
+temperature 
+ 
+ 
+E 
+Gibbs free energy 
+ 
+ 
+(c) 
+Consider the reaction: 
+ 
+3Fe + C → Fe3C          H = +27 kJ/mol 
+ 
+ 
+Which of the following statements is true? 
+ 
+ 
+A 
+Fe will spontaneously bond with C 
+  
+ 
+B 
+Fe and C will not bond under any conditions  
+ 
+ 
+C 
+increasing temperature will promote the reaction 
+ 
+ 
+D 
+increasing temperature will impede the reaction 
+ 
+ 
+E 
+decreasing the temperature will result in the formation of Fe3C spontaneously 
+ANS: E 
+ANS: B 
+ANS: C 
+
+(d) 
+Refer to the figure below and select the correct choice. At temperature below point 
+A, FeO can _____ 
+ 
+ 
+ 
+ 
+A 
+be reduced by CO  and CO2 
+ 
+ 
+B 
+be reduced by carbon only 
+ 
+ 
+C 
+not be reduced by C and CO 
+ 
+ 
+D 
+be reduced by CO only 
+ 
+ 
+E 
+not be reduced at all 
+ 
+ 
+(e) 
+Which of the following is the conditions for the formation of intermetallic? 
+ 
+ 
+A 
+Smix > 0 and Hmix > 0 
+ 
+ 
+B 
+Smix < 0 and Hmix > 0 
+ 
+ 
+C 
+Smix < 0 and Hmix  < 0 
+ 
+ 
+D 
+Low temperature and Hmix > 0 
+ 
+ 
+E 
+Low temperature and Hmix < 0 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ANS: E 
+ANS: D 
+
+(f) 
+The activity of a gaseous phase is approximately equal to the  ____________  of the 
+gas.  
+ 
+ 
+A 
+partial pressure 
+ 
+ 
+B 
+partial volume 
+ 
+ 
+C 
+composition 
+ 
+ 
+D 
+temperature 
+ 
+ 
+E  
+enthalpy 
+ 
+ 
+(g) 
+The equilibrium constant for the following reaction is: 
+ 
+ 
+ 
+ 
+Fe2O3 + 3CO = 2Fe + 3CO2 
+ 
+ 
+A 
+௔ಷ೐
+మ.௉಴ೀమ
+య
+௔ಷ೐మೀయ.ଷ௉಴ೀ 
+ 
+ 
+B 
+௔ಷ೐మೀయ
+మ
+.௉಴ೀమ
+య
+௔ಷ೐మೀయ.௉಴ೀ 
+ 
+ 
+C 
+௔ಷ೐మೀయ.௔಴ೀ
+య
+௔ಷ೐
+మ.௉಴ೀమ
+య
+ 
+ 
+ 
+D 
+௔ಷ೐
+మ.௉಴ೀమ
+య
+௔ಷ೐మೀయ.௉಴ೀమ 
+ 
+ 
+E 
+௔ಷ೐
+మ.௉಴ೀమ
+య
+௔ಷ೐మೀయ.௉಴ೀ
+య 
+ 
+ 
+(h) 
+Which of the following will not normally be regarded as a phase in and alloy 
+containing components A and B? 
+ 
+ 
+A 
+0.1% A dissolved in B 
+ 
+ 
+B 
+inclusions 
+ 
+ 
+C 
+0.1% B dissolved in A 
+ 
+ 
+D 
+compounds of A and B 
+ 
+ 
+E 
+50%A + 50%B 
+ 
+ 
+ 
+ 
+ANS: B 
+ANS:A 
+ANS: E 
+
+ 
+(i) 
+Which of the following is TRUE of the equilibrium phase diagram below? 
+ 
+ 
+ 
+ 
+A 
+Hmix < 0 
+ 
+ 
+B 
+Smix < 0 
+ 
+ 
+C 
+3 phases are in equilibrium at point D 
+ 
+ 
+D 
+melting point of A > B 
+ 
+ 
+E 
+α phase is a dilute solutions od A in B 
+ 
+ 
+(j) 
+Which of the following statements best describe the chemical potential of a species 
+in a mixture? 
+ 
+ 
+ 
+A 
+the energy that can be absorbed or released due to a change in temperature 
+ 
+ 
+B 
+the energy that can be absorbed or released due to a change in pressure 
+ 
+ 
+C 
+the energy that can be absorbed or released due to a change volume 
+ 
+ 
+D 
+the energy that can be absorbed or released due to a change of the particle 
+number of the given species 
+ 
+ 
+E 
+change in molar Gibbs free energy of all the components 
+ 
+ 
+ 
+ 
+ANS: C 
+D 
+B
+ANS: D
+
+========================================================================
+CA2 Nov 2024  (source: CA2 Nov 2024 solutions.docx)
+========================================================================
+SCHOOL OF MATERIALS SCIENCE & ENGINEERING
+
+CONTINUOUS ASSESSMENT 1 SEMESTER 1 2024-2025
+
+MS1016 – THERMODYNAMICS OF MATERIALS 
+
+(Question Sheet)
+
+6 November 2024	Time Allowed: 1 hour	
+
+INSTRUCTIONS
+
+1.	This paper contains THREE (3) short questions and TEN (10) MCQ questions.
+
+2.	Answer ALL questions.
+
+3. 	Write all answers on the answer sheet provided and clearly write your name and matriculation number on it.
+
+4.	This is an open-notes test.
+
+5.	All questions have ONLY ONE correct answer for the MCQ questions. 
+
+6.	You may retain this question sheet. Only answers on the submitted answer sheet will be considered.
+
+PART I – SHORT QUESTIONS
+Derive the equation of standard Gibbs free energy of reaction ∆G:
+∆G = −RTlnKa
+Calculate the equilibrium O2 pressure for the following oxidation reaction at 1200 K:
+Al (solid)+ O2 (gas) → Al2O3 (solid)
+Given the ∆G for this reaction is -810KJ/mol, ideal gas constant R is 8.314 J/Kmol.
+marks)
+Consider a reaction: bB + cC = dD + eE,
+δWrev = ∆G = ∆Go + RT ln J (2 marks), J =  (2 marks)
+At equilibrium, J is called the equilibrium constant, Ka (1 mark)
+At equilibrium, ∆Go = 0, ∆Go = −RTlnKa (2 marks)
+For the given reaction: Al + O2 → Al2O3
+The equilibrium constant: Ka =  (1mark)
+Since Al and Al2O3 are solids, the fugacity is considered as 1 (2 marks), and for ideal gas at pressure approaches zero, the fugacity is equal to its pressure. (2 marks)
+Therefore, Ka =  (1 mark), ∆Go = RTlnPO2 (1 mark)
+At 1200 K, ∆Go = −810,000 J/mol = 8.314 × 1200 lnPO2 (2 marks)
+lnPO2 = −81.2 atm (2 marks)
+Therefore, the equilibrium O2 pressure PO2 = 5.50 × 10-36 atm. (2 marks)
+
+Given the following data on graphite and diamond:
+Density of graphite = 2.25 g/cm3
+Density of diamond = 3.51 g/cm3
+
+At 298 K, what is the Gibbs free energy change (G) for the following reaction? 
+Cgraphite = Cdiamond
+									(4 marks)
+Is the diamond thermodynamically stable relative to graphite at 298 K? 												(2 marks)
+What is the change in Gibbs free energy of diamond when it is compressed isothermally from 1 to 1000 atmosphere?				(4 marks)
+Assuming that graphite and diamond are incompressible (KT = 0), calculate the pressure at which the 2 exist in equilibrium at 298 K.		(6 marks)
+In industrial practice, diamond is synthesized from graphite to diamond at high pressure and temperature. Explain qualitatively, why the need for high temperature.								(4 marks)
+
+Answer the following questions.
+Define Activity							(3 marks)
+Roughly sketch figure 1 onto your answer sheet, thereafter, circle the melting point of A, B and the eutectic point.					(3 marks)
+At a given temperature, T1, component B dissolves 1.4 wt. % A and component A dissolves 2.4 wt. % B. Calculate the activity coefficient of B in A and A in B. No intermediate phases exist in the binary system. 			(14 marks)
+
+The activity of a component i, ai is defined as the ratio of the fugacity of the material to the fugacity in its standard state. (1 mark)
+(1 mark)
+
+Where foi is the fugacity of the material in its standard state, usually
+is pure gas at 1 atm. For solid or liquid, the standard states is 
+pure material at 1 atm where activity is 1. (1 mark)
+
+1 mark each
+At T1, phase a is in equilibrium with phase b, meaning the chemical potential of A is the same in both phases, i.e.
+mAa = mAb (1 mark), mBa = mBb (1mark)
+Since a and b are dilute solutions (1 mark), at the respective end of the phase diagram, Henry’s Law is obeyed by the solutes & Raoults’ Law is obeyed by the solvent (1 mark)
+
+Using component B for computation, in the dilute phase b, XBβ, component B is the solvent, and it follows Raoults’ Law where γB = 1 (1 mark). Thus
+mBb = GB + RT ln aBb = GB + RT ln XBb  (1) (2 marks)
+In the saturated phase a, XBa, component B is the solute, and it follows Henry’s Law (1 mark). Thus
+mBa = GB + RT ln aBa = GB + RT ln gBXB(sat)b  (2) (2 marks)
+Since the 2 phases exist together at T1, they must be in equilibrium and therefore the chemical potential of B in a is equal to the chemical potential of B in b. Hence equating (1) and (2):
+GB + RT ln XBb = GB + RT ln gBXB(sat)a   (1 mark)
+
+ln XBb = ln gBXB(sat)a
+
+ln XBb = ln gB + lnXB(sat)a
+
+ln gB = ln XBb - ln XB(sat)a
+
+gB = XBb / XB(sat)a   (1 mark)
+
+gB = 0.986 / 0.024 = 41.08 (1 mark)
+
+Similarly 
+gA = 0.976 / 0.014 = 69.71 (1 mark)
+
+PART II Multiple Choice Questions
+
+Answer all the TEN MCQ questions below. There is only ONE answer for each question. (4 marks each)
+
+A pressure-temperature phase diagram, the conditions under which a component system exist as 3 phases in equilibrium corresponds to
+A point
+A line
+An area
+The entire diagram
+None of the above
+
+Explanation: Eutectic point
+
+The fugacity of a certain gas equals to its pressure if and only if
+The pressure of the gas is sufficiently high.
+The molar weight of the gas is sufficiently low.
+The molecules inside the gas interact strongly with each other.
+The gas is heavily rarefied and interactions between molecules are negligible.
+None of the above is correct.
+
+Explanation: Fugacity is a corrected pressure that accounts for deviations from ideal gas behavior. For an ideal gas, where the interactions between molecules are negligible, fugacity equals the pressure. This typically occurs when the gas is at low pressure and is not dense, so the interactions between gas molecules are minimal
+
+The following figures are the free energy curves of a binary system containing A and B. Which of the following statement are correct?
+
+T1 is the highest temperature and T5 is the lowest.
+T1 is the lowest temperature and T5 is the highest.
+A and B has complete miscibility in each other.
+A and B have limited solubility in each other.
+Melting point of A > B.
+Melting point of A < B.
+There is a eutectic point in this binary phase diagram.
+
+I, IV, VI, VII
+I, III, VI, VII
+II, IV, VI, VII
+I, IV, V, VII
+II, III, V, VII
+
+Explanation: The lowest Gibbs energy curve in T1 is liquid, thus, indicating that the binary system is in the liquid phase. On the other hand, T5 lowest Gibbs energy curve is alpha and beta, indicating that it’s in the alpha-beta phase (solid). Thus, T1 is highest while T5 is lowest.
+In the phase diagrams, there is two distinct solid phases, α and β, indicating that A and B do not form a completely miscible solid solution. The phase boundaries show partial miscibility.
+The Gibbs energy curve of A intersects the liquid curve (L) at a higher temperature than B, indicating that A has a higher melting point.
+The intersection of the liquidus curve with the solid phases α and β forms a eutectic point.
+So, the correct answer is D
+
+Water 		 on melting and has the fusion curve with a 		 slope.
+contracts, negative
+contracts, positive
+expands, negative
+expands, positive
+None of the above
+
+Explanation: Unlike other substances which expands on melting, water contracts on melting and hence the slope of the fusion curve is negative. So, the correct answer is A
+
+The activity of zinc in a copper zinc alloy having 30.6% zinc by mass is 0.036 at 773 K. The atomic mass of copper is 63.55 g/mol and that of zinc is 65.38 g/mol. The value of the activity coefficient?
+−0.12
+0.12
+−0.14
+0.14
+None of the above
+
+Explanation: In 100 g of alloy,
+Moles of zinc= (30.6/65.38) =0.468 mol
+Moles of copper= (69.4/63.55) =1.092 mol
+Total moles= 0.468+1.092= 1.560 mol
+Mole fraction of zinc= 0.468/1.560 = 0.3
+Activity co-efficient= 0.036/0.3 =0.12
+So, the correct answer is B.
+
+Water boils at 100 C under 1 atmospheric pressure (105 Pa). The heat of vaporisation is 40.65 J/g. Using the Clapeyron equation, the boiling point of water at Mount Everest (8848 m above sea level where pressure is 33.7  103 Pa) is:
+71 K 
+171 K
+71 oC
+121 oC
+171 oC
+
+Explanation: The Clapeyron equation for vapour (steam)in equilibrium with liquid water is
+	 
+	   where Hvap is the heat of vapourisation = 40.65 J/g
+
+	By integrating the Clapeyron, it can be shown that [PV=RT]:
+
+	Water at Mount Everest boils at about 71C. So, the correct answer is C
+
+If a system consists of five components and three phases, how many degrees of freedom does it have according to the Gibbs Phase Rule?
+0
+1
+2
+3
+4
+
+Explanation:
+The Gibbs Phase Rule describes as: , substituting with the values, the degree of freedom f = 2  3 + 5 = 4. So, the correct answer is E.
+
+Which of the following statements correctly describes chemical equilibrium.
+The Gibbs free energy change is positive, and the reaction continues indefinitely. 
+The reaction rates of the forward and reverse reactions are zero.
+There is no net change in the concentration of reactants and products.
+The reaction rate of the forward reaction is greater than the reverse reaction.
+The temperature of the system continuously changes to maintain equilibrium.
+
+Explanation:
+At chemical equilibrium, the free Gibbs energy change is zero. The rates of the forward and reverse reactions are equal, resulting in no net change in the concentrations of reactants and products, but both reactions continue to occur. So, the correct answer is C.
+
+How can reaction: 2H2 + O2 → 2H2O be used to control the equilibrium partial pressure of O2 for metal oxidation?
+By adjusting the temperature without changing the pressure.
+By changing the reaction volume at constant temperature.
+By altering the Gibbs free energy of the system directly. 
+By manipulating the H2 to H2O ratio according to the Ellingham diagram.
+By ensuring that the H2 concentration is always lower than that of H2O.
+
+Explanation:
+According to the chemical reaction: 2H2 + O2 → 2H2O, at the equilibrium, Ka = , and . Therefore, the O2 pressure can be controlled by the ratio of H2 to H2O, which in equilibrium with metals and oxide can be determined from the Ellingham diagram. So, the correct answer is D.
+
+Which of the following metal oxides can be reduced by hydrogen gas (H2) at the temperature of 1500 oC (refer to Ellingham diagram)?
+CoO
+ ZnO
+MgO
+Al2O3
+ZrO2
+
+Explanation:
+Refer to the Ellingham diagram, at the given temperature of 1500 oC, the oxidation equilibrium lines of ZnO, MgO, Al2O3 and ZrO2 are under the line of H2 → H2O, and the oxidation line of CoO is above the line of H2. Therefore, the correct answer is A. 
+
+Ellingham Diagram
+
+ | H (kJ/mol) | S (J/mol.K)
+Diamond | 1.897 | 2.38
+Graphite | 0 | 5.74

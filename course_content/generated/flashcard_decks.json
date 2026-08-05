@@ -361,5 +361,487 @@
     "category": "pitfall"
    }
   ]
+ },
+ "L3": {
+  "topic": "L3 — Property Relationships, Free Energy, Equilibrium",
+  "cards": [
+   {
+    "front": "Define Gibbs free energy and explain why it is the most-used thermodynamic potential in materials engineering.",
+    "back": "Gibbs free energy $G = H - TS$ is a state function that gives the maximum non-$PV$ work available at constant $T$ and $P$. At constant $T, P$ (the conditions of most lab and industrial processes), $\\Delta G < 0$ directly signals spontaneity. This makes it the default choice for phase equilibria, chemical reactions, and precipitation decisions.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Write the total differential of $G$ and state what the two partial derivatives tell you physically.",
+    "back": "$\\mathrm{d}G = -S\\,\\mathrm{d}T + V\\,\\mathrm{d}P$. The partial derivatives are $(\\partial G/\\partial T)_P = -S$ (entropy's effect) and $(\\partial G/\\partial P)_T = V$ (volume's effect). They show how $G$ responds to temperature and pressure changes, and they are exactly the coefficients that appear in the Maxwell relations.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "What does $\\Delta G < 0$ tell you about a reaction at constant $T$ and $P$? Is this sufficient to guarantee the reaction happens?",
+    "back": "$\\Delta G < 0$ means the reaction is thermodynamically spontaneous (the forward direction decreases the system's $G$) and can do useful work. However, it is **not** sufficient to guarantee the reaction *happens* — the kinetic barrier (activation energy) may be so high that the reaction is effectively frozen. Diamond → graphite has $\\Delta G < 0$ but takes geological time.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain the difference between a state function and a path function using $G$ as an example.",
+    "back": "$G$ is a state function: its value depends only on the current state ($T, P, \\text{composition}$), not on how the system got there. Therefore $\\Delta G$ between two states is unique. By contrast, heat $Q$ and work $W$ are path functions — different paths between the same two states can have different $Q$ and $W$, even though $\\Delta G$ is the same.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "State the four Maxwell relations and explain why they are useful.",
+    "back": "The four Maxwell relations (from $\\mathrm{d}U$, $\\mathrm{d}H$, $\\mathrm{d}F$, $\\mathrm{d}G$) are: $(\\partial T/\\partial V)_S = -(\\partial P/\\partial S)_V$, $(\\partial T/\\partial P)_S = (\\partial V/\\partial S)_P$, $(\\partial S/\\partial V)_T = (\\partial P/\\partial T)_V$, $(\\partial S/\\partial P)_T = -(\\partial V/\\partial T)_P$. They connect derivatives of $S$ (hard to measure) with derivatives of $P, V, T$ (easy to measure), so experimentalists use them to extract entropy changes from pressure-volume-temperature data.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "Derive the key Maxwell relation from $\\mathrm{d}G = -S\\,\\mathrm{d}T + V\\,\\mathrm{d}P$.",
+    "back": "Write $\\mathrm{d}G = M\\,\\mathrm{d}T + N\\,\\mathrm{d}P$ where $M = -S$ and $N = V$. For $G$ to be a state function, mixed partials must commute: $(\\partial M/\\partial P)_T = (\\partial N/\\partial T)_P$, giving $(\\partial S/\\partial P)_T = -(\\partial V/\\partial T)_P$. This identity links the entropy's pressure dependence to the volume's temperature dependence.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "Use a Maxwell relation to show that for an ideal gas, the entropy change under isothermal compression from $P_1$ to $P_2$ is $\\Delta S = -R \\ln(P_2/P_1)$.",
+    "back": "From $(\\partial S/\\partial P)_T = -(\\partial V/\\partial T)_P$. For an ideal gas, $V = RT/P$, so $(\\partial V/\\partial T)_P = R/P$. Thus $(\\partial S/\\partial P)_T = -R/P$. Integrating: $\\Delta S = -R \\int_{P_1}^{P_2} \\mathrm{d}\\ln P = -R \\ln(P_2/P_1)$. Negative sign confirms entropy decreases on compression (fewer microstates).",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "Helmholtz free energy $F = U - TS$ is the natural potential at constant $T, V$. Write its differential and state when you would use it.",
+    "back": "$\\mathrm{d}F = -S\\,\\mathrm{d}T - P\\,\\mathrm{d}V$. Use $F$ when the system is in a rigid container (constant $V$) and you can control temperature. At constant $T, V$, a process is spontaneous if $\\Delta F < 0$. In practice, $F$ is mostly used in statistical mechanics and bomb-calorimetry; Gibbs $G$ dominates materials science because real processes happen at constant $P$.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Complete the table: For a single-phase region of a pure substance at constant $P$, how many degrees of freedom does the system have? Use the Gibbs phase rule $F = C - P + 2$ and explain.",
+    "back": "For a pure substance ($C = 1$) with one phase ($P = 1$): $F = 1 - 1 + 2 = 2$. You can independently vary $T$ and $P$ (a 2D region on the phase diagram). Once you pick a $(T, P)$ point in the single-phase region, all other state variables are fixed. Once you cross into a two-phase region, $F = 1$ (a curve): pick $T$, then $P$ is determined (or vice versa).",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Water at 25 °C and 1 atm has $\\Delta G^\\circ = +8.6$ kJ/mol for liquid → vapour. Yet water evaporates from an open cup. Reconcile these facts.",
+    "back": "$\\Delta G^\\circ$ is calculated at the standard state (1 atm partial pressure of water vapour). At that condition, boiling is non-spontaneous. However, in open air the partial pressure of water vapour is typically 2–3 kPa, *far below* 1 atm. At the lower partial pressure, $\\Delta G$ becomes negative and evaporation is spontaneous. Chemical potential $\\mu = \\mu^\\circ + RT \\ln a$ shifts with activity; $\\Delta G^\\circ$ is not the full story.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "What does it mean physically when an exact differential test $\\left(\\frac{\\partial M}{\\partial y}\\right)_x = \\left(\\frac{\\partial N}{\\partial x}\\right)_y$ is satisfied for $\\mathrm{d}f = M\\,\\mathrm{d}x + N\\,\\mathrm{d}y$?",
+    "back": "It means $f$ is a state function: the value of $f$ depends only on the current state $(x, y)$, not the path taken to reach it. Mathematically, mixed partial derivatives commute, ensuring path independence. Every thermodynamic potential ($U, H, F, G, S$) passes this test, which is why we can define $\\Delta$ for these quantities.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "At constant $T$ and $P$, how do you determine whether a solid phase $\\alpha$ will spontaneously transform to phase $\\beta$?",
+    "back": "Compare their molar Gibbs energies: if $G_\\beta < G_\\alpha$, then $\\beta$ is stable and the transformation $\\alpha \\to \\beta$ will be spontaneous ($\\Delta G = G_\\beta - G_\\alpha < 0$). On a plot of $G$ vs. composition or structure, the phase with the lowest $G$ at each $(T, P)$ wins. This is the basis of all phase diagrams.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain why the critical point on a liquid–gas phase diagram (where liquid and gas become indistinguishable) cannot occur for a solid–liquid boundary.",
+    "back": "Solid and liquid have different *symmetry*: solid is crystalline (long-range order), liquid is disordered. These are fundamentally distinct phases. At the liquid–gas critical point, densities become equal and surface tension vanishes, allowing the phases to blend continuously. Solid and liquid cannot do this because order cannot vanish continuously. Solid–liquid transitions are always first-order (latent heat, density jump).",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Gibbs free energy is often written $G = H - TS$. Show why *both* terms matter by discussing an exothermic reaction with $\\Delta S < 0$.",
+    "back": "$\\Delta G = \\Delta H - T\\Delta S$. Here $\\Delta H < 0$ (favours forward) but $-T\\Delta S > 0$ (opposes forward, since $\\Delta S < 0$). At low $T$, $|T\\Delta S|$ is small and $\\Delta H$ dominates → spontaneous. At high $T$, $T|\\Delta S|$ grows and can exceed $|\\Delta H|$ → non-spontaneous. Neither enthalpy nor entropy alone determines spontaneity; their balance at a *specific temperature* does.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Why is diamond metastable at room temperature even though $\\Delta G(\\text{diamond} \\to \\text{graphite}) < 0$ at 298 K?",
+    "back": "Thermodynamics ($\\Delta G < 0$) says the transformation *can* happen spontaneously, but the activation energy (breaking all C–C bonds in the diamond lattice and rebuilding them as graphite layers) is enormous (~hundreds of kJ/mol) — far larger than $k_B T$ at 298 K. The transformation rate is effectively zero. Diamond is **kinetically stable** (slow to change) but **thermodynamically unstable** (lower $G$ as graphite). This gap between thermodynamic prediction and observable reality is crucial in materials engineering.",
+    "difficulty": 2,
+    "category": "pitfall"
+   },
+   {
+    "front": "For the reaction $\\mathrm{NH_3 \\text{ synthesis}}$ at 25 °C: $\\Delta H^\\circ \\approx -92$ kJ/mol and $\\Delta S^\\circ < 0$ (3 moles gas → 2 moles gas). Is $\\Delta G^\\circ < 0$ at 25 °C? Would you expect more NH$_3$ at higher $T$?",
+    "back": "At 25 °C, $\\Delta H^\\circ$ is large and negative, $T|\\Delta S^\\circ|$ is small, so $\\Delta G^\\circ < 0$ — synthesis is favoured. But entropy term worsens at higher $T$; at ~200 °C the Van't Hoff equation predicts $K$ drops below 1 and $\\Delta G^\\circ > 0$. Thus **less NH$_3$ at higher $T$** (Le Chatelier). Industry runs the Haber process hot (~450 °C) not for equilibrium yield but for *kinetics* — the reaction would be too slow at low $T$ despite better thermodynamic yield.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Write the Gibbs–Helmholtz equation and explain what it tells you about how reaction equilibrium shifts with temperature.",
+    "back": "$\\frac{\\mathrm{d}(\\Delta G^\\circ/T)}{\\mathrm{d}T} = -\\frac{\\Delta H^\\circ}{T^2}$. Rearranging: $\\frac{\\mathrm{d}\\ln K}{\\mathrm{d}T} = \\frac{\\Delta H^\\circ}{RT^2}$ (Van't Hoff). If $\\Delta H^\\circ < 0$ (exothermic), $K$ *decreases* with $T$ — raising temperature shifts equilibrium toward reactants. If $\\Delta H^\\circ > 0$ (endothermic), $K$ *increases* with $T$ — raising temperature favours products. This quantifies Le Chatelier's principle.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "A student claims: 'If $\\Delta G^\\circ < 0$ for a reaction, it will always proceed forward.' Identify the error and give a counterexample.",
+    "back": "The error conflates thermodynamics with kinetics. $\\Delta G^\\circ < 0$ means the forward reaction is *thermodynamically favourable*, not that it *happens*. Counterexample: graphite oxidation ($\\mathrm{C} + \\mathrm{O_2} \\to \\mathrm{CO_2}$) has $\\Delta G^\\circ \\ll 0$ at 25 °C, but a lump of coal sits in air for years without burning because the activation energy is very high. The reaction requires a spark or heat to ignite. Thermodynamics sets the map; kinetics determines whether you take the journey.",
+    "difficulty": 2,
+    "category": "pitfall"
+   }
+  ]
+ },
+ "L4": {
+  "topic": "L4 — Equilibrium in Single-Component Systems",
+  "cards": [
+   {
+    "front": "State the equilibrium criterion for two phases of a pure substance in contact.",
+    "back": "At equilibrium, the chemical potentials (molar Gibbs energies) of the two phases must be equal: μ_A(P,T) = μ_B(P,T). This ensures no spontaneous change when material transfers between phases.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Why does the molar Gibbs energy curve have a steeper negative slope for the gas phase than for the liquid phase when plotted against temperature?",
+    "back": "Because ∂μ/∂T = −S, and entropy is largest for gases (S_gas > S_liquid > S_solid). More disordered phases have steeper slopes on a μ vs. T plot.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "At a fixed pressure, explain why each phase of a pure substance has a unique melting or boiling temperature rather than a temperature range.",
+    "back": "Because for a pure substance, μ_solid = μ_liquid at only one specific temperature (where their curves intersect). Outside that temperature, one phase has strictly lower μ and is stable; no coexistence is possible.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Why does ice melt at a lower temperature when subjected to external pressure, while most substances melt at higher temperatures under pressure?",
+    "back": "Ice is unusual: V_ice > V_liquid. When squeezed, μ_liquid rises less than μ_ice (since ∂μ/∂P = V). The intersection point T_f shifts downward. For typical substances, V_solid < V_liquid, so T_f shifts upward.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Derive the Clapeyron equation from the condition μ_A = μ_B along a phase boundary.",
+    "back": "Along the boundary, dμ_A = dμ_B. Using dμ = V dP − S dT: (V_B − V_A)dP = (S_B − S_A)dT. Rearranging: dP/dT = ΔS/ΔV = ΔH/(T ΔV), where ΔH and ΔV are the molar enthalpy and volume changes.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "What do the slope and intercepts of a line on a P–T phase diagram tell you about a phase transition?",
+    "back": "The slope dP/dT = ΔH/(T ΔV) indicates whether the denser (ΔV < 0) or less-dense (ΔV > 0) phase is favored by pressure. A positive slope means pressure raises the transition temperature; negative means it lowers it.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "For water, ΔV_melting is negative (ice contracts slightly upon melting). Predict the shape and orientation of the ice–water boundary on a P–T diagram.",
+    "back": "The boundary slopes backward (negative dP/dT). It leans toward the left as pressure increases—an unusual feature of water's phase diagram. Higher pressure favors liquid water at lower temperature.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "What is the physical significance of the triple point of a pure substance?",
+    "back": "The triple point is the unique (T, P) where all three phases (solid, liquid, gas) coexist in equilibrium. For water it is 273.16 K and 611 Pa. It is a fixed property of the substance, independent of measurement apparatus.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Explain why the solid–liquid phase boundary can have either positive or negative slope, while the liquid–gas boundary always has positive slope.",
+    "back": "The liquid–gas boundary: ΔS_vap > 0 always (gas is more disordered); ΔV_vap > 0 always; so dP/dT > 0. Solid–liquid: ΔV can be either sign, giving either sign of slope. Gas–solid is also positive.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Apply the Clausius–Clapeyron equation to estimate how much water's boiling point changes when atmospheric pressure drops from 1 atm to 0.5 atm.",
+    "back": "ln(P₂/P₁) = −(ΔH_vap/R)(1/T₂ − 1/T₁). With P₂/P₁ = 0.5 and ΔH_vap ≈ 40.7 kJ/mol: ln(0.5) ≈ −(40,700/8.314)(1/T₂ − 1/373). Solving gives T₂ ≈ 371 K (98 °C). Boiling point drops by roughly 2 K.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "A droplet of water has a higher equilibrium vapor pressure than a flat surface of water at the same temperature. Use the Kelvin equation to explain why.",
+    "back": "The Kelvin equation: ln(P/P*) = (2γV_liq)/(RTr), where r is droplet radius. Small r means large ln(P/P*), so vapor pressure is higher. Surface curvature creates Laplace pressure inside the droplet, raising its chemical potential.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Why do nanometer-scale water droplets evaporate faster than large bulk water, even at the same temperature?",
+    "back": "From the Kelvin equation, small droplets have much higher equilibrium vapor pressure than bulk water. If the ambient vapor pressure is below this equilibrium value, the droplet spontaneously evaporates (ΔG < 0).",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "What does the Gibbs phase rule F = C − P + 2 predict for a pure substance (C = 1) with three phases coexisting?",
+    "back": "F = 1 − 3 + 2 = 0 degrees of freedom. All intensive variables (T, P) are fixed—the system is at the triple point, a unique state with no adjustable parameters.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "At the solid–liquid boundary of a pure substance, how many independent variables can you choose before the system state is fully determined (at fixed pressure)?",
+    "back": "Using F = C − P + 1 (with pressure fixed), F = 1 − 2 + 1 = 0. No independent variables—once you choose to be on the melting curve at 1 atm, both T and composition are determined.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain the difference between thermodynamic stability (ΔG < 0) and kinetic stability for the diamond-to-graphite transformation at 298 K.",
+    "back": "ΔG ≈ −2.9 kJ/mol for C(diamond) → C(graphite), so the transformation is thermodynamically favorable. However, the activation energy is enormous (~4500 K effective), so the rate is imperceptibly slow. Diamond is kinetically trapped.",
+    "difficulty": 3,
+    "category": "pitfall"
+   },
+   {
+    "front": "For the α↔γ allotropic transformation in iron at 910 °C, which phase has the higher entropy and why?",
+    "back": "γ-iron (FCC) has higher molar entropy than α-iron (BCC) because its close-packed structure permits slightly greater vibrational and configurational disorder. At T > 910 °C, the TS term dominates and favors γ.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Use the Clausius–Clapeyron equation to explain why the vapor pressure of a liquid increases more steeply with temperature than the equilibrium pressure along a solid–liquid boundary.",
+    "back": "For liquid–gas: ΔV_vap >> ΔV_fus (gases are much less dense), so dP/dT is much steeper. Also, ΔH_vap > ΔH_fus. Both effects make vapor pressure curves rise more sharply.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "At the triple point of water, what does it mean that ice, liquid water, and water vapor all coexist?",
+    "back": "μ_ice = μ_liquid = μ_vapor at (273.16 K, 611 Pa). All three phases have identical molar Gibbs energy. Infinitesimal changes in T or P will cause one phase to become stable and the others to disappear.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Explain why supercooled liquid water (metastable at T < 273 K, 1 atm) will spontaneously freeze if you introduce an ice seed crystal.",
+    "back": "Below the melting point, μ_ice < μ_liquid. The ice seed provides a surface on which freezing can occur without a large activation barrier. Once ice forms, it grows because the liquid's G is higher than ice's G.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "For a metal oxidation reaction M + ½O₂ → MO, explain why the equilibrium oxygen partial pressure increases (oxide destabilizes) as temperature rises.",
+    "back": "The reaction is exothermic (ΔH < 0) and releases gas (ΔS < 0), so ΔG = ΔH − TΔS becomes less negative at high T (the negative ΔH term shrinks). At equilibrium, ln K = −ΔG°/RT becomes smaller, so K decreases and P_O₂^eq rises.",
+    "difficulty": 3,
+    "category": "concept"
+   }
+  ]
+ },
+ "L5": {
+  "topic": "L5 — Solid Solutions",
+  "cards": [
+   {
+    "front": "Define chemical potential $\\mu_i$ in a multi-component system in terms of Gibbs free energy.",
+    "back": "$\\mu_i = \\left(\\frac{\\partial G}{\\partial n_i}\\right)_{T,P,n_{j\\neq i}}$ — the molar Gibbs energy added per mole of component $i$ added to the mixture at constant $T$, $P$, and all other moles fixed.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Why does activity $a_i$ have a standard state where $a_i = 1$ by definition?",
+    "back": "The standard state (pure component, 1 atm, 298 K or specified conditions) is the reference condition. Setting $a_i^{\\text{standard}} = 1$ makes the fugacity-based formula $\\mu_i = \\mu_i^\\circ + RT\\ln a_i$ work: at the standard state, $\\mu_i = \\mu_i^\\circ$ (no excess beyond the reference).",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "In an ideal solution, how does the activity of a component relate to its mole fraction?",
+    "back": "$a_i = X_i$ (identically). This means $\\mu_i = \\mu_i^\\circ + RT\\ln X_i$ for every component, regardless of composition.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Derive the sign of $\\Delta G_{\\text{mix}}$ for an ideal solution and explain why mixing is always spontaneous.",
+    "back": "$\\Delta G_{\\text{mix}} = RT(X_A\\ln X_A + X_B\\ln X_B)$. Since $0 < X_A, X_B < 1$, both logarithms are negative, so $\\Delta G_{\\text{mix}} < 0$ always. Mixing is spontaneous because entropy gain ($\\Delta S_{\\text{mix}} > 0$) dominates; enthalpy change is zero ($\\Delta H_{\\text{mix}} = 0$ by definition of ideal).",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "Write the formula for entropy of mixing in an ideal binary solution and explain its physical origin.",
+    "back": "$\\Delta S_{\\text{mix}} = -R(X_A\\ln X_A + X_B\\ln X_B) > 0$. It's always positive because many more microstates exist when atoms are randomly distributed throughout a lattice than when they're segregated into pure A and B blocks.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "Why is $\\Delta H_{\\text{mix}} = 0$ for an ideal solution?",
+    "back": "In an ideal solution, all pair bond energies ($E_{AA}$, $E_{BB}$, $E_{AB}$) are assumed equal. Swapping atoms does not change the total bond-energy bookkeeping, so no enthalpy is released or absorbed on mixing.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "What is an activity coefficient $\\gamma_i$ and what do its limiting values mean?",
+    "back": "$\\gamma_i$ is the correction factor that relates activity to mole fraction: $a_i = \\gamma_i X_i$. A value $\\gamma_i = 1$ indicates ideal behaviour; $\\gamma_i > 1$ means the component 'wants out' (repulsive interactions); $\\gamma_i < 1$ means attractive interactions stabilise the component in solution.",
+    "difficulty": 2,
+    "category": "definition"
+   },
+   {
+    "front": "Explain Raoult's Law in the limit where component A is the solvent ($X_A \\to 1$).",
+    "back": "As $X_A \\to 1$, most of A's neighbours are other A atoms, so A behaves nearly pure: $\\gamma_A \\to 1$ and $a_A \\to X_A$. For a volatile liquid, $P_A = X_A P_A^*$ (vapour pressure of the solvent is proportional to its mole fraction).",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain Henry's Law in the limit where component A is the solute ($X_A \\to 0$).",
+    "back": "As $X_A \\to 0$, A is surrounded almost entirely by B neighbours; its chemical environment is fixed, so $\\gamma_A \\to$ constant $\\gamma_A^\\infty$. Activity becomes $a_A \\approx k_H X_A$ where $k_H = \\gamma_A^\\infty P_A^*$ (Henry's constant). Solute obeys a constant-slope line, not the solvent's curve.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Define the bond-energy parameter $\\varepsilon$ and explain its connection to solution stability.",
+    "back": "$\\varepsilon \\equiv E_{AB} - \\tfrac{1}{2}(E_{AA} + E_{BB})$ measures A–B interaction strength relative to like–like bonds. If $\\varepsilon < 0$ (A–B preferred), solution is ordered and $\\Delta H_{\\text{mix}} < 0$ (always miscible). If $\\varepsilon > 0$ (like–like preferred), $\\Delta H_{\\text{mix}} > 0$; entropy competes with enthalpy, causing miscibility gaps at low $T$.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Contrast ordered, random, and clustered arrangements in a binary solid solution in terms of $\\varepsilon$ and $\\Delta H_{\\text{mix}}$.",
+    "back": "**Ordered** ($\\varepsilon < 0$): A and B alternate; $\\Delta H_{\\text{mix}} < 0$ (stabilised by bonding). **Random/Ideal** ($\\varepsilon = 0$): any arrangement equally probable; $\\Delta H_{\\text{mix}} = 0$. **Clustered** ($\\varepsilon > 0$): like atoms group together; $\\Delta H_{\\text{mix}} > 0$ (energetically unfavourable mixing; phase separates at low $T$).",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain why the Cu–Au system shows ordering below ~400 °C but disorder above it.",
+    "back": "The small but negative $\\varepsilon$ between Cu and Au favours A–B bonds (exothermic). At high $T$, entropy dominates and random FCC solid solution is stable. At low $T$, enthalpy dominates: the system rearranges into ordered superlattices (Cu$_3$Au, CuAu) to lower $G = H - TS$. The crossover happens where $\\Delta G_{\\text{order}} = 0$, around 400 °C.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "What is the regular-solution mixing-enthalpy formula and how does it relate to $\\varepsilon$?",
+    "back": "$\\Delta H_{\\text{mix}} = \\Omega X_A X_B$ where $\\Omega \\approx Z N_A \\varepsilon$ ($Z$ = coordination number, $N_A$ = Avogadro's number). Sign of $\\Omega$ matches sign of $\\varepsilon$. The $X_A X_B$ factor shows mixing enthalpy is zero at pure A or B and maximised at $X_A = X_B = 0.5$.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "Why do interstitial solutes (e.g. C in Fe) have much lower solubility than substitutional solutes?",
+    "back": "Interstitial atoms (C, N, B) are much smaller and cannot directly replace host atoms; they occupy the gaps (holes) in the lattice. The number of available interstitial sites is limited (typically much fewer than substitutional sites), so solubility maxes out despite potentially favourable interactions. Additionally, local strain from size mismatch often makes substitution unfavourable.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "State the Gibbs–Duhem equation for a binary solution and explain its physical significance.",
+    "back": "$X_A \\mathrm{d}\\mu_A + X_B \\mathrm{d}\\mu_B = 0$ (at constant $T, P$). It says you cannot vary chemical potentials of all components independently — if one increases, another must decrease. Knowing $\\mu_A(X_A)$ fully determines $\\mu_B(X_A)$ up to a constant; experimentally, you can infer one component's activity from the other via integration.",
+    "difficulty": 3,
+    "category": "equation"
+   },
+   {
+    "front": "A dilute solution obeys both Raoult's Law for the solvent and Henry's Law for the solute simultaneously. How is this possible if they use different reference states?",
+    "back": "They refer to different components at different compositions. The **solvent** (majority, $X \\to 1$) follows Raoult's Law because it is nearly pure and its activity $\\approx X$. The **solute** (minority, $X \\to 0$) follows Henry's Law because its activity is tied to a fixed concentration term $\\gamma^\\infty X$. Both describe the same real activity curve at opposite ends.",
+    "difficulty": 3,
+    "category": "pitfall"
+   },
+   {
+    "front": "Why does a miscibility gap form in a solution with $\\Delta H_{\\text{mix}} > 0$ below a critical temperature, and what does it look like on a G-vs-X plot?",
+    "back": "For $\\Delta H_{\\text{mix}} > 0$, the term $-T\\Delta S_{\\text{mix}}$ grows less important at low $T$, so $\\Delta G_{\\text{mix}} = \\Delta H_{\\text{mix}} - T\\Delta S_{\\text{mix}}$ becomes positive. The Gibbs energy curve develops a **double minimum**: two compositions where $\\mathrm{d}G/\\mathrm{d}X = 0$. Below $T_c$ (critical temperature), the region between these minima lies above the common-tangent line, forcing the system to separate into two phases.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Common mistake: A student says 'an alloy with $K > 1$ equilibrium constant will always dissolve.' Correct this statement.",
+    "back": "**Incorrect reasoning**: equilibrium constant $K$ is tied to **reaction or phase equilibrium**, not solution miscibility. The correct statement is: *If $\\Delta G_{\\text{mix}} < 0$ at the relevant composition and temperature, mixing is spontaneous*. A high $K$ for a particular reaction tells you products are favoured at equilibrium, but compositional mixing is governed by $\\Delta G_{\\text{mix}}$, not by a reaction quotient.",
+    "difficulty": 3,
+    "category": "pitfall"
+   },
+   {
+    "front": "Explain why carbon's solubility in iron is very different in BCC $\\alpha$-ferrite versus FCC $\\gamma$-austenite.",
+    "back": "Carbon has strong affinity for Fe (negative A–B interaction, $\\varepsilon < 0$), but solubility depends critically on crystal structure and available sites. **Austenite** ($\\gamma$, FCC) has larger octahedral interstitial sites and better C accommodation: solubility ~2 wt% at 1147 °C. **Ferrite** ($\\alpha$, BCC) has smaller, less accessible interstices and lower $\\Delta S_{\\text{mix}}$ (fewer available states): solubility ~0.02 wt% at room temperature. This difference is the thermodynamic basis for steel heat treatment — austenite can dissolve much more C, trapping it on quench.",
+    "difficulty": 3,
+    "category": "concept"
+   }
+  ]
+ },
+ "L6": {
+  "topic": "L6 — Gibbs Phase Rule and Phase Diagrams",
+  "cards": [
+   {
+    "front": "State the Gibbs phase rule at fixed pressure (most practical form for binary alloys).",
+    "back": "$$F = C - P + 1$$ where $F$ = degrees of freedom (number of independent intensive variables), $C$ = number of components, $P$ = number of phases present. At fixed atmospheric pressure, you lose one degree of freedom compared to the general form $F = C - P + 2$.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "Why can't a pure substance have more than 3 phases in equilibrium at a fixed pressure?",
+    "back": "For a pure substance, $C = 1$. Gibbs phase rule gives $F = 1 - P + 1 = 2 - P$. If $P \\geq 3$, then $F < 0$, which is physically impossible (you cannot have fewer than zero independent variables). The triple point is the maximum: three phases, zero degrees of freedom.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "In a two-phase region of a binary phase diagram at fixed pressure, how many degrees of freedom do you have? What does this mean practically?",
+    "back": "$$F = C - P + 1 = 2 - 2 + 1 = 1$$. You have one degree of freedom: you can choose either the temperature *or* the overall composition, but once one is fixed, the other and the compositions of both coexisting phases are determined.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain the common tangent construction: how does it tell you which phases coexist at a given temperature?",
+    "back": "Plot molar Gibbs energy $\\underline{G}$ vs. composition for each phase at a fixed $T$. Draw a straight line tangent to both phase curves simultaneously. The two tangent points give the equilibrium compositions of the two coexisting phases. Any other composition pair violates the chemical-potential equality condition $\\mu_A^\\alpha = \\mu_A^\\beta$ and $\\mu_B^\\alpha = \\mu_B^\\beta$.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "What is a tie line on a phase diagram, and why is it always horizontal (or vertical if composition is on the y-axis)?",
+    "back": "A tie line connects the compositions of two phases in equilibrium at a single temperature (or pressure). It is horizontal (isothermal) because at equilibrium, both phases have the same $T$ and $P$. In a $T$-$X$ diagram, all phases in equilibrium at a given $T$ are collinear horizontally.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "State the lever rule and explain why it is called that.",
+    "back": "For a two-phase region, the mole (or mass) fraction of phase $\\alpha$ is $$f^\\alpha = \\frac{X^\\beta - X_0}{X^\\beta - X^\\alpha}$$ The fraction equals the opposite lever arm divided by the total tie-line length. Physically: imagine the overall composition $X_0$ as a fulcrum; the phase fractions balance like weights on a seesaw.",
+    "difficulty": 2,
+    "category": "definition"
+   },
+   {
+    "front": "In a binary isomorphous phase diagram (complete solid solubility), why does melting occur over a range of temperatures rather than at a single point?",
+    "back": "At a given composition, the liquid and solid that coexist have *different* compositions — one is richer in A, the other in B. As temperature rises through the solid-liquid two-phase region, the liquid becomes more B-rich and the solid more A-rich (or vice versa), following the phase boundary curves. Complete melting occurs only when the last solid composition reaches the liquidus.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "What is an eutectic point, and why does it have zero degrees of freedom at fixed pressure?",
+    "back": "An eutectic is an invariant point where three phases (liquid, $\\alpha$ solid, $\\beta$ solid) coexist at a single, specific $(T, X)$. For a binary system: $F = 2 - 3 + 1 = 0$, meaning all intensive variables ($T$, $P$, and composition of each phase) are completely fixed by nature — no freedom to adjust anything.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain why eutectic alloys have a lower melting point than their pure components.",
+    "back": "The liquid phase benefits more from mixing entropy than the solid phases (liquid is already disordered; adding disorder via mixing has less penalty). At intermediate compositions, $\\Delta G_{\\text{mix}} = \\Delta H_{\\text{mix}} - T\\Delta S_{\\text{mix}}$ is minimized for the liquid at a lower $T$ than for the solid, causing liquid to be stable below the melting points of the pure components. The eutectic composition and temperature represent the lowest-$G$ equilibrium.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "What does it mean to say that a solid phase is an 'intermediate phase' or 'intermetallic compound' on a phase diagram?",
+    "back": "An intermediate phase is a distinct crystal structure with a fixed or nearly fixed composition (represented by a vertical line on a $T$-$X$ diagram), different from either pure component. Example: Fe$_3$C (cementite) in the Fe–C diagram at 6.67 wt% C. Its existence creates multiple eutectic or peritectic reactions and breaks up the phase diagram into separate regions.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "On a phase diagram, how can you distinguish an eutectic reaction from a peritectic reaction by their shape?",
+    "back": "**Eutectic** ($L \\to \\alpha + \\beta$): $V$-shaped valley — the liquid composition sits between the two solid compositions, and the three-phase point is a minimum in temperature. **Peritectic** ($L + \\alpha \\to \\beta$): $S$-shaped or step-like — one solid reacts *with* the liquid to produce a *different* solid. The three-phase temperature is a maximum along one phase boundary and minimum along another.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Given a binary phase diagram and an overall composition in the two-phase region, write out the mass-balance equation and show how it proves the lever rule.",
+    "back": "Let overall composition be $X_0$, with two phases at compositions $X^\\alpha$ and $X^\\beta$ and mass fractions $f^\\alpha$ and $f^\\beta$. Mass balance: $$X_0 = f^\\alpha X^\\alpha + f^\\beta X^\\beta, \\quad f^\\alpha + f^\\beta = 1$$ Solving for $f^\\alpha$: $$f^\\alpha = \\frac{X^\\beta - X_0}{X^\\beta - X^\\alpha}$$ which is the lever rule — the fraction is the opposite lever arm over the total distance.",
+    "difficulty": 2,
+    "category": "equation"
+   },
+   {
+    "front": "What happens to a system at an invariant point (eutectic, triple point, etc.) if you try to change the temperature by $\\pm$ 0.01 K at fixed pressure?",
+    "back": "You instantly leave the three-phase coexistence region (since $F = 0$ — no variables are free to vary). The system must shift into a two-phase field. If you heat slightly, you enter a single liquid or two-phase liquid-solid region; if you cool slightly, you enter a different two-phase or fully solid region. The three phases can only coexist at one specific $(T, P)$ pair.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "Why does the molar Gibbs energy curve for a phase 'cross over' another phase's curve at a phase transition, and what does that crossing represent?",
+    "back": "As $T$ changes, each phase's molar $\\underline{G}(T)$ changes at a different rate because phases have different entropies: $(\\partial \\underline{G}/\\partial T)_P = -\\underline{S}$. The phase with larger $\\underline{S}$ (usually the disordered phase) has a steeper downward slope. Where two curves cross, $\\underline{G}_A = \\underline{G}_B$, marking the phase-transition temperature. Below it one phase is stable; above it, the other.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "In a binary isomorphous system with a melting-point *maximum* (not minimum), what does this reveal about $\\Delta H_{\\text{mix}}$ of the solid phase?",
+    "back": "It reveals that $\\Delta H_{\\text{mix}} < 0$ — strongly negative. The A–B bonds are much stronger than A–A or B–B bonds, so forming an ordered or partially-ordered solid solution *releases* energy (exothermic mixing). The solid is thereby *stabilized* relative to the pure components, raising the melting temperature at intermediate compositions above those of the pure elements.",
+    "difficulty": 3,
+    "category": "concept"
+   },
+   {
+    "front": "What is a miscibility gap, and when does it appear on a phase diagram?",
+    "back": "A miscibility gap is a two-phase region within what would otherwise be a single-phase solid-solution field. It appears when $\\Delta H_{\\text{mix}} > 0$ is large enough that at low temperatures, the entropy penalty for demixing is outweighed by the energy gain: $T\\Delta S_{\\text{mix}} < \\Delta H_{\\text{mix}}$, so $\\Delta G_{\\text{mix}} > 0$. Above a critical temperature $T_c$, entropy wins and the phases become miscible again.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "Explain why the Cu–Ni phase diagram is simple (nearly isomorphous with a lens-shaped two-phase region) while the Fe–C diagram is complex (multiple intermetallic compounds, eutectics, and peritectics).",
+    "back": "Cu and Ni have similar atomic radii, crystal structure (FCC), and $\\Delta H_{\\text{mix}} \\approx 0$ or slightly negative — they dissolve in each other at all compositions. Fe and C differ greatly in size and electronegativity, leading to $\\Delta H_{\\text{mix}} > 0$ and formation of distinct compounds (cementite Fe$_3$C, austenite with limited C solubility). The complexity arises from competing solid phases with different stable composition ranges.",
+    "difficulty": 2,
+    "category": "concept"
+   },
+   {
+    "front": "On the Fe–C phase diagram, what is the eutectoid reaction, and at what composition and temperature does it occur?",
+    "back": "The eutectoid reaction is $\\gamma\\text{-austenite} \\to \\alpha\\text{-ferrite} + \\text{Fe}_3\\text{C(cementite)}$, occurring at **0.76 wt% C and 727 °C**. It is the solid-state analog of a eutectic (three phases, one of which is solid instead of liquid). This reaction is the basis of pearlite microstructure and is fundamental to carbon-steel heat treatment.",
+    "difficulty": 1,
+    "category": "definition"
+   },
+   {
+    "front": "A student claims: 'At the eutectic temperature, I can have any overall composition and still observe exactly three phases in equilibrium.' Is this true? Explain.",
+    "back": "**False.** The three phases coexist only at the *specific eutectic composition* (the composition where the tie line touches all three phase boundaries). At other overall compositions in that temperature range, you see only *two* phases — either liquid + $\\alpha$, or liquid + $\\beta$. The three-phase point is a single composition, not a composition range.",
+    "difficulty": 2,
+    "category": "pitfall"
+   },
+   {
+    "front": "Use the Gibbs phase rule to explain why you cannot have four phases in equilibrium in a binary system at fixed pressure, and sketch what would happen if you tried to force it.",
+    "back": "For a binary, $F = C - P + 1 = 2 - 4 + 1 = -1 < 0$. Negative degrees of freedom is impossible — it would require specifying more constraints than you have variables. Physically, if you try to create four coexisting phases (e.g., two liquids + two solids), the system is *overconstrained* and you instantly phase-separate into fewer phases that satisfy the rule.",
+    "difficulty": 3,
+    "category": "pitfall"
+   }
+  ]
  }
 }

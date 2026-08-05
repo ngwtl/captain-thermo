@@ -21,6 +21,10 @@ services:
         value: "true"
       - key: GRADER_EFFORT     # medium: same verdicts as high, ~30% faster
         value: medium
+      - key: CA_FOR_GRADER     # past CAs in the grader's context (+40% corpus)
+        value: "true"
+      - key: CA_FOR_TUTOR      # tutor doesn't need them; keeps its corpus at 99K
+        value: "false"
       - key: PREWARM_ON_STARTUP
         value: "true"
       - key: PREWARM_INTERVAL_MIN     # 0 disables; only warms models in recent use

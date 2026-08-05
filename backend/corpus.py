@@ -99,4 +99,31 @@ def load_corpus() -> str:
     return "\n".join(parts)
 
 
+def load_ca() -> str:
+    """Past continuous assessments, extracted by scripts/extract_ca.py.
+
+    Kept as a separate block rather than folded into CORPUS because it is not
+    equally useful to every tool, and it is not free: the CAs add ~40% to the
+    corpus (99K -> 139K tokens on Sonnet, 128K -> 178K on Opus 5), which lands
+    on every cache write and every cached read.
+
+    Tutorials show the *teaching* style; the CAs show the *examining* style —
+    phrasing, mark allocation, how much working earns full credit, which
+    sub-topics recur year on year. That is decisive for the grader, which
+    otherwise has no way to know what "good enough for full marks" means in
+    this course. It matters much less to the tutor, whose job is to ask the
+    next question, so the tutor is not charged 40% for it by default.
+
+    Appended last so that re-extracting CAs never invalidates the stable
+    prefix ahead of it.
+    """
+    ca = _read(CONTENT_DIR / "ca_papers.txt")
+    if not ca:
+        return ""
+    return ("\n" + "=" * 72
+            + "\nPAST CONTINUOUS ASSESSMENTS (CA1 + CA2, with solutions)\n"
+            + "=" * 72 + "\n" + ca)
+
+
 CORPUS = load_corpus()
+CA_PAPERS = load_ca()
