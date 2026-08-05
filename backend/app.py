@@ -44,6 +44,7 @@ from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+import bank
 from corpus import CORPUS, TOPIC_INDEX
 from prompts import (
     FLASHCARD_SYSTEM,
@@ -69,6 +70,16 @@ IP_RATE_LIMIT_PER_MIN = int(os.getenv("IP_RATE_LIMIT_PER_MIN", "600"))
 IP_RATE_LIMIT_PER_DAY = int(os.getenv("IP_RATE_LIMIT_PER_DAY", "20000"))
 
 CACHE_TTL = os.getenv("CACHE_TTL", "1h").strip() or "1h"
+# Serve practice problems and flashcards from the pre-generated bank. Set false
+# to force live generation (useful when validating a corpus change before
+# rebuilding the bank). Falls back to live automatically when the bank has no
+# entry for a topic, so a partial bank is safe.
+USE_BANK = os.getenv("USE_BANK", "true").lower() in ("1", "true", "yes")
+# Grader reasoning depth. Measured on Opus 5: medium costs ~9% less than high
+# and returns the same verdict/score/error-type, but runs ~30% faster (16.0s ->
+# 13.1s). The win here is latency — the cached corpus read dominates cost, so
+# effort barely moves the bill.
+GRADER_EFFORT = os.getenv("GRADER_EFFORT", "medium").strip()
 PREWARM_ON_STARTUP = os.getenv("PREWARM_ON_STARTUP", "true").lower() in ("1", "true", "yes")
 PREWARM_INTERVAL_MIN = int(os.getenv("PREWARM_INTERVAL_MIN", "50"))
 PREWARM_IDLE_AFTER_MIN = int(os.getenv("PREWARM_IDLE_AFTER_MIN", "90"))
@@ -325,13 +336,22 @@ def _warm_targets() -> list[tuple[str, str, str, dict | None]]:
     tutor shape leaves /generate, /grade and /flashcards cold.
 
     Schemas are referenced lazily because they're defined further down.
+
+    Endpoints served from the pre-generated bank are skipped: warming a prefix
+    nothing reads is pure waste, and these two are the reason the bank pays
+    twice — less traffic AND two fewer ~99K entries to keep warm (~$0.79 off
+    every cold round). They're still warmed if the bank is empty for them, so
+    the fallback path stays fast.
     """
-    return [
+    targets = [
         ("chat", MODEL_DEFAULT, TUTOR_SYSTEM, None),
-        ("generate", MODEL_DEFAULT, PROBLEM_GENERATOR_SYSTEM, PROBLEM_SCHEMA),
         ("grade", MODEL_GRADER, GRADER_SYSTEM, GRADE_SCHEMA),
-        ("flashcards", MODEL_FLASHCARDS, FLASHCARD_SYSTEM, FLASHCARD_SCHEMA),
     ]
+    if not (USE_BANK and bank.PRACTICE):
+        targets.append(("generate", MODEL_DEFAULT, PROBLEM_GENERATOR_SYSTEM, PROBLEM_SCHEMA))
+    if not (USE_BANK and bank.DECKS):
+        targets.append(("flashcards", MODEL_FLASHCARDS, FLASHCARD_SYSTEM, FLASHCARD_SCHEMA))
+    return targets
 
 
 def _prewarm_shape(label: str, model: str, role: str, schema: dict | None) -> dict:
@@ -449,6 +469,13 @@ def health() -> dict:
         "passcode_required": bool(APP_PASSCODE),
         "corpus_chars": len(CORPUS),
         "cache_ttl": CACHE_TTL,
+        "grader_effort": GRADER_EFFORT,
+        "bank": {
+            "enabled": USE_BANK,
+            "practice_problems": bank.practice_count(),
+            "flashcard_cards": bank.deck_card_count(),
+            "live_endpoints": [t[0] for t in _warm_targets()],
+        },
         # If `hits` stays 0 while `misses` climbs, the cached prefix is being
         # invalidated — check that nothing volatile crept into the corpus.
         "cache": {m: dict(_cache_stats[m]) for m in ALL_MODELS},
@@ -530,6 +557,11 @@ PROBLEM_SCHEMA = {
 
 @app.post("/api/generate")
 def generate_problem(req: GenerateRequest, _: str = Depends(require_access)):
+    if USE_BANK:
+        banked = bank.get_problem(req.topic, req.difficulty)
+        if banked:
+            return banked  # pre-vetted, no API call
+
     topic_desc = TOPIC_INDEX.get(req.topic, req.topic)
     user_msg = (
         f"Generate a NEW {req.difficulty} difficulty problem on topic: "
@@ -645,7 +677,10 @@ def grade(req: GradeRequest, _: str = Depends(require_access)):
             thinking={"type": "adaptive"},
             system=_system_blocks(GRADER_SYSTEM),
             messages=[{"role": "user", "content": content}],
-            output_config={"format": {"type": "json_schema", "schema": GRADE_SCHEMA}},
+            output_config={
+                "format": {"type": "json_schema", "schema": GRADE_SCHEMA},
+                "effort": GRADER_EFFORT,
+            },
         )
     except anthropic.APIError as e:
         raise HTTPException(502, f"Anthropic error: {e}") from e
@@ -683,6 +718,11 @@ FLASHCARD_SCHEMA = {
 
 @app.post("/api/flashcards")
 def flashcards(req: FlashcardRequest, _: str = Depends(require_access)):
+    if USE_BANK:
+        banked = bank.get_cards(req.topic, req.count)
+        if banked:
+            return banked  # sampled from a larger pre-built deck
+
     topic_desc = TOPIC_INDEX.get(req.topic, req.topic)
     user_msg = (
         f"Produce exactly {req.count} flashcards for topic {req.topic} — {topic_desc}."

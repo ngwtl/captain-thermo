@@ -17,6 +17,10 @@ services:
         value: claude-haiku-4-5
       - key: CACHE_TTL
         value: 1h
+      - key: USE_BANK          # serve practice/flashcards from the committed bank
+        value: "true"
+      - key: GRADER_EFFORT     # medium: same verdicts as high, ~30% faster
+        value: medium
       - key: PREWARM_ON_STARTUP
         value: "true"
       - key: PREWARM_INTERVAL_MIN     # 0 disables; only warms models in recent use
