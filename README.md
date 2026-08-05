@@ -115,7 +115,9 @@ Knobs:
 - **Best quality**: `ANTHROPIC_MODEL_DEFAULT=claude-opus-5` for all endpoints.
 - **Don't** switch to `claude-sonnet-5` expecting savings: its tokenizer produces ~30% more tokens, so at list price it costs *more* than Sonnet 4.6 for identical text.
 
-`RATE_LIMIT_PER_MIN` / `RATE_LIMIT_PER_DAY` cap any single student's usage. Note the limiter keys on IP, so students behind a shared campus NAT share one quota — raise the limits if that bites.
+`RATE_LIMIT_PER_MIN` / `RATE_LIMIT_PER_DAY` (30/min, 40/day) cap each student individually — they key on the per-browser client id, so a shared campus NAT no longer collapses the cohort into one quota.
+
+> **These are fairness limits, not a budget control.** 170 students × 40/day is still a theoretical ~$610/day. The only real ceiling is an org-level spend limit in the [Anthropic Console](https://console.anthropic.com) (Billing → Limits) — set one before sharing the URL widely.
 
 ## Refreshing course content
 
