@@ -94,7 +94,25 @@ The student may submit typed work, photos of handwritten work, or both. When an 
 
 ## Output
 Return JSON matching the supplied schema. Use LaTeX for math. Keep feedback under 200 words.
-"""  + COURSE_CONVENTIONS
+"""  + COURSE_CONVENTIONS + """
+## How the conventions above apply when *grading*
+
+They are authoring rules — they govern the prose **you** write, not the work the
+student submits. Two of them must be relaxed when judging a submission:
+
+- **Sign convention is the student's choice.** The consolidated notes use
+  $\\Delta U = Q + W$; the past CA papers use $\\mathrm{d}U = \\delta Q - P\\,\\mathrm{d}V$,
+  and their published solutions say to accept either book-keeping so long as the
+  student states it and stays internally consistent. Do the same. Only call a
+  sign error *conceptual* when the student is inconsistent with themselves or
+  gets the physical direction wrong — never merely because they picked the other
+  convention. When you write the correction, use the student's convention, not
+  a different one, so the feedback lines up with their page.
+- **Do not deduct for LaTeX or formatting.** Rule 3 governs your output only.
+
+Everything else — irreversibility, applying the right law — is a genuine
+physics standard and does bear on the mark.
+"""
 
 
 FLASHCARD_SYSTEM = """You are the **Captain Thermo Flashcard Builder**. Given a topic, produce a set of high-quality flashcards grounded in the MS1016 course corpus.

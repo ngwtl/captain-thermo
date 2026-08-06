@@ -1,5 +1,10 @@
 """Load and concatenate all course-material text files into a single cached corpus."""
+import os
 from pathlib import Path
+
+# Tutorial solution files restate each problem verbatim before working it, so
+# shipping the problem sheets too duplicates ~5,400 tokens on every cache write.
+INCLUDE_PROBLEM_SHEETS = os.getenv("INCLUDE_PROBLEM_SHEETS", "false").lower() in ("1", "true", "yes")
 
 CONTENT_DIR = Path(__file__).resolve().parent.parent / "course_content"
 
@@ -81,20 +86,27 @@ def load_corpus() -> str:
                 parts.append(_read(path))
                 break
 
-    for i in range(1, 9):
-        for stem in (
-            f"problems_Tutorial_{i}",
-            f"problems_Tutorial_{i}__Updated",
-            f"problems_Tutorial_{i}__updated",
-            f"problems_Tutorial_{i}updated",
-        ):
-            path = CONTENT_DIR / f"{stem}.txt"
-            if path.exists():
-                parts.append("\n" + "=" * 72)
-                parts.append(f"TUTORIAL {i} — PROBLEM SHEET")
-                parts.append("=" * 72)
-                parts.append(_read(path))
-                break
+    # Problem sheets are omitted by default: the solution files restate each
+    # problem verbatim before working it, so including both duplicates ~5,400
+    # tokens on every cache write for no added information. Verified by
+    # comparing Tutorial 3's sheet against its solution file.
+    # Set INCLUDE_PROBLEM_SHEETS=true if a sheet ever carries something its
+    # solution doesn't (a syllabus note, a figure caption).
+    if INCLUDE_PROBLEM_SHEETS:
+        for i in range(1, 9):
+            for stem in (
+                f"problems_Tutorial_{i}",
+                f"problems_Tutorial_{i}__Updated",
+                f"problems_Tutorial_{i}__updated",
+                f"problems_Tutorial_{i}updated",
+            ):
+                path = CONTENT_DIR / f"{stem}.txt"
+                if path.exists():
+                    parts.append("\n" + "=" * 72)
+                    parts.append(f"TUTORIAL {i} — PROBLEM SHEET")
+                    parts.append("=" * 72)
+                    parts.append(_read(path))
+                    break
 
     return "\n".join(parts)
 
@@ -117,6 +129,17 @@ def load_ca() -> str:
     Appended last so that re-extracting CAs never invalidates the stable
     prefix ahead of it.
     """
+    # Prefer the compressed digest. The full papers are ~80K tokens and the
+    # grader doesn't need them — it needs what they encode: mark allocation,
+    # expected working depth, house conventions. The digest is ~8K and carries
+    # that, saving ~$0.80 on every cold Opus 5 cache write.
+    # Falls back to the full papers if no digest has been built yet.
+    digest = _read(CONTENT_DIR / "ca_digest.txt")
+    if digest:
+        return ("\n" + "=" * 72
+                + "\nMARKING STANDARD — distilled from past CA papers 2021-2025\n"
+                + "=" * 72 + "\n" + digest)
+
     ca = _read(CONTENT_DIR / "ca_papers.txt")
     if not ca:
         return ""

@@ -1,0 +1,183 @@
+# MS1016 Thermodynamics of Materials — Marking-Standard Digest
+
+*(Derived from CA1 and CA2 papers + official solutions, 2021–2025. Use this to decide whether a submitted script would score full marks **in this course**, not in a generic thermodynamics course.)*
+
+---
+
+## 1. Exam Structure
+
+**Two continuous assessments per semester**, each **1 hour**, each **open-book / open-notes**. Roughly 13 items in 60 minutes, so answers are expected to be compact.
+
+| Sitting type | Composition | Marks |
+|---|---|---|
+| Standard CA1 / CA2 (2021, 2022, Feb & Apr 2023, Sep 2023, Sep & Nov 2024) | **3 short questions + 10 MCQ** | Short: 20 marks each (60 total). MCQ: 4 marks each (40 total). Paper = 100. |
+| Sep 2021 CA1 variant | Same shape but MCQ = 5 marks each | 60 + 50 |
+| Make-up CA1 (Oct 2023) | **5 short questions, no MCQ** | 20 each = 100 |
+| CA1 Sep 2025 | **4 short questions, no MCQ** | 10 + 10 + 10 + 12 + 8 ≈ 50 (scaled) |
+
+**Short questions are increasingly multi-part.** From 2023 onward a "20-mark question" is normally 2–5 lettered parts with individually printed tariffs (e.g. 2 + 4 + 5 + 6 + 3; or 5 + 10 + 5; or 3 + 3 + 14). Earlier papers (2021–Feb 2023) used single-block 20-mark "explain/derive" prompts.
+
+**MCQ**: exactly one correct answer, no partial credit, **no working required or rewarded**. Only the submitted letter counts.
+
+**Narrative framing**: from Sep 2023 onward, many questions are wrapped in fiction (Thor's hammer, Loki's sceptre, Harry Potter's wand, Charizard, cooking a chicken by slapping it). The physics is entirely standard; the story only affects a small "relate this to X" discussion allocation (typically 2–5 marks) where the student must map the thermodynamic result onto the scenario.
+
+---
+
+## 2. Mark Allocation Model
+
+### 2.1 This is a method-marks course
+The 2024/2025 solutions are itemised **line by line, in 0.5-mark steps**. A representative 10-mark Maxwell-relation derivation is broken down as:
+
+- state `G = H − TS` — **1**
+- state `dH = dU + PdV + VdP` — **1**
+- invoke 1st law `dU = δQ − PdV` **and** 2nd law `δQ = TdS` — **2**
+- substitute to obtain `dG = VdP − SdT` — **1**
+- write `G = G(T,P)` total differential — **1**
+- identify `(∂G/∂P)_T = V` and `(∂G/∂T)_P = −S` — **0.5**
+- form both cross-derivatives — **2**
+- state equality of cross-derivatives for an exact differential — **0.5**
+- write the final Maxwell relation — **0.5**
+
+**Grading consequence:** a student who writes only "`dG = VdP − SdT`, therefore `(∂V/∂T)_P = −(∂S/∂P)_T`" earns roughly 2/10, even though the answer is right. **A correct final answer with no intermediate steps does not score.** The 2024 paper says this explicitly on the page: *"Write your workings clearly, omission of steps will result in a loss of marks."*
+
+### 2.2 Conversely, a wrong final number with sound method scores heavily
+Numerical parts are typically split "setup : evaluation" at about 60:40. Examples:
+- Entropy-of-heating: definition (1) + substitution of `δQ = mC_p dT` (2) + setting up the integral (2) + factoring constants (1) + numerical evaluation (**4**). Arithmetic slip costs ≤ 4 of 10.
+- Carnot work output: correct `Q_H` from efficiency (3) + first-law step to `W` (3).
+- Nozzle problem: writing the steady-flow energy equation **and justifying each term dropped** (10) + `h₂` (5) + `A₂` (5). Ten of twenty marks are earned before any number is used.
+- Equilibrium `p_O2`: derivation of `ΔG° = −RT ln K_a` (7) + activity/fugacity reasoning (5) + substitution and answer (6).
+
+**Rule for the grader:** carry-forward (error-carried-forward) is the norm. Penalise the erroneous step once; award all downstream marks whose method is consistent with the student's own earlier number.
+
+### 2.3 Discursive parts are marked one mark per distinct correct assertion
+Typical observed splits:
+- "State the second law and relate it to your ΔS" (5) = statement of the law (2) + "ΔS is negative → products have lower entropy" (1) + "products less disordered" (1) + "therefore not spontaneous under these conditions" (1).
+- "Explain how jet-engine efficiency can be increased" (5) = raise T_H (1) + lower T_L (1) + higher compression ratio (1) + better turbine/compressor design reducing irreversibility (1) + high-temperature materials/cooling (1). Five separate ideas, five marks — a well-written paragraph containing only three ideas gets 3.
+- "Discuss limitations of this method" (4) = four distinct limitations, one mark each. Fewer bullet points = fewer marks regardless of prose quality.
+- "Explain effect of irreversible work on efficiency" (3–4) = state `W_irr = W_rev + lost work` (or equivalent entropy statement) + link increased entropy to energy unavailable for work + conclude reduced efficiency.
+
+### 2.4 Sketch questions
+Phase-diagram sketches are marked per labelled feature (≈1 mark each): axes, liquidus/solidus, phase-field labels (α, β, L), and the specifically requested points (melting points of A and B, eutectic point, ordered phase α′). Neatness is not marked; presence of the named features is.
+
+---
+
+## 3. Expected Working Depth
+
+A full-credit answer in this course:
+
+1. **Names the law or relation before using it.** Solutions habitually write "From the First Law of Thermodynamics, …", "From Maxwell's relationship, …", "From the definition of C_V, …". A step introduced without attribution frequently corresponds to a lost 1–2 marks in the model scheme.
+2. **Shows the total-differential expansion explicitly** when a state function of two variables is involved: `Let S = S(T,V)` → `dS = (∂S/∂T)_V dT + (∂S/∂V)_T dV` is itself a marked line.
+3. **Derives Maxwell relations rather than quoting them.** Every year at least one part requires the cross-derivative/exact-differential route. Quoting the relation from a memorised table when the question says "prove" or "derive" forfeits the bulk of the marks.
+4. **Substitutes numbers visibly**, with the symbolic formula written first. The solutions consistently show `ΔS = m·C_p·ln(T_f/T_i) = 0.5 × 4180 × ln(373.15/298.15) = …`. A bare final number is not full credit.
+5. **Converts and carries units.** Explicit conversions appear and are marked: °C → K (add 273.15), g → kg, atm → Pa (1 atm = 1.013×10⁵ N/m², sometimes 10⁵ Pa in the Clapeyron worked example), g/cm³ → m³/kg for specific volume, `α = 3α_L`. Final answers carry units: J/mol·K, kJ/mol, J/K, m², m, atm.
+6. **Quotes 3–4 significant figures.** Observed answers: −11.08 J/mol·K, −8.76 J/mol·K, 151.80 J/mol·K, 173.6 kJ/mol, 21.8 kJ/mol, 2992.5 kJ/kg, 4.89×10⁻⁴ m², 804.7 kJ, γ = 41.08 and 69.71, 6.9×10⁻²⁸ atm, 5.50×10⁻³⁶ atm. Accept 2–4 s.f.; do not penalise reasonable rounding, but a result quoted to 1 s.f. or with an obviously wrong order of magnitude should lose the "answer" mark only.
+7. **Ends numerical questions with a physical statement** where asked: "the engine performs 4500 J of work per cycle"; "ΔG > 0, decomposition is not spontaneous at 1000 K under 1 atm CO₂"; "21.5 km is far too high, so this scenario is highly unlikely". These sentences carry explicit 0.5–2 mark tags.
+
+---
+
+## 4. Recurring Topics
+
+### 4.1 CA1 — appears in essentially every sitting
+
+**(a) Derivation of the fundamental relations from the combined 1st + 2nd law.** One of `dH = TdS + VdP`, `dG = VdP − SdT`, `dF = −SdT − PdV` is derived in *every single CA1 examined*, usually as question 1 (10–20 marks), starting from `H = U + PV` / `G = H − TS` / `F = U − TS`, then `dU = δQ − PdV` and `δQ = TdS`.
+
+**(b) Maxwell relation by cross-derivatives** — in almost every sitting, either as a derivation (10 marks) or an MCQ asking which relation belongs to U, H, F or G.
+
+**(c) Total-differential manipulations of state functions**: `S = S(T,V)` → `dS = (C_V/T)dT + (∂P/∂T)_V dV`; `U = U(T,V)` → `δQ = (∂U/∂T)_V dT + [P + (∂U/∂V)_T]dV`; `(∂H/∂P)_T = V(1 − αT)`.
+
+**(d) Entropy of heating at constant pressure**: `ΔS = ∫mC_p dT/T = mC_p ln(T_f/T_i)` — the water/noodles question in both 2024 and 2025, 10 marks.
+
+**(e) Reversible vs irreversible work, lost work, efficiency** — 2021, 2022, Feb 2023, 2024 make-up, 2024 main. Expected content: reversible = quasi-static/equilibrium, `dS_total = 0`; irreversible → `dS > 0`; `W_irr = W_rev + lost work`; lost work reduces efficiency.
+
+**(f) Definitions/explanations**: isentropic (and its equivalence to reversible adiabatic), isothermal (constant T, heat exchanged, needs thermal contact + slow/quasi-static), Gibbs free energy (max non-mechanical work available), second law, "why do solids melt above T_m" (G = H − TS; −TS dominates at high T).
+
+**(g) Reaction thermochemistry from data tables** (2024, 2025): balanced equation (2 marks) → `ΔS°₂₉₈ = ΣS°(products) − ΣS°(reactants)` → temperature correction with `C_p = a + bT + cT⁻²`:
+`ΔS_T = ΔS₂₉₈ + ∫(ΔC_p/T)dT = ΔS₂₉₈ + Δa·ln(T/298) + Δb(T − 298)`, and
+`ΔH_T = ΔH₂₉₈ + Δa(T − 298) + (Δb/2)(T² − 298²)`, then `ΔG = ΔH − TΔS` and a spontaneity verdict.
+
+**(h) Ideal-gas adiabatic relations** (2023, 2024): derive `PV^γ = const`, `TV^{γ−1} = const`, `T₂/T₁ = (P₂/P₁)^{R/C_p}`. Note the course writes the pressure–temperature form with the exponent **R/C_p**, not (γ−1)/γ.
+
+**(i) Carnot efficiency** — `η = (T_H − T_L)/T_H = 1 − T_L/T_H`, with named assumptions (reversible heat flow and work, steady state, closed system), plus heat-engine efficiency MCQs (raise the input temperature) in nearly every paper.
+
+**(j) "Novelty" energy-conversion problems**: KE → heat (slapping a chicken, stomping a fish, dropping a gold block). Template: `KE = ½mv²` → apply efficiency factor → `Q = mCΔT` (and `+ nΔH_fusion` if melting) → divide → discuss limitations. Marks are 4+4+4+4+4 across the five steps.
+
+**(k) Free expansion into vacuum** (MCQ, three sittings): `W = 0` because `P_ext = 0`.
+
+### 4.2 CA2 — appears in every sitting
+
+**(a) Ellingham diagram** — *every CA2*. Choosing a reductant for MnO/SiO₂/Al₂O₃, reading the minimum reduction temperature, reading equilibrium `p_O2`, explaining why most oxide lines have positive slope (`ΔS < 0` because O₂ gas is consumed) while the C→CO line has negative slope (1 mol gas → 2 mol gas), and hence oxides destabilise at high T. Also H₂/H₂O and CO/CO₂ ratio control of `p_O2`.
+
+**(b) ΔG° = −RT ln K_a and equilibrium oxygen pressure** — 2021, 2024. House treatment: activity of pure condensed phases = 1; fugacity of an ideal gas at low pressure = its partial pressure; hence for `2M + O₂ = 2MO`, `K_a = 1/p_O2` and `ΔG° = RT ln p_O2`. Answers come out as, e.g., `ln p_O2 = −62.5` → `6.9×10⁻²⁸ atm`.
+
+**(c) Clapeyron / Clausius–Clapeyron** — derivation for solid–vapour equilibrium (assume `ΔV ≈ V_vapour`, ideal gas, integrate), and sign-of-slope reasoning (melting point rising with P ⇒ `dP/dT > 0` ⇒ contraction on melting; water is the negative-slope exception). Also a numerical boiling-point-on-Everest calculation.
+
+**(d) Chemical potential / partial molar quantities** — molar vs partial molar Gibbs free energy, `μ_i = (∂G/∂n_i)_{T,P,n_{j≠i}}`, "chemical potential = partial molar Gibbs free energy".
+
+**(e) Raoult's law, Henry's law, activity, activity coefficient, Gibbs–Duhem** — `γ = a/X`; `μ = G° + RT ln a`; solvent (Raoult, γ→1) vs solute (Henry, γ = const) in dilute solutions; Gibbs–Duhem `d(ln a_A) = −(X_B/X_A) d(ln a_B)` for non-dilute solutions. The 14-mark 2024 computation of γ from the two terminal solubility limits (equate μ in α and β, apply Raoult on the solvent side and Henry on the solute side, obtain `γ_B = X_B^β / X_B^{sat,α}`) is the flagship version.
+
+**(f) Gibbs phase rule** — stated in this course as **`f = 2 − P + C`**. Used to argue that 4 phases cannot coexist in a binary (f = 0 already at 3 phases in some framings; the official argument: binary + 4 phases ⇒ f = 0 ⇒ not possible).
+
+**(g) Phase-diagram reading** — solubility limits, eutectic points, points of three-phase equilibrium, mapping free-energy-vs-composition curves at successive temperatures onto a phase diagram, intermetallic formation conditions (`ΔH_mix < 0`, low T).
+
+**(h) Graphite/diamond** — ΔG at 298 K from tabulated ΔH and S, effect of isothermal compression via `ΔG = ∫V dP` with incompressible phases, equilibrium pressure, and a qualitative answer on why high temperature is needed industrially (kinetics/activation, not thermodynamics).
+
+---
+
+## 5. House Conventions
+
+- **Sign convention:** work done *by* the system is positive; the first law is written **`dU = δQ − PdV`**. Where `δW` appears explicitly it is `δW = −PdV` for work done on the system, and in the Carnot problem "the net work done on the system is negative, which means the engine performs 4500 J per cycle". Accept either book-keeping if the student states it and is internally consistent.
+- **`δ` for path functions, `d` for state functions**: `δQ`, `δW` vs `dU`, `dH`, `dS`. Solutions occasionally slip into `dQ`; do not penalise students for either.
+- **Gibbs phase rule as `f = 2 − P + C`** (not `F = C − P + 2` in that order; same content).
+- **Adiabatic P–T exponent written as `R/C_p`.**
+- **`α`** = volumetric coefficient of thermal expansion `= (1/V)(∂V/∂T)_P`; **`α_L = α/3`**. Both symbols appear; the papers always supply the definition.
+- **`J`** is used for the reaction quotient; `K_a` for its equilibrium value ("At equilibrium, J is called the equilibrium constant, K_a").
+- **`G°`/`ΔG°`** for standard state; activity `a`, activity coefficient `γ`, mole fraction `X`.
+- **`F`** for Helmholtz free energy (not `A`), `dF = −SdT − PdV`.
+- **Free energies:** Gibbs governs constant T and P; Helmholtz governs constant T and V. Equilibrium = minimum G (or F).
+- **Pressure units:** `atm` throughout Ellingham/equilibrium work; SI Pa for work and entropy-vs-pressure calculations (conversion shown explicitly).
+- **Entropy of reaction** written as products minus reactants in a single displayed line, then evaluated.
+- The papers accept "isentropic ⇔ reversible adiabatic"; an adiabatic irreversible process is **not** isentropic — this distinction is examined.
+
+---
+
+## 6. Common Student Errors the Solutions Explicitly Correct
+
+1. **"Entropy can never decrease."** The papers repeatedly mark this false: a *system's* entropy can decrease by interacting with the surroundings; it is `dS_system + dS_surroundings ≥ 0` that holds. Both an MCQ distractor and a short-answer discussion point.
+2. **`C_V − C_P = R`** — flagged as the NOT-a-property-of-an-ideal-gas distractor. Correct form `C_P − C_V = R`.
+3. **Equilibrium of two bodies in contact**: temperatures become *equal* (not different), combined entropy is *maximum* (not enthalpy), individual internal energies are *not* constant (only the total is), and no PdV work is done.
+4. **Which law fixes the final temperature of two bodies in contact** — the **Zeroth** law, not the second.
+5. **Free expansion**: work is zero because the external pressure is zero, *not* because the process is fast; students who argue via ΔU = 0 get the right answer for the wrong reason.
+6. **Irreversible compression work**: `|W| > |W_rev|`, so lost work `(W − W_rev)` is **positive** for compression. Distractors deliberately offer "negative".
+7. **Intensive properties** are unchanged when a system is partitioned.
+8. **Helmholtz free energy**: constant T and V (not T and P); `(∂F/∂T)_V = −S`, so the temperature derivative gives entropy, not enthalpy.
+9. **`(∂G/∂T)_P` "rate of decrease of G with T" = entropy**, and the Helmholtz analogue at constant V = entropy — asked almost every year.
+10. **Negative ΔS does not by itself prove non-spontaneity at all temperatures** (the AgCl MCQ marks only "disorder of the system decreases" as correct). But note the 2024 CA1 short answer *does* accept "negative ΔS_reaction ⇒ not spontaneous under the given conditions" — accept both readings when the question is phrased as that one was.
+11. **Spontaneous ≠ fast** (kinetics vs thermodynamics) — also the expected answer for "why does industrial diamond synthesis need high temperature".
+12. **Joule–Thomson is isenthalpic** — asked in three separate sittings.
+13. Confusing **molar** with **partial molar** Gibbs energy; forgetting that the partial molar derivative holds T, P and all other n_j fixed.
+
+---
+
+## 7. Grader Decision Rules
+
+- **Award method marks generously; withhold answer marks strictly.** If the student names the governing law, expands the differential, and substitutes symbolically, they hold ≥60% of a numerical part even with a wrong number.
+- **Zero-working correct answers on short questions: cap at the "answer" tariff only** (typically 0.5–4 of 10–20). This is the single most distinctive feature of this course's marking.
+- **MCQ: letter only, all-or-nothing.**
+- **Known defects in the official solutions — be lenient, both ways.** The Sep 2023 MCQ set contains three flawed items (an incorrect Maxwell option, a mis-stated exponent answer, and an adiabatic-temperature item with no valid option) for which the whole cohort was credited. Elsewhere: the 2021 `(∂H/∂P)_T` derivation mislabels the final line as `(∂S/∂P)_T`; the 2025 water question states 20 °C but the model solution substitutes 298.15 K; the 2024 gold-block question supplies copper's C_p and refers to "the bullet"; a Clausius–Clapeyron final line drops a logarithm; `ln p_O2 = −62.5 atm` carries a spurious unit. **Where a student's physics is right but differs from the printed solution because the printed solution is wrong, award full marks.** Where a student reproduces the printed (sloppy) form, also award full marks.
+- **Accept equivalent notation** (`A` for Helmholtz, `F = C − P + 2`, `(γ−1)/γ` for `R/C_p`, `k_B`-free formulations) provided the student defines it.
+- **Units and significant figures**: deduct at most the final answer mark (never method marks) for a missing unit or gross rounding. °C vs K in a *ratio* inside a logarithm is a genuine error and should cost the answer mark.
+- **Discussion parts: count distinct ideas** against the tariff; do not reward restatement or story-flavoured padding. Conversely, the fictional framing itself never carries marks unless the question explicitly asks "relate/discuss how this affects [character]" — then 1–3 marks for a coherent mapping of the sign of ΔG/ΔF onto "more/less capacity to do useful work; spontaneous vs requires external input".
+
+---
+
+## 8. One-Page Checklist for Scoring a Short Answer
+
+1. Is the governing law/definition **named** before use? (1–2 marks)
+2. Is the state function **expanded as a total differential** where two variables are involved? (1–2)
+3. For Maxwell relations: are **both cross-derivatives formed and equated**, with "for an exact differential" stated? (2.5–3)
+4. Is the working formula written **symbolically before numbers**? (1–2)
+5. Are numbers **substituted explicitly**, with °C→K, g→kg, atm→Pa conversions visible? (2–4)
+6. Does the final answer carry a **unit** and 3–4 s.f.? (0.5–1)
+7. Is there a closing **physical interpretation** if the question asks "predict/explain/comment"? (0.5–2)
+8. For discussion parts, count **distinct correct assertions** against the printed tariff.
+9. Apply **error-carried-forward** throughout.

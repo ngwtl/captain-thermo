@@ -15,15 +15,19 @@ services:
         value: claude-opus-5
       - key: ANTHROPIC_MODEL_FLASHCARDS
         value: claude-haiku-4-5
-      - key: CACHE_TTL
-        value: 1h
+      - key: CACHE_TTL         # adaptive: 1h while busy, 5m when quiet
+        value: adaptive
+      - key: CACHE_BUSY_THRESHOLD   # requests/hour above which 1h repays its 2x write
+        value: "3"
       - key: USE_BANK          # serve practice/flashcards from the committed bank
         value: "true"
       - key: GRADER_EFFORT     # medium: same verdicts as high, ~30% faster
         value: medium
       - key: CA_FOR_GRADER     # past CAs in the grader's context (+40% corpus)
         value: "true"
-      - key: CA_FOR_TUTOR      # tutor doesn't need them; keeps its corpus at 99K
+      - key: CA_FOR_TUTOR      # tutor doesn't need them; keeps its corpus at 94K
+        value: "false"
+      - key: INCLUDE_PROBLEM_SHEETS   # solutions already restate every problem
         value: "false"
       - key: PREWARM_ON_STARTUP
         value: "true"

@@ -79,7 +79,12 @@ RATE_LIMIT_PER_DAY = int(os.getenv("RATE_LIMIT_PER_DAY", "300"))
 IP_RATE_LIMIT_PER_MIN = int(os.getenv("IP_RATE_LIMIT_PER_MIN", "600"))
 IP_RATE_LIMIT_PER_DAY = int(os.getenv("IP_RATE_LIMIT_PER_DAY", "20000"))
 
-CACHE_TTL = os.getenv("CACHE_TTL", "1h").strip() or "1h"
+# "5m" | "1h" | "adaptive". Adaptive picks per request from the last hour's
+# traffic — 1h when busy (many reads will amortise the 2x write), 5m when quiet
+# (the entry would expire unread, so pay the cheaper 1.25x). Safe to switch:
+# the TTL value does not fork the cache key.
+CACHE_TTL = os.getenv("CACHE_TTL", "adaptive").strip() or "adaptive"
+CACHE_BUSY_THRESHOLD = int(os.getenv("CACHE_BUSY_THRESHOLD", "3"))
 # Serve practice problems and flashcards from the pre-generated bank. Set false
 # to force live generation (useful when validating a corpus change before
 # rebuilding the bank). Falls back to live automatically when the bank has no
@@ -206,6 +211,7 @@ def require_access(
     _bump(_ip_day_hits, ip, 86400, IP_RATE_LIMIT_PER_DAY, now,
           "This network has hit its daily quota.")
 
+    _note_request()
     return client
 
 
@@ -256,17 +262,41 @@ def _extract_json(resp) -> dict:
     raise HTTPException(502, f"Model returned non-JSON: {text[:160]}")
 
 
+_recent_requests: list[float] = []
+
+
+def _note_request() -> None:
+    """Remember when traffic arrived, for the adaptive TTL decision."""
+    now = time.time()
+    _recent_requests.append(now)
+    cutoff = now - 3600
+    while _recent_requests and _recent_requests[0] < cutoff:
+        _recent_requests.pop(0)
+
+
 def _cache_control() -> dict:
     """Cache directive for the corpus block.
 
-    The API defaults to a 5-minute TTL, which is too short for this workload:
-    students arrive in bursts around tutorial deadlines and the corpus is
-    ~70K tokens, so every gap over 5 min costs a full re-write. The 1h TTL
-    doubles the write premium (1.25x -> 2x) but breaks even at 3 requests
-    per hour, which any active session clears easily.
+    A 1h TTL costs 2x base on a write versus 1.25x for 5m, but survives the
+    gaps that make student usage bursty. Which is cheaper depends entirely on
+    what happens next:
+
+        busy  — many reads follow, so the 2x write is amortised and 1h wins
+        quiet — the entry expires unread, so the cheaper 5m write wins
+
+    Break-even is roughly two requests inside the hour. In "adaptive" mode we
+    guess from the last hour's traffic, which is the best signal available at
+    write time. Verified against the API: the TTL value does NOT fork the cache
+    key — an entry written at 5m is read by a request asking for 1h — so
+    switching costs nothing and cannot double the number of prefixes.
     """
     cc: dict = {"type": "ephemeral"}
-    if CACHE_TTL != "5m":
+    if CACHE_TTL == "adaptive":
+        if len(_recent_requests) >= CACHE_BUSY_THRESHOLD:
+            cc["ttl"] = "1h"
+        # else: leave it at the 5m default — cheaper to write, and nothing is
+        # expected to read it
+    elif CACHE_TTL != "5m":
         cc["ttl"] = CACHE_TTL
     return cc
 
@@ -577,7 +607,7 @@ def chat(req: ChatRequest, student: str = Depends(require_access)):
                     latency_ms=int((time.time() - t0) * 1000),
                     cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
                     in_tokens=u.input_tokens, out_tokens=u.output_tokens,
-                    cost_usd=analytics.cost(MODEL_DEFAULT, u, CACHE_TTL))
+                    cost_usd=analytics.cost(MODEL_DEFAULT, u, _cache_control().get('ttl', '5m')))
                 yield f"data: {json.dumps({'done': True})}\n\n"
         except anthropic.APIError as e:
             analytics.record(session_id=req.session_id, student=analytics.pseudonym(student), tool="chat",
@@ -664,7 +694,7 @@ def generate_problem(req: GenerateRequest, student: str = Depends(require_access
                      model=MODEL_DEFAULT, latency_ms=int((time.time() - t0) * 1000),
                      cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
                      in_tokens=u.input_tokens, out_tokens=u.output_tokens,
-                     cost_usd=analytics.cost(MODEL_DEFAULT, u, CACHE_TTL))
+                     cost_usd=analytics.cost(MODEL_DEFAULT, u, _cache_control().get('ttl', '5m')))
     return _extract_json(resp)
 
 
@@ -809,7 +839,7 @@ def grade(req: GradeRequest, student: str = Depends(require_access)):
         score=out.get("score_out_of_10"), image_count=len(req.images),
         cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
         in_tokens=u.input_tokens, out_tokens=u.output_tokens,
-        cost_usd=analytics.cost(MODEL_GRADER, u, CACHE_TTL))
+        cost_usd=analytics.cost(MODEL_GRADER, u, _cache_control().get('ttl', '5m')))
     # Let the client rate this specific piece of feedback. Passcode-gated
     # already, so the row id is not sensitive.
     if event_id:
@@ -881,7 +911,7 @@ def flashcards(req: FlashcardRequest, student: str = Depends(require_access)):
                      latency_ms=int((time.time() - t0) * 1000),
                      cache_read=u.cache_read_input_tokens, cache_write=u.cache_creation_input_tokens,
                      in_tokens=u.input_tokens, out_tokens=u.output_tokens,
-                     cost_usd=analytics.cost(MODEL_FLASHCARDS, u, CACHE_TTL))
+                     cost_usd=analytics.cost(MODEL_FLASHCARDS, u, _cache_control().get('ttl', '5m')))
     return _extract_json(resp)
 
 

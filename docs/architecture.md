@@ -17,8 +17,8 @@ flowchart TB
     A[("analytics.db<br/>Render disk /var/data")]
 
     subgraph CACHE ["Anthropic prompt cache - one entry per model+schema"]
-        C1["corpus 99.5K tok<br/>notes + tutorials"]
-        C2["corpus 179.5K tok<br/>notes + tutorials + CAs"]
+        C1["corpus 94.1K tok<br/>notes + tutorials"]
+        C2["corpus 129.6K tok<br/>notes + tutorials<br/>+ CA marking digest"]
         M1["Claude Sonnet 4.6<br/>Socratic tutor · streaming"]
         M2["Claude Opus 5<br/>grader · adaptive thinking<br/>effort medium"]
         C1 --> M1
@@ -34,8 +34,8 @@ flowchart TB
     R -->|"POST /api/grade"| C2
 
     BANK ==>|"free · instant"| S
-    M1 -->|"0.036 USD · 4.1s"| S
-    M2 -->|"0.118 USD · 13.8s<br/>+0.007 per photo"| S
+    M1 -->|"0.034 USD · 4.1s"| S
+    M2 -->|"0.093 USD · 13.8s<br/>+0.007 per photo"| S
 
     M1 -.-> A
     M2 -.-> A
@@ -50,14 +50,22 @@ flowchart TB
 ```
 
 **Why the bank exists.** Fifty students asking for an L2 deck used to be fifty
-near-identical API calls, each re-reading the ~99K-token corpus. Pre-generating
+near-identical API calls, each re-reading the ~94K-token corpus. Pre-generating
 removes ~35% of live traffic *and* two of the four cache prefixes the app must
-keep warm — a cold round fell from $2.40 to $2.39 even after the CAs were added.
+keep warm. A cold round now costs $1.86, down from $2.39.
 
 **Why the grader has a bigger corpus.** Tutorials show the teaching style; the
 past CAs show the examining style — mark allocation, how much working earns
 full credit. The grader has no other source for what "good enough" means in
-this course. The tutor is not charged the extra 40% for material it doesn't need.
+this course — but it does not need the papers themselves, only what they encode.
+`scripts/build_ca_digest.py` distils them into an 8K-token marking standard
+(0.5-mark itemisation, the 60:40 setup-to-evaluation split, error-carried-forward,
+house conventions), down from 51K. The tutor is not charged for it at all.
+
+> The digest records that the CA papers write $dU = \delta Q - P\,dV$ while the
+> consolidated notes use $\Delta U = Q + W$. The grader is told the convention is
+> the student's to choose provided they state it and stay consistent, which is
+> what the published CA solutions do. Only inconsistency is a conceptual error.
 
 ## Cost structure
 
@@ -66,18 +74,18 @@ Marginal and average cost differ by 3x, and the gap is the cache.
 ```mermaid
 flowchart LR
     subgraph FIXED ["Near-fixed — per cold round, regardless of who is using it"]
-        W1["Sonnet prefix<br/>99.5K x 2 x $3/M<br/>= $0.60"]
-        W2["Opus 5 prefix<br/>179.5K x 2 x $5/M<br/>= $1.79"]
+        W1["Sonnet prefix<br/>94.1K x 2 x $3/M<br/>= $0.56"]
+        W2["Opus 5 prefix<br/>129.6K x 2 x $5/M<br/>= $1.30"]
     end
     subgraph VAR ["Marginal — per action, cache warm"]
-        V1["chat $0.036"]
-        V2["grade $0.118"]
+        V1["chat $0.034"]
+        V2["grade $0.093"]
         V3["practice $0"]
         V4["flashcards $0"]
     end
-    FIXED --> AVG["average $0.147 / action<br/>at moderate usage"]
+    FIXED --> AVG["average $0.117 / action<br/>at moderate usage"]
     VAR --> AVG
-    AVG --> T["~$11.74 per student<br/>over 16 weeks"]
+    AVG --> T["~$9.33 per student<br/>over 16 weeks"]
 
     classDef fx fill:#7c2d12,stroke:#ea7317,color:#ffedd5
     classDef vr fill:#1e3a5f,stroke:#3987e5,color:#dbeafe
@@ -86,16 +94,23 @@ flowchart LR
 ```
 
 Because the write cost is near-fixed, **more usage makes each action cheaper**:
-$0.189/action at light usage, $0.126 at heavy. An under-used deployment is the
+$0.150/action at light usage, $0.100 at heavy. An under-used deployment is the
 expensive one per unit of value.
+
+`CACHE_TTL=adaptive` narrows that gap from the other side: a 1h write costs 2x
+input price and a 5m write 1.25x, so 1h only repays itself above ~3 requests per
+hour. The app counts the last hour's requests and picks. The TTL is not part of
+the cache key — verified — so switching between them re-reads the same entry
+rather than forking it.
 
 ## Build and deploy
 
 ```mermaid
 flowchart LR
     PDF["course_content/<br/>notes · tutorials<br/>19 CA papers"]
-    PDF -->|"scripts/extract_ca.py"| TXT["ca_papers.txt"]
-    TXT --> CORP["corpus.py"]
+    PDF -->|"scripts/extract_ca.py"| TXT["ca_papers.txt<br/>51K tok"]
+    TXT -->|"scripts/build_ca_digest.py"| DIG["ca_digest.txt<br/>8K tok · marking standard"]
+    DIG --> CORP["corpus.py"]
 
     CORP -->|"offline, once per revision"| MK["scripts/make_bank.sh"]
     MK --> G["build_bank.py --direct"]
