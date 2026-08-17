@@ -38,10 +38,13 @@ services:
       # Counted per student (X-Client-Id), not per IP — see README.
       - key: RATE_LIMIT_PER_MIN
         value: "30"
-      # 40/day is generous (a heavy student does ~10/week) and cuts the
-      # theoretical worst-case spend across 170 students by ~7x.
+      # Every tutor chat turn counts as one request, so a day's budget is
+      # really a conversation budget: 120 ≈ 8-10 tutor conversations. The
+      # first week of term showed engaged students hitting the old 40 cap
+      # mid-dialogue (a fully-capped chat day cost $1.61-$3.10, warm cache).
+      # The org-level spend cap is the budget control, not this.
       - key: RATE_LIMIT_PER_DAY
-        value: "40"
+        value: "120"
       # Per-IP abuse backstop; must exceed a whole tutorial group on campus NAT.
       - key: IP_RATE_LIMIT_PER_MIN
         value: "600"

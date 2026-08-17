@@ -28,7 +28,7 @@ Cost control:
 Access control:
   APP_PASSCODE    if set, clients must send X-Passcode header matching this value
   RATE_LIMIT_PER_MIN    per-student requests per minute on /api/* (default 30)
-  RATE_LIMIT_PER_DAY    per-student requests per day on /api/* (default 40)
+  RATE_LIMIT_PER_DAY    per-student requests per day on /api/* (default 300; render.yaml sets 120)
   IP_RATE_LIMIT_*       per-IP abuse backstop, deliberately much higher
 
 Limits key on the X-Client-Id header, not the IP — see require_access.

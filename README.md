@@ -24,7 +24,7 @@ Three tools in one web app, all grounded in your actual course materials (lectur
   - `ANTHROPIC_MODEL_GRADER` — grader (default `claude-opus-5`, best reasoning for diagnosing errors)
   - `ANTHROPIC_MODEL_FLASHCARDS` — flashcards (default `claude-haiku-4-5`; the least reasoning-sensitive tool, ~3× cheaper)
 - **Access control**: optional shared passcode via `APP_PASSCODE`. Frontend prompts once, caches in `localStorage`, sends as `X-Passcode` header.
-- **Rate limiting**: sliding window counted **per student**, not per IP. The frontend generates a random client id once and keeps it in `localStorage`, sending it as `X-Client-Id`; limits are 30/min and 40/day against that. A much higher per-IP ceiling (`IP_RATE_LIMIT_*`) remains as an abuse backstop.
+- **Rate limiting**: sliding window counted **per student**, not per IP. The frontend generates a random client id once and keeps it in `localStorage`, sending it as `X-Client-Id`; limits are 30/min and 120/day against that. A much higher per-IP ceiling (`IP_RATE_LIMIT_*`) remains as an abuse backstop.
 
   > Why not per IP: campus wifi NATs an entire cohort behind a handful of public addresses, so an IP-keyed limit treats a whole tutorial group as one user — thirty students making one request each would 429 the thirty-first and drain the shared daily quota in an afternoon.
   >
@@ -123,9 +123,9 @@ Knobs:
 - **Best quality**: `ANTHROPIC_MODEL_DEFAULT=claude-opus-5` for all endpoints.
 - **Don't** switch to `claude-sonnet-5` expecting savings: its tokenizer produces ~30% more tokens, so at list price it costs *more* than Sonnet 4.6 for identical text.
 
-`RATE_LIMIT_PER_MIN` / `RATE_LIMIT_PER_DAY` (30/min, 40/day) cap each student individually — they key on the per-browser client id, so a shared campus NAT no longer collapses the cohort into one quota.
+`RATE_LIMIT_PER_MIN` / `RATE_LIMIT_PER_DAY` (30/min, 120/day) cap each student individually — every tutor chat turn counts as one request, so the daily cap is effectively a conversation budget (~8–10 tutor dialogues). They key on the per-browser client id, so a shared campus NAT no longer collapses the cohort into one quota.
 
-> **These are fairness limits, not a budget control.** 170 students × 40/day is still a theoretical ~$610/day. The only real ceiling is an org-level spend limit in the [Anthropic Console](https://console.anthropic.com) (Billing → Limits) — set one before sharing the URL widely.
+> **These are fairness limits, not a budget control.** 170 students × 120/day is still a theoretical ~$1,800/day. The only real ceiling is an org-level spend limit in the [Anthropic Console](https://console.anthropic.com) (Billing → Limits) — set one before sharing the URL widely.
 
 ## Analytics and education research
 

@@ -20,7 +20,7 @@ Four tools: Socratic tutor (streaming), practice generator, solution grader
 | Flashcards fallback | `claude-haiku-4-5` |
 | Practice + flashcards | served from a **pre-generated bank**, no API call |
 | Corpus | ~99K tokens (~292 KB), prompt-cached at 1h TTL |
-| Rate limits | 30/min, 40/day **per student**; 600/20000 per-IP backstop |
+| Rate limits | 30/min, 120/day **per student**; 600/20000 per-IP backstop |
 | Spend cap | $800/month, alert at $400 (set in Console) |
 
 11 commits this session, `063b887`..`78b206f`. All pushed.
