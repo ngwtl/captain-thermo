@@ -211,11 +211,15 @@ async function load() {
     <div class="font-semibold text-amber-300 mb-2">⚠ Data collection needs attention</div>
     <ul class="list-disc pl-5 text-sm text-amber-100 space-y-1">
       ${warn.map(w => `<li>${esc(w)}</li>`).join("")}</ul></section>`);
-  out.push(`<div class="grid grid-cols-3 gap-4">
-    ${[["Requests", t.n ?? 0], ["Distinct students", t.students ?? 0], ["API spend", "$" + (t.spend ?? 0)]]
+  out.push(`<div class="grid grid-cols-4 gap-4">
+    ${[["Requests", t.n ?? 0], ["Distinct students", t.students ?? 0], ["API spend", "$" + (t.spend ?? 0)],
+       ["… of which warm-keeping", "$" + (t.overhead_spend ?? 0)]]
       .map(([k,v]) => `<div class="bg-gray-800 rounded-lg p-4">
         <div class="text-2xl font-bold">${esc(v)}</div>
-        <div class="text-xs text-gray-400 mt-1">${k}</div></div>`).join("")}</div>`);
+        <div class="text-xs text-gray-400 mt-1">${k}</div></div>`).join("")}</div>
+  <p class="text-xs text-gray-500">Spend includes cache warm-keeping (recorded as its own
+    "prewarm" rows since 2026-08-20; earlier days under-count by roughly 20% because
+    warm-keeping calls were billed but not logged).</p>`);
 
   out.push(card("Where students go wrong",
     "Grader classification by lecture and error type — the teaching signal. Sorted by frequency.",

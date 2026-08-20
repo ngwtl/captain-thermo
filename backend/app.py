@@ -467,6 +467,17 @@ def _prewarm_shape(label: str, model: str, role: str, schema: dict | None) -> di
             return {"endpoint": label, "model": model, "ok": False, "error": str(e)}
         _record_usage(model, resp.usage)
         read = getattr(resp.usage, "cache_read_input_tokens", 0) or 0
+        written = getattr(resp.usage, "cache_creation_input_tokens", 0) or 0
+        # Warm-keeping is real spend the per-student events never see — it was
+        # ~20% of the bill in the first weeks of term, and leaving it out made
+        # the dashboard read consistently under the Console invoice. Recorded
+        # with no student so it lands in spend totals but not usage metrics.
+        analytics.record(
+            tool="prewarm", model=model, served_from="live",
+            cache_read=read, cache_write=written,
+            in_tokens=getattr(resp.usage, "input_tokens", 0) or 0,
+            out_tokens=getattr(resp.usage, "output_tokens", 0) or 0,
+            cost_usd=analytics.cost(model, resp.usage, _cache_control().get("ttl", "5m")))
         log.info("prewarm %s (%s): %s", label, model, "hit" if read else "wrote cache")
         return {"endpoint": label, "model": model, "ok": True, "cache_read_tokens": read}
     return {"endpoint": label, "model": model, "ok": False, "error": "unreachable"}

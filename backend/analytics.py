@@ -290,7 +290,8 @@ def _observation_window() -> dict:
     busier. The correct divisor is how many Mondays *occurred* in the window,
     whether or not anyone used the tool on them.
     """
-    row = _rows("SELECT MIN(date(ts, ?)) a, MAX(date(ts, ?)) b FROM events WHERE ok=1",
+    row = _rows("SELECT MIN(date(ts, ?)) a, MAX(date(ts, ?)) b FROM events "
+                "WHERE ok=1 AND tool != 'prewarm'",
                 (TZ_OFFSET, TZ_OFFSET))
     if not row or not row[0].get("a"):
         return {"window": None, "weekday_counts": {}}
@@ -313,8 +314,15 @@ def _observation_window() -> dict:
 
 def summary() -> dict:
     """Aggregates for the dashboard and for sharing with colleagues."""
-    total = _rows("SELECT COUNT(*) n, COUNT(DISTINCT student) students, "
-                  "ROUND(SUM(cost_usd),2) spend FROM events WHERE ok=1")
+    # Spend includes tool='prewarm' rows (warm-keeping overhead, no student
+    # attached) so the total tracks the Console invoice; the request count
+    # excludes them so it stays a measure of student activity. overhead_spend
+    # breaks the warm-keeping share out so both readings are available.
+    total = _rows("SELECT COUNT(CASE WHEN tool != 'prewarm' THEN 1 END) n, "
+                  "COUNT(DISTINCT student) students, "
+                  "ROUND(SUM(cost_usd),2) spend, "
+                  "ROUND(SUM(CASE WHEN tool='prewarm' THEN cost_usd ELSE 0 END),2) "
+                  "overhead_spend FROM events WHERE ok=1")
     # Health of the collection itself. Both of these fail silently in ways that
     # only become visible when you go to analyse a term of data and find it
     # missing or unlinkable, so surface them where they'll be noticed.
@@ -354,11 +362,12 @@ def summary() -> dict:
         "by_topic": _rows("SELECT topic, COUNT(*) n, COUNT(DISTINCT student) students "
                           "FROM events WHERE ok=1 AND topic IS NOT NULL "
                           "GROUP BY topic ORDER BY topic"),
-        "by_day": _rows("SELECT day, COUNT(*) n, COUNT(DISTINCT student) students, "
+        "by_day": _rows("SELECT day, COUNT(CASE WHEN tool != 'prewarm' THEN 1 END) n, "
+                        "COUNT(DISTINCT student) students, "
                         "ROUND(SUM(cost_usd),2) spend FROM events WHERE ok=1 "
                         "GROUP BY day ORDER BY day"),
         "by_hour": _rows("SELECT hour, COUNT(*) n FROM events WHERE ok=1 "
-                         "GROUP BY hour ORDER BY hour"),
+                         "AND tool != 'prewarm' GROUP BY hour ORDER BY hour"),
 
         # Day x hour heat map, in LOCAL time. The stored `hour`/`dow` columns
         # are UTC, and reading a Singapore cohort's routine off UTC shifts every
@@ -369,7 +378,8 @@ def summary() -> dict:
         "heatmap": _rows(
             "SELECT (CAST(strftime('%w', ts, ?) AS INTEGER) + 6) % 7 AS dow, "
             "CAST(strftime('%H', ts, ?) AS INTEGER) AS hour, "
-            "COUNT(*) n FROM events WHERE ok=1 GROUP BY dow, hour",
+            "COUNT(*) n FROM events WHERE ok=1 AND tool != 'prewarm' "
+            "GROUP BY dow, hour",
             (TZ_OFFSET, TZ_OFFSET)),
         "tz_offset": TZ_OFFSET,
 
@@ -380,24 +390,26 @@ def summary() -> dict:
         # event, so the row index reads as "week of term".
         "heatmap_weekly": _rows(
             "SELECT CAST((julianday(date(ts, ?)) - julianday((SELECT MIN(date(ts, ?)) "
-            "  FROM events WHERE ok=1))) / 7 AS INTEGER) AS week, "
+            "  FROM events WHERE ok=1 AND tool != 'prewarm'))) / 7 AS INTEGER) AS week, "
             "(CAST(strftime('%w', ts, ?) AS INTEGER) + 6) % 7 AS dow, "
             "COUNT(*) n, COUNT(DISTINCT student) students "
-            "FROM events WHERE ok=1 GROUP BY week, dow ORDER BY week, dow",
+            "FROM events WHERE ok=1 AND tool != 'prewarm' "
+            "GROUP BY week, dow ORDER BY week, dow",
             (TZ_OFFSET, TZ_OFFSET, TZ_OFFSET)),
 
         # Same weeks, one number each — the term-level trend line the weekly
         # grid is a decomposition of.
         "by_week": _rows(
             "SELECT CAST((julianday(date(ts, ?)) - julianday((SELECT MIN(date(ts, ?)) "
-            "  FROM events WHERE ok=1))) / 7 AS INTEGER) AS week, "
-            "COUNT(*) n, COUNT(DISTINCT student) students, ROUND(SUM(cost_usd),2) spend "
+            "  FROM events WHERE ok=1 AND tool != 'prewarm'))) / 7 AS INTEGER) AS week, "
+            "COUNT(CASE WHEN tool != 'prewarm' THEN 1 END) n, "
+            "COUNT(DISTINCT student) students, ROUND(SUM(cost_usd),2) spend "
             "FROM events WHERE ok=1 GROUP BY week ORDER BY week",
             (TZ_OFFSET, TZ_OFFSET)),
         # Divisor for the per-week average view. See _weekday_occurrences.
         **_observation_window(),
         "by_dow": _rows("SELECT dow, COUNT(*) n FROM events WHERE ok=1 "
-                        "GROUP BY dow ORDER BY dow"),
+                        "AND tool != 'prewarm' GROUP BY dow ORDER BY dow"),
         # Retention: how many students came back on N distinct days.
         "retention": _rows(
             "SELECT days, COUNT(*) students FROM ("
