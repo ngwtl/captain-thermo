@@ -69,11 +69,14 @@ function table(rows, cols) {
   return `<table class="w-full"><thead><tr>${cols.map(c=>`<th>${c[0]}</th>`).join("")}</tr></thead>
     <tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${esc(c[1](r))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
 }
-// Sequential single-hue ramp, low -> high. Validated against this dashboard's
+// Sequential single-hue ramp, low -> high: light -> dark, so the busiest cells
+// read as the most saturated ink (the conventional heat-map direction). Same
+// validated steps as before, reversed — reversal preserves monotone lightness
+// and every adjacent-pair separation. Validated against this dashboard's
 // card surface (#1f2937): monotone lightness, adjacent steps >= 0.06 apart, and
 // the darkest step clears 2:1 against the surface so "1 request" is visibly
 // different from "none". Do not substitute a rainbow — magnitude needs one hue.
-const RAMP = ["#256abf", "#3987e5", "#6da7ec", "#9ec5f4", "#cde2fb"];
+const RAMP = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf"];
 let heatMode = "week";   // "week" = mean per occurrence of that weekday
 
 function heatmap(rows, weekdayCounts, windowInfo) {
